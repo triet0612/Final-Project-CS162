@@ -1,0 +1,7 @@
+Username,Password,Name,Date of Birth,Gender,Phone,Email
+20125047,1,Phan Huynh Tan Phat,23/12/2002,Male,0123456789,20125047@gmail.com
+20125114,12345678,Nguyen Ngoc Thach,01/01/2002,Male,0123456789,20125114@gmail.com
+20125051,12345678,Tran Nguyen Dang Tam,02/01/2002,Male,0123456789,20125051@gmail.com
+htamlive2,123456,1,11/11/1111,Male,1,1
+student1,123456,1,1,Male,1,1
+,,,,,,
