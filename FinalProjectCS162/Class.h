@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "SinglyLinkedList.h"
 using namespace std;
 class Class
@@ -21,8 +22,17 @@ public:
 	void addStuByCSV(string yearname, string name) {
 		class_name = name;
 		ifstream fin;
-		fin.open('/' + yearname + '/' + name + '.csv');
-		
+		fin.open('/' + yearname + '/' + name + ".csv", ios::in);
+		student temp;
+		while (getline(fin, temp.NO, ',')) {
+			getline(fin, temp.ID, ',');
+			getline(fin, temp.First_name, ',');
+			getline(fin, temp.Last_name, ',');
+			getline(fin, temp.Gender, ',');
+			getline(fin, temp.DOB, ',');
+			getline(fin, temp.Social_ID, ',');
+			students.push_back(temp);
+		}
 	}
 };
 
