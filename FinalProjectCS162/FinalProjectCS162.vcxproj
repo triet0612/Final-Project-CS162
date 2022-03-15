@@ -142,11 +142,15 @@
     <ClInclude Include="Class.h" />
     <ClInclude Include="Class_controller.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="semester.h" />
+    <ClInclude Include="Semester_controller.h" />
     <ClInclude Include="SinglyLinkedList.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Class_controller.cpp" />
+    <ClCompile Include="semester.cpp" />
+    <ClCompile Include="Semester_controller.cpp" />
     <ClCompile Include="SinglyLinkedList.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
