@@ -10,7 +10,6 @@ public:
 	string yearname;
 	SinglyLinkedList<Class> Classes;
 	void createClass(string year) {
-		SinglyLinkedList<string> classes_list;
 		yearname = year;
 		
 		ofstream fout;
@@ -21,18 +20,15 @@ public:
 		cout << "Enter 'stop' after finishing input" << endl;
 		cin >> class_name;
 		while (class_name != "stop") {
-			classes_list.push_back(class_name);
+			fout << class_name << endl;
 			cin >> class_name;
 		}
-		cout << "Thank you for input, now add your students csv in the folder" << endl;
-		
-		cout << "Press any key to continue after you add the students" << endl;
-		system("pause");
-		Load_Classes();
-		cout << "You've completed creating classes" << endl;
+
+		fout.close();
+		cout << "Thank you for input" << endl;
 		return;
 	}
-
+	//load class list
 	void Load_Classes() {
 		SinglyLinkedList<string> Classes_name = Get_Classes();
 		for (auto i : Classes_name) {
@@ -42,7 +38,7 @@ public:
 		}
 		return;
 	}
-
+	//load class list from /yearname/class.txt
 	SinglyLinkedList<string> Get_Classes() {
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
@@ -52,15 +48,8 @@ public:
 			fin >> temp;
 			Classes_name.push_back(temp);
 		}
+		fin.close();
 		return Classes_name;
-	}
-
-	void viewClasses(string year) {
-
-	}
-	
-	void viewScoreOfClass(string class_id) {
-
 	}
 };
 

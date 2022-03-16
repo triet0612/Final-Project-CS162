@@ -19,6 +19,7 @@ private:
 public:
 	string class_name;
 	SinglyLinkedList<student> students;
+
 	void addStuByCSV(string yearname, string name) {
 		class_name = name;
 		ifstream fin;
@@ -33,6 +34,8 @@ public:
 			getline(fin, temp.Social_ID, ',');
 			students.push_back(temp);
 		}
+		fin.close();
+		return;
 	}
 };
 
