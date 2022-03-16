@@ -141,7 +141,6 @@
   <ItemGroup>
     <ClInclude Include="Class.h" />
     <ClInclude Include="Class_controller.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="semester.h" />
     <ClInclude Include="Semester_controller.h" />
     <ClInclude Include="SinglyLinkedList.h" />
