@@ -15,7 +15,7 @@ public:
 		cin >> n;
 		semester_name = n;
 		string path = "/" + yearname + "/" + n;
-		int a = mkdir(path.c_str());
+		//int a = mkdir(path.c_str());
 		return;
 	}
 };

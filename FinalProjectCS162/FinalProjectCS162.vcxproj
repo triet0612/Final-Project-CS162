@@ -141,6 +141,10 @@
   <ItemGroup>
     <ClInclude Include="Class.h" />
     <ClInclude Include="Class_controller.h" />
+    <ClInclude Include="Course.h" />
+    <ClInclude Include="Course_controller.h" />
+    <ClInclude Include="helper.h" />
+    <ClInclude Include="StudentScore.h" />
     <ClInclude Include="semester.h" />
     <ClInclude Include="Semester_controller.h" />
     <ClInclude Include="SinglyLinkedList.h" />
@@ -148,9 +152,13 @@
   <ItemGroup>
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Class_controller.cpp" />
+    <ClCompile Include="Course.cpp" />
+    <ClCompile Include="Course_controller.cpp" />
+    <ClCompile Include="helper.cpp" />
     <ClCompile Include="semester.cpp" />
     <ClCompile Include="Semester_controller.cpp" />
     <ClCompile Include="SinglyLinkedList.cpp" />
+    <ClCompile Include="StudentScore.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

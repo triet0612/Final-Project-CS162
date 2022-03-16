@@ -113,11 +113,11 @@ public:
         delete this->dummy;
     };
 
-    Iterator begin() {
+    Iterator begin() const {
         return Iterator(this->dummy->next);
     };
 
-    Iterator end() {
+    Iterator end() const {
         return Iterator(nullptr);
     };
 

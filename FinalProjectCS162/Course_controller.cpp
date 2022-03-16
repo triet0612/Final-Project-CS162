@@ -8,11 +8,14 @@ using namespace std;
 
 #include "Course_controller.h"
 #include "helper.h"
+#include "StudentScore.h"
 
 Course_controller::Course_controller() {};
 
 void Course_controller::createCourses(const string& yearName, const string& semesterName) {
 	ifstream finput("../Data/" + yearName + "/" + semesterName + "/Courses.csv");
+	(this->yearName) = yearName;
+	(this->semesterName) = semesterName;
 	if (finput) {
 		Course course;
 		finput.ignore(5000, '\n'); //ignore first line
@@ -78,3 +81,56 @@ void Course_controller::viewListOfCourses() {
 		<< '\n';
 	cout << string(totalLength, '-') << '\n';
 }
+
+bool Course_controller::containsCourse(const string& courseID) const {
+	for (const Course& course : (this->courses))
+		if (course.courseID == courseID)
+			return true;
+	return false;
+};
+
+bool Course_controller::viewScore(const string& courseID) const {
+	if (!(this->containsCourse(courseID))) {
+		cout << "There is no course with " << courseID << '\n';
+		return false;
+	}
+	ifstream finput("../Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
+	if (finput) {
+		StudentScore studentScore;
+		finput.ignore(5000, '\n'); //not read first line
+		finput.precision(1);
+		const int number_length = 3,
+				  studentID_length = 15,
+				  name_length = 15,
+				  totalMark_length = 15,
+				  finalMark_length = 15,
+				  midtermMark_length = 15,
+				  otherMark_length = 15,
+				  totalLength = 8 + number_length + studentID_length + name_length + totalMark_length + finalMark_length + midtermMark_length + otherMark_length;
+		cout << string(totalLength, '-') << '\n';
+		cout << '|'
+			 << setw(number_length) << "No" << '|'
+			 << setw(studentID_length) << "Student ID" << '|'
+			 << setw(name_length) << "Name" << '|'
+			 << setw(totalMark_length) << "Total mark" << '|'
+			 << setw(finalMark_length) << "Final mark" << '|'
+			 << setw(midtermMark_length) << "Midterm mark" << '|'
+			 << setw(otherMark_length) << "Other mark" << '|'
+			 << '\n';
+		cout << string(totalLength, '-') << '\n';
+		while (studentScore.readData(finput))
+			cout << '|'
+			 	 << setw(number_length) << studentScore.number << '|'
+				 << setw(studentID_length) << studentScore.studentID << '|'
+				 << setw(name_length) << studentScore.name << '|'
+				 << setw(totalMark_length) << studentScore.totalMark << '|'
+				 << setw(finalMark_length) << studentScore.finalMark << '|'
+				 << setw(midtermMark_length) << studentScore.midtermMark << '|'
+				 << setw(otherMark_length) << studentScore.otherMark << '|'
+				 << '\n';
+		cout << string(totalLength, '-') << '\n';
+		return true;
+	}
+	cerr << "There is error in opening file\n";
+	return false;
+};
