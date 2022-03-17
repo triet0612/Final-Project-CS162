@@ -38,7 +38,7 @@ void Course_controller::viewListOfCourses() {
 		totalLength;
 	// Find the require length for each information
 	for (const Course& course : (this->courses)) {
-		number_length = max(number_length, getNumberOfDigits(course.no));
+		number_length = max(number_length, getNumberOfDigits(course.number));
 		credits_length = max(credits_length, getNumberOfDigits(course.credits));
 		maximumStudent_length = max(maximumStudent_length, getNumberOfDigits(course.maximumStudent));
 		courseID_length = max(courseID_length, (int)course.courseID.size());
@@ -70,7 +70,7 @@ void Course_controller::viewListOfCourses() {
 	cout << string(totalLength, '-') << '\n';
 	for (const Course& course : (this->courses))
 		cout << '|'
-		<< setw(number_length) << course.no << '|'
+		<< setw(number_length) << course.number << '|'
 		<< setw(courseID_length) << course.courseID << '|'
 		<< setw(nameOfCourse_length) << course.nameOfCourse << '|'
 		<< setw(nameOfTeacher_length) << course.nameOfTeacher << '|'
@@ -190,7 +190,7 @@ void Course_controller::updateScore(const string& courseID, const int studentID)
 	printScoresToCSVfile(courseID, scoresOfStudents);
 };
 
-SinglyLinkedList<StudentScore> Course_controller::getScore(const string& courseID) {
+SinglyLinkedList<StudentScore> Course_controller::getScore(const string& courseID) const {
 	SinglyLinkedList<StudentScore> scoresOfStudents;
 	ifstream finput("../Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
 	if (finput) {
@@ -203,10 +203,34 @@ SinglyLinkedList<StudentScore> Course_controller::getScore(const string& courseI
 	return scoresOfStudents;
 };
 
-void Course_controller::printScoresToCSVfile(const string& courseID, const SinglyLinkedList<StudentScore>& scoresOfStudents) {
+void Course_controller::printScoresToCSVfile(const string& courseID, const SinglyLinkedList<StudentScore>& scoresOfStudents) const {
 	ofstream foutput("../Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
 	foutput << "No,Student ID,Name,Total Mark,Final Mark,Midtern Mark,Orther Mark\n";
 	for (const StudentScore& studentScore : scoresOfStudents)
 		studentScore.printToCSVfile(foutput);
 	foutput.close();
+};
+
+void Course_controller::addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses) {
+	ofstream foutput("../Data/" + (this->yearName) + "/" + (this->semesterName) + "/EnrolledCourses.csv", ios::app);
+	if (foutput) {
+		foutput << studentID;
+		for (const string& enrolledCourseID : enrolledCourses) 
+			foutput << ',' << enrolledCourseID;
+	} else
+		cerr << "There was error in opening file\n";
+	foutput.close();
+};
+
+void Course_controller::viewScoresOfStudents(const string& courseID, const int studentID) const {
+	if (!(this->containsCourse(courseID))) {
+		cout << "There is no course with " << courseID << '\n';
+		return;
+	}
+	for (const StudentScore& studentScore : (this->getScore(courseID))) 
+		if (studentScore.studentID == studentID) {
+			studentScore.printData(cout);
+			return;
+		}
+	cout << "There was no student with student " << studentID << " in the course " << courseID << '\n';
 };

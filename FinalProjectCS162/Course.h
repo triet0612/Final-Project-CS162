@@ -7,7 +7,7 @@ using namespace std;
 
 class Course {
 public:
-	int no, credits, maximumStudent;
+	int number, credits, maximumStudent;
 	string courseID, nameOfCourse, nameOfTeacher, daySession1, daySession2;
 	bool readData(ifstream& finput);
 };

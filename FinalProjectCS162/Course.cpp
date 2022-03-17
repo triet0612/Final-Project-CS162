@@ -2,7 +2,7 @@
 #include "helper.h"
 
 bool Course::readData(ifstream& finput) {
-	if (finput >> (this->no)) {
+	if (finput >> (this->number)) {
 		finput.ignore(1, ',');
 		getline(finput, this->courseID, ',');
 		getline(finput, this->nameOfCourse, ',');
