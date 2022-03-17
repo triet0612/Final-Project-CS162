@@ -19,3 +19,16 @@ bool StudentScore::readData(ifstream& finput) {
 	}
 	return false;
 };
+
+void StudentScore::printData(ostream& outputStream) const {
+	outputStream << "Student ID: " << (this->studentID) << '\n'
+				 << "Student name: " << (this->name) << '\n'
+			   	 << "Total mark: " << (this->totalMark) << '\n'
+			  	 << "Final mark: " << (this->finalMark) << '\n'
+			 	 << "Midterm mark: " << (this->midtermMark) << '\n'
+				 << "Other mark: " << (this->otherMark) << '\n';
+};
+
+void StudentScore::printToCSVfile(ofstream& foutput) const {
+	foutput << (this->number) << ',' << (this->studentID) << ',' << (this->name) << ',' << (this->totalMark) << ',' << (this->finalMark) << ',' << (this->midtermMark) << ',' << (this->otherMark) << '\n';
+};

@@ -13,4 +13,6 @@ public:
 	string name;
 
 	bool readData(ifstream& finput);
+	void printData(ostream& outputStream) const;
+	void printToCSVfile(ofstream& foutput) const;
 };

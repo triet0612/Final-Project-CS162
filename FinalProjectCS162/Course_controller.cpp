@@ -99,13 +99,8 @@ bool Course_controller::viewScore(const string& courseID) const {
 		StudentScore studentScore;
 		finput.ignore(5000, '\n'); //not read first line
 		finput.precision(1);
-		const int number_length = 3,
-				  studentID_length = 15,
-				  name_length = 15,
-				  totalMark_length = 15,
-				  finalMark_length = 15,
-				  midtermMark_length = 15,
-				  otherMark_length = 15,
+		const int number_length = 3, studentID_length = 15, name_length = 15, 
+			      totalMark_length = 15, finalMark_length = 15, midtermMark_length = 15, otherMark_length = 15,
 				  totalLength = 8 + number_length + studentID_length + name_length + totalMark_length + finalMark_length + midtermMark_length + otherMark_length;
 		cout << string(totalLength, '-') << '\n';
 		cout << '|'
@@ -133,4 +128,85 @@ bool Course_controller::viewScore(const string& courseID) const {
 	}
 	cerr << "There is error in opening file\n";
 	return false;
+};
+
+void Course_controller::updateScore(const string& courseID, const int studentID) {
+	if (!(this->containsCourse(courseID))) {
+		cout << "There is no course with " << courseID << '\n';
+		return;
+	}
+	double score;
+	int id = -1, number = 0;
+	StudentScore studentScore;
+	SinglyLinkedList<StudentScore> scoresOfStudents = this->getScore(courseID);
+	for (const StudentScore& studentScore : scoresOfStudents) {
+		if (studentScore.studentID == studentID) {
+			id = number;
+			break;
+		}
+		++number;
+	}
+	if (id < 0) {
+		cout << "There was no student with " << studentID << " in the course " << courseID << "\n";
+		return;
+	}
+	studentScore = scoresOfStudents[id];
+	do {
+		system("cls");
+		studentScore.printData(cout);
+		cout << "Please enter one of following options\n"
+			 << "1. Stop updating score\n"
+		 	 << "2. Update total mark\n"
+		 	 << "3. Update final mark\n"
+		 	 << "4. Update midterm mark\n"
+	 		 << "5. Update other mark\n"
+			 << "Your option: ";
+		cin >> number;
+		if (number == 1) {
+			scoresOfStudents[id] = studentScore;
+			break;
+		} else if (number < 1 || number > 5) {
+			cout << "Option is invalid\n";
+		} else {
+			cout << "Please enter new score: ";
+			cin >> score;
+			switch (number) {
+			case 2:
+				studentScore.totalMark = score;
+				break;
+			case 3:
+				studentScore.finalMark = score;
+				break;
+			case 4:
+				studentScore.midtermMark = score;
+				break;
+			case 5:
+				studentScore.otherMark = score;
+				break;
+			}
+		}
+		system("pause");
+	} while (number != 1);
+	printScoresToCSVfile(courseID, scoresOfStudents);
+};
+
+SinglyLinkedList<StudentScore> Course_controller::getScore(const string& courseID) {
+	SinglyLinkedList<StudentScore> scoresOfStudents;
+	ifstream finput("../Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
+	if (finput) {
+		StudentScore studentScore;
+		finput.ignore(5000, '\n'); //Not read first line
+		while (studentScore.readData(finput)) 
+			scoresOfStudents.push_back(studentScore);
+	}
+	finput.close();
+	return scoresOfStudents;
+};
+
+void Course_controller::printScoresToCSVfile(const string& courseID, const SinglyLinkedList<StudentScore>& scoresOfStudents) {
+	ofstream foutput("../Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
+	foutput << "No,Student ID,Name,Total Mark,Final Mark,Midtern Mark,Orther Mark\n";
+	for (const StudentScore& studentScore : scoresOfStudents)
+		studentScore.printToCSVfile(foutput);
+	foutput.close();
 };
