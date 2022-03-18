@@ -74,6 +74,10 @@ void btnProc(Button&) {
     ++cntPress;
 }
 
+void testInputTable() {
+
+}
+
 int main() {
     resizeConsole(1090, 600);
     int bg = 0;
@@ -121,9 +125,6 @@ int main() {
         graphics.color(0);
         });
 
-    ofstream ofs("output.txt");
-    ofs << cntPress;
-    ofs.close();
     system("cls");
     return 0;
 
