@@ -74,10 +74,11 @@ void Date::defaultInputDate()
 Date Date::getCurrentDate()
 {
     time_t t = time(0);
-    struct tm* now = localtime(&t);
-    int day = now->tm_mday;
-    int month = now->tm_mon + 1;
-    int year = now->tm_year + 1900;
+    struct tm now;
+    localtime_s(&now, &t);
+    int day = now.tm_mday;
+    int month = now.tm_mon + 1;
+    int year = now.tm_year + 1900;
     return Date(day, month, year);
 }
 Date::Date(int d, int m, int y)
