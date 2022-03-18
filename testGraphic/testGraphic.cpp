@@ -74,21 +74,38 @@ void btnProc(Button&) {
     ++cntPress;
 }
 
-void testInputTable() {
+void testTable() {
+    Table table;
+    setTable(table);
+    graphics.loop([&](pair<int, int> input) {
 
+        if (input.first == -32) {
+            switch (input.second)
+            {
+            case INPUT_CODE::UP: graphics.moveVertical(-1, true); break;
+            case INPUT_CODE::DOWN: graphics.moveVertical(1, true); break;
+            case INPUT_CODE::RIGHT: graphics.moveHorizontal(1, true); break;
+            case INPUT_CODE::LEFT: graphics.moveHorizontal(-1, true); break;
+            default:
+                break;
+            }
+        }
+        else {
+            //if (input.first == INPUT_CODE::ENTER) graphics.moveVertical(1, true);
+        }
+        table.update(input);
+
+        Sleep(60);
+
+        table.render();
+
+        graphics.color(0);
+        });
 }
 
-int main() {
-    resizeConsole(1090, 600);
-    int bg = 0;
-    int txt = FG_BLUE | FG_I;
-    COORD c = graphics.GetConsoleCursorPosition();
-    system("cls");
-
+void testInput() {
     sll<InputRow> inputList;
-    Table table;
 
-   
     setInputList(inputList);
 
     Button button = Button(0, 22, 10, 4, btnProc);
@@ -98,7 +115,7 @@ int main() {
     pos.push_back({ 1, 23 });
     int cur = 0;
     graphics.loop([&](pair<int, int> input) {
-        
+
         if (input.first == -32) {
             switch (input.second)
             {
@@ -117,14 +134,27 @@ int main() {
         for (auto& elem : inputList) elem.update(input);
         if (button.update(input)) {
             graphics.hideCursor();
-        } else graphics.showCursor();
+        }
+        else graphics.showCursor();
         Sleep(60);
 
         for (auto& elem : inputList) elem.render();
         button.render();
         graphics.color(0);
         });
+}
 
+int main() {
+    resizeConsole(1090, 600);
+    int bg = 0;
+    int txt = FG_BLUE | FG_I;
+    COORD c = graphics.GetConsoleCursorPosition();
+    system("cls");
+
+    
+
+    //testInput();
+    testTable();
     system("cls");
     return 0;
 
