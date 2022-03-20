@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <iostream>
 using namespace std;
-
+#define sll SinglyLinkedList
 template <class T>
 class SinglyNode {
 public:
@@ -136,7 +136,6 @@ public:
         while (curr != nullptr) {
             this->push_back(curr->data);
             curr = curr->next;
-            this->sz++;
         }
     };
 
