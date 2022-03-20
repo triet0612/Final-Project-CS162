@@ -136,7 +136,6 @@ public:
         while (curr != nullptr) {
             this->push_back(curr->data);
             curr = curr->next;
-            this->sz++;
         }
     };
 
