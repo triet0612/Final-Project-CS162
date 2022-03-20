@@ -103,7 +103,7 @@ public:
             this->cursor_y = y + 1;
             this->curRow = 1;
         }
-        this->maxPage = (this->rows.size() - 1) / (this->maxRow - 1);
+        this->maxPage = (this->rows.size() - 2) / (this->maxRow - 1);
         height = min(rows.size(), this->maxRow) + this->rows[0].getHeight() - 1;
         this->initSecondaryVariables();
     }
