@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <iostream>
 using namespace std;
+#define sll SinglyLinkedList
 
 template <class T>
 class SinglyNode {
