@@ -48,9 +48,6 @@
     <ClInclude Include="SinglyLinkedList.h">
       <Filter>Data Structures</Filter>
     </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -66,10 +63,13 @@
     <ClInclude Include="Textbox.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Class_controller.h">
+    <ClInclude Include="ConsoleGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="ConsoleGraphics.h">
+    <ClInclude Include="Class_controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
       <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
