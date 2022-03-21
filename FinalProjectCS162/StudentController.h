@@ -31,7 +31,7 @@ public:
             getline(ifs, tmp, ','); s.addPassword(tmp);
             getline(ifs, tmp, ','); s.name = tmp;
             getline(ifs, tmp, ','); s.dob = tmp;
-            getline(ifs, tmp, ','); s.isMale = tmp;
+            getline(ifs, tmp, ','); s.gender = tmp;
             getline(ifs, tmp, ','); s.phone = tmp;
             getline(ifs, tmp); s.mail = tmp;
             list.push_back(s);
