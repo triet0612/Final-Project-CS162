@@ -29,6 +29,8 @@ public:
 
     static Date getCurrentDate();
 
+    string convert2String();
+
     friend ostream& operator<<(ostream& os, const Date& d);
 
     friend bool operator==(const Date& d1, const Date& d2);

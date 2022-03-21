@@ -81,6 +81,11 @@ Date Date::getCurrentDate()
     int year = now.tm_year + 1900;
     return Date(day, month, year);
 }
+string Date::convert2String()
+{
+    string s = to_string(day) + "/" + to_string(month) + "/" + to_string(year);
+    return s;
+}
 Date::Date(int d, int m, int y)
 {
     day = d;
