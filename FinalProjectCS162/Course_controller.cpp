@@ -13,7 +13,7 @@ using namespace std;
 Course_controller::Course_controller() {};
 
 void Course_controller::createCourses(const string& yearName, const string& semesterName) {
-	ifstream finput(yearName + "/" + semesterName + "/Courses.csv");
+	ifstream finput("Data/" + yearName + "/" + semesterName + "/Courses.csv");
 	(this->yearName) = yearName;
 	(this->semesterName) = semesterName;
 	if (finput) {
@@ -94,7 +94,7 @@ bool Course_controller::viewScore(const string& courseID) const {
 		cout << "There is no course with " << courseID << '\n';
 		return false;
 	}
-	ifstream finput((this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
+	ifstream finput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
 	if (finput) {
 		StudentScore studentScore;
 		finput.ignore(5000, '\n'); //not read first line
@@ -192,7 +192,7 @@ void Course_controller::updateScore(const string& courseID, const int studentID)
 
 SinglyLinkedList<StudentScore> Course_controller::getScore(const string& courseID) const {
 	SinglyLinkedList<StudentScore> scoresOfStudents;
-	ifstream finput((this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
+	ifstream finput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
 	if (finput) {
 		StudentScore studentScore;
 		finput.ignore(5000, '\n'); //Not read first line
@@ -204,7 +204,7 @@ SinglyLinkedList<StudentScore> Course_controller::getScore(const string& courseI
 };
 
 void Course_controller::printScoresToCSVfile(const string& courseID, const SinglyLinkedList<StudentScore>& scoresOfStudents) const {
-	ofstream foutput((this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
+	ofstream foutput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
 	foutput << "No,Student ID,Name,Total Mark,Final Mark,Midtern Mark,Orther Mark\n";
 	for (const StudentScore& studentScore : scoresOfStudents)
 		studentScore.printToCSVfile(foutput);
@@ -212,7 +212,7 @@ void Course_controller::printScoresToCSVfile(const string& courseID, const Singl
 };
 
 void Course_controller::addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses) {
-	ofstream foutput((this->yearName) + "/" + (this->semesterName) + "/EnrolledCourses.csv", ios::app);
+	ofstream foutput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/EnrolledCourses.csv", ios::app);
 	if (foutput) {
 		foutput << studentID;
 		for (const string& enrolledCourseID : enrolledCourses) 

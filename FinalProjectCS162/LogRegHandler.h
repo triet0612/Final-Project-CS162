@@ -74,7 +74,6 @@ public:
 		if (type == 1)  table.getRow(0).addText("YOU ARE STAFF, YOU WANT TO ?");
 		else table.getRow(0).addText("YOU ARE STUDENT, YOU WANT TO ?");
 		table.addRow_back("Login");
-		table.addRow_back("Register");
 		table.addRow_back("Oops, wrong way, let's return");
 
 		table.setDefaultType();
@@ -95,8 +94,8 @@ public:
 	void logRegProc() {
 		while (true) {
 			int type = -1;
-			int logReg = 3;
-			while (logReg == 3) {
+			int logReg = 2;
+			while (logReg == 2) {
 				type = inputTypeProc();
 				logReg = inputLogRegProc(type);
 			}
@@ -106,7 +105,6 @@ public:
 			switch (logReg)
 			{
 			case 1: logProc(type); break;
-			case 2: regProg(type); break;
 			default:
 				break;
 			}

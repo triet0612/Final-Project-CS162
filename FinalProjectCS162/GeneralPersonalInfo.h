@@ -14,15 +14,15 @@ public:
 
     string phone;
     string mail;
-    string isMale;
+    string gender;
     Date dob;
 
-    GeneralPersonalInfo(string name, string uName, string pWord, string phone, string mail, string isMale, Date dob) {
+    GeneralPersonalInfo(string name, string uName, string pWord, string phone, string mail, string gender, Date dob) {
         this->name = name;
         this->username = uName;
         this->pass = pWord;
         this->phone = phone;
-        this->isMale = isMale;
+        this->gender = gender;
         this->mail = mail;
         this->dob = dob;
     }
@@ -33,7 +33,7 @@ public:
         pass = "";
         mail = "";
         phone = "";
-        isMale = "Male";
+        gender = "Male";
         dob = Date();
     }
 
@@ -63,11 +63,11 @@ public:
 
 
     friend ostream& operator<<(ostream& os, const GeneralPersonalInfo& g) {
-        os << g.name << " " << g.username << " " << g.pass << " " << g.isMale << " " << g.dob;
+        os << g.name << " " << g.username << " " << g.pass << " " << g.gender << " " << g.dob;
         return os;
     }
 
     friend bool operator==(const GeneralPersonalInfo& g1, const GeneralPersonalInfo& g2) {
-        return (g1.name == g2.name && g1.username == g2.username && g1.pass == g2.pass && g1.isMale == g2.isMale && g1.dob == g2.dob);
+        return (g1.name == g2.name && g1.username == g2.username && g1.pass == g2.pass && g1.gender == g2.gender && g1.dob == g2.dob);
     }
 };

@@ -150,6 +150,19 @@ public:
         return T();
     };
 
+    int findIndex(function<bool(T)> cmp) {
+        SinglyNode<T>* cur = this->dummy->next;
+        int index = 0;
+        while (cur != NULL) {
+            if (cmp(cur->data)) {
+                return index;
+            }
+            cur = cur->next;
+            index++;
+        }
+        return -1;
+    };
+
 
     void push_back(T& d) {
         SinglyNode<T>* newNode = new SinglyNode<T>(d);
