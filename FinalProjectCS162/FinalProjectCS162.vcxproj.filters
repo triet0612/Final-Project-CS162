@@ -22,12 +22,15 @@
     <Filter Include="Users">
       <UniqueIdentifier>{67a0e12e-66ed-4f8f-b4cf-04b6aca588c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects Controllers">
+      <UniqueIdentifier>{7960537e-1280-4080-a0e3-a8394d028e44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Users Controllers">
+      <UniqueIdentifier>{1f8c8d3f-be11-4ca9-a6d4-00cad1aed923}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Semester_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="semester.h">
@@ -37,9 +40,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Course.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Course_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="helper.h">
@@ -69,9 +69,6 @@
     <ClInclude Include="ConsoleGraphics.h">
       <Filter>Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Class_controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Container.h">
       <Filter>Graphics</Filter>
     </ClInclude>
@@ -84,15 +81,27 @@
     <ClInclude Include="Staff.h">
       <Filter>Users</Filter>
     </ClInclude>
+    <ClInclude Include="Class_controller.h">
+      <Filter>Objects Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Course_controller.h">
+      <Filter>Objects Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Semester_controller.h">
+      <Filter>Objects Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="PeopleController.h">
+      <Filter>Users Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StudentController.h">
+      <Filter>Users Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="StaffController.h">
+      <Filter>Users Controllers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Class_controller.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Class.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Semester_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="semester.cpp">
@@ -102,9 +111,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Course.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Course_controller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="helper.cpp">
@@ -148,6 +154,24 @@
     </ClCompile>
     <ClCompile Include="Staff.cpp">
       <Filter>Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Class_controller.cpp">
+      <Filter>Objects Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Course_controller.cpp">
+      <Filter>Objects Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="Semester_controller.cpp">
+      <Filter>Objects Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="PeopleController.cpp">
+      <Filter>Users Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="StudentController.cpp">
+      <Filter>Users Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="StaffController.cpp">
+      <Filter>Users Controllers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
