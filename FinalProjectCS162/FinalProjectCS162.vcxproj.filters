@@ -19,6 +19,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{94549841-84ec-401c-9882-769a4ac81829}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Users">
+      <UniqueIdentifier>{67a0e12e-66ed-4f8f-b4cf-04b6aca588c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class.h">
@@ -71,6 +74,15 @@
     </ClInclude>
     <ClInclude Include="Container.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralPersonalInfo.h">
+      <Filter>Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Student.h">
+      <Filter>Users</Filter>
+    </ClInclude>
+    <ClInclude Include="Staff.h">
+      <Filter>Users</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +139,15 @@
     </ClCompile>
     <ClCompile Include="InputRow.cpp">
       <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralPersonalInfo.cpp">
+      <Filter>Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Student.cpp">
+      <Filter>Users</Filter>
+    </ClCompile>
+    <ClCompile Include="Staff.cpp">
+      <Filter>Users</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
