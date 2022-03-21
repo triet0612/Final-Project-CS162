@@ -183,12 +183,12 @@ public:
         }
     };
 
-    T back() {
+    T& back() {
         assert(this->sz > 0);
         return this->rear->data;
     };
 
-    T front() {
+    T& front() {
         assert(this->sz > 0);
         return this->dummy->next->data;
     };
