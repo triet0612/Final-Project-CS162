@@ -4,8 +4,7 @@
 #include <conio.h>
 #include <functional>
 #include <assert.h>
-#include "SinglyLinkedList.h"
-
+#include "SinglyLinkedList"
 using namespace std;
 
 enum ASCII
