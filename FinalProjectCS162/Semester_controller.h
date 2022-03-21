@@ -16,7 +16,7 @@ public:
 		ifstream fin;
 		fin.open('/' + yearName + "/semesters.txt");
 		SinglyLinkedList<string> lst;
-		while (fin.eof()) {
+		while (!fin.eof()) {
 			string temp;
 			fin >> temp;
 			lst.push_back(temp);
@@ -38,14 +38,5 @@ public:
 		Date d;
 		d.defaultInputDate();
 		return d;
-	}
-	void viewCourse() {
-		ifstream fin;
-		fin.open('/' + yearName + '/' + semesterName + "Courses.csv");
-		string temp;
-		while (getline(fin, temp, ',')) {
-			getline(fin, temp, ',');
-			cout << temp << " ";
-		}
 	}
 };
