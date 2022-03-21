@@ -33,6 +33,7 @@ public:
         username = ans.first;
         password = ans.second;
 
+        return false;
     }
 
     void showOptions() {
@@ -42,56 +43,57 @@ public:
         cout << "2. Show All School Years" << endl;
     };
 
-    //void createSchoolYear() {
-    //    system("cls");
-    //    cin.ignore();
-    //    cout << "Enter name of school year: ";
-    //    string name;
-    //    getline(cin, name);
-    //    SchoolYear schoolYear(name);
-    //    schoolYears.addSchoolYear(name);
-    //    cout << "School year is created" << endl;
-    //    cin.get();
-    //};
-    //void showAllSchoolYears() {
-    //    system("cls");
-    //    cout << "School years: \n";
-    //    const auto& list = schoolYears.getSchoolYears();
-    //    size_t sz = schoolYears.getSize();
-    //    cout << "Total: " << sz << "\n\n";
-    //    for (int i = 0; i < sz; i++)
-    //    {
-    //        cout << i << ". " << list[i].getName() << "\n";
-    //    }
-    //    cin.get();
-    //    cin.get();
+    void createSchoolYear() {
+        //system("cls");
+        //cin.ignore();
+        //cout << "Enter name of school year: ";
+        //string name;
+        //getline(cin, name);
+        //SchoolYear schoolYear(name);
+        //schoolYears.addSchoolYear(name);
+        //cout << "School year is created" << endl;
+        //cin.get();
+    };
 
-    //};
+    void showAllSchoolYears() {
+        //system("cls");
+        //cout << "School years: \n";
+        //const auto& list = schoolYears.getSchoolYears();
+        //size_t sz = schoolYears.getSize();
+        //cout << "Total: " << sz << "\n\n";
+        //for (int i = 0; i < sz; i++)
+        //{
+        //    cout << i << ". " << list[i].getName() << "\n";
+        //}
+        //cin.get();
+        //cin.get();
 
-    //void proc() {
-    //    int option;
-    //    while (true) {
-    //        showOptions();
-    //        cout << "Enter option: ";
-    //        cin >> option;
-    //        switch (option) {
-    //        case 0:
-    //            return;
-    //        case 1:
-    //            createSchoolYear();
-    //            break;
-    //        case 2:
-    //            showAllSchoolYears();
-    //            break;
-    //        default:
-    //            cout << "Invalid option" << endl;
-    //            cin.get();
-    //            cin.get();
-    //            break;
-    //        }
-    //    }
+    };
 
-    //};
+    void proc() {
+        //int option;
+        //while (true) {
+        //    showOptions();
+        //    cout << "Enter option: ";
+        //    cin >> option;
+        //    switch (option) {
+        //    case 0:
+        //        return;
+        //    case 1:
+        //        createSchoolYear();
+        //        break;
+        //    case 2:
+        //        showAllSchoolYears();
+        //        break;
+        //    default:
+        //        cout << "Invalid option" << endl;
+        //        cin.get();
+        //        cin.get();
+        //        break;
+        //    }
+        //}
+
+    };
 
 
 };

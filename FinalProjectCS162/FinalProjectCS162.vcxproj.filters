@@ -28,6 +28,9 @@
     <Filter Include="Users Controllers">
       <UniqueIdentifier>{1f8c8d3f-be11-4ca9-a6d4-00cad1aed923}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Handlers">
+      <UniqueIdentifier>{62c96b25-6c72-4611-95c4-f44fcc396005}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class.h">
@@ -98,6 +101,12 @@
     </ClInclude>
     <ClInclude Include="StaffController.h">
       <Filter>Users Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="LogRegHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +181,12 @@
     </ClCompile>
     <ClCompile Include="StaffController.cpp">
       <Filter>Users Controllers</Filter>
+    </ClCompile>
+    <ClCompile Include="LogRegHandler.cpp">
+      <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseSystem.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
