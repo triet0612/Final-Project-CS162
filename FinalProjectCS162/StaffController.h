@@ -295,7 +295,7 @@ public:
         bool isCancel = false;
         system("cls");
         string input = inputVerifPassProc(isCancel);
-        while (input != list[curId].pass) {
+        while (input != list[curId].pass && !isCancel) {
             renderCaution();
             input = inputVerifPassProc(isCancel);
         };
@@ -369,8 +369,9 @@ public:
             renderMismatchCaution();
             ans = inputChangePassProc(isCancel);
         }
-        renderAccept();
         if (isCancel) return;
+        renderAccept();
+        Sleep(1000);
         list[curId].pass = ans.first;
         exportData();
     }
