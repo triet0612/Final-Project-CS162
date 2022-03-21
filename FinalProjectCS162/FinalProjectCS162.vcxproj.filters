@@ -45,6 +45,9 @@
     <ClInclude Include="Date.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SinglyLinkedList.h">
+      <Filter>Data Structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class_controller.cpp">
@@ -73,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="Date.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SinglyLinkedList.cpp">
+      <Filter>Data Structures</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
