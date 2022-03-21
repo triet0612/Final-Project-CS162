@@ -370,7 +370,7 @@ public:
             ans = inputChangePassProc(isCancel);
         }
         renderAccept();
-        if (!isCancel) return;
+        if (isCancel) return;
         list[curId].pass = ans.first;
         exportData();
     }

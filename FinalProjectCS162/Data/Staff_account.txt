@@ -1,4 +1,4 @@
 Username,Password,Name,Date of Birth,Gender,Phone,Email
-htamlive,123456,q,11/11/1111,Male,1,1
+htamlive,654321,q,11/11/1111,Male,1,1
 triet0612,123456,t,11/11/1111,Male,1,1
 minh3108,123456,m,11/11/1111,Male,1,1
