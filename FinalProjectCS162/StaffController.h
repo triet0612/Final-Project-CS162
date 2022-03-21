@@ -17,6 +17,10 @@ public:
         curId = -1;
     }
 
+    ~StaffController() {
+        exportData();
+    }
+
     void loadData() {
         ifstream ifs("Data/Staff_account.txt");
         if (!ifs.is_open()) return;
@@ -35,6 +39,23 @@ public:
             getline(ifs, tmp); s.mail = tmp;
             list.push_back(s);
         }
+        ifs.close();
+    }
+
+    void exportData() {
+        string path = "Data/Staff_account.txt";
+        ofstream out(path);
+        out << "Username,Password,Name,Date of Birth,Gender,Phone,Email";
+        for (const auto& elem : list) {
+            out << "\n" << elem.username << ",";
+            out << elem.pass << ",";
+            out << elem.name << ",";
+            out << elem.dob << ",";
+            out << elem.gender << ",";
+            out << elem.phone << ",";
+            out << elem.mail;
+        }
+        out.close();
     }
 
     void regProc() override {
@@ -122,6 +143,8 @@ public:
         //cin.get();
     };
 
+    //----------------
+
     void showAllSchoolYears() {
         //system("cls");
         //cout << "School years: \n";
@@ -136,6 +159,8 @@ public:
         //cin.get();
 
     };
+
+    //----------------
 
     void setupProfileTable(Table& table) {
         system("cls");
@@ -166,6 +191,190 @@ public:
         table.update();
     }
 
+    //----------------
+
+    void setupVerifPassInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
+        for (int i = 0; i < 1; ++i) {
+            inputList.push_back(InputRow(5, 4 * i + 1, 50, 3, 0, 15));
+            pos.push_back(inputList.back().getInside());
+            inputList.back().setTitleBoxWidth(21).setContentBoxWidth(30);
+            inputList.back().setDefaultType();
+        }
+
+        inputList[0].setTitle("Current Password: ").setContent("");
+        inputList[0].getContentBox().setTxtEncoded(true);
+
+        inputList[0].setCursorInside();
+        buttonList.push_back(Button(2, 8, 10, 3));
+        pos.push_back(buttonList.back().getInside());
+        buttonList.back().setText("   OK");
+        buttonList.back().setDefaultType();
+
+        for (auto& elem : buttonList) elem.render();
+        for (auto& elem : inputList) elem.update();
+        for (auto& elem : inputList) elem.render();
+    }
+
+    void setOnClickSubmitButton(Button& target, sll<InputRow>& inputList, string& res, bool& isOver) {
+        target.setOnClick([&](Button& button) {
+            res = inputList[0].getContentBox().getText();
+            isOver = true;
+            });
+    }
+
+    void setValidPosition(COORD c, int x, int y, int& cur, bool inTxt, bool inBtn, sll<pair<int, int> >& pos, ConsoleGraphics& graphics) {
+        if (!inTxt && !inBtn) {
+            if (x > 0 || y > 0) cur = (cur + 1) % pos.size();
+            else if (x < 0 || y < 0) cur = (cur + pos.size() - 1) % pos.size();
+            graphics.gotoXY(pos[cur].first, pos[cur].second, true);
+        }
+        else if (inTxt) graphics.gotoXY(c.X, c.Y);
+    };
+
+    void renderInputProc(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos, bool& isOver) {
+        int cur = 0;
+        ConsoleGraphics& graphics = ConsoleGraphics::getInstance();
+
+        TextBox notice = TextBox(15, 8, 40, 3, false).setText("Press ESC for cancel");
+        notice.render();
+
+        graphics.loopBoolean([&](pair<int, int> input) {
+            COORD c = graphics.GetConsoleCursorPosition();
+            int x = 0, y = 0;
+            bool inBtn = false, inTxt = false;
+            if (input.first == INPUT_CODE::ESC) return false;
+            graphics.getNextDirection(input, x, y);
+            c.X += x; c.Y += y;
+
+            for (auto& elem : inputList) if (elem.checkPosInsideContentBox(c)) inTxt = true;
+            for (auto& elem : buttonList) if (elem.isPosInContainer(c)) inBtn = true;
+
+            setValidPosition(c, x, y, cur, inTxt, inBtn, pos, graphics);
+
+            for (auto& elem : inputList) elem.update(input);
+            for (auto& elem : buttonList) elem.update(input);
+
+            Sleep(60);
+
+            for (auto& elem : inputList) elem.render();
+            for (auto& elem : buttonList) elem.render();
+            if (inBtn) graphics.hideCursor();
+            else graphics.showCursor();
+            graphics.color(0);
+            return !isOver;
+            });
+    }
+
+    void renderCaution() {
+        TextBox notice = TextBox(5, 10, 40, 3, false, 0, 12).setText("Wrong password");
+        notice.render();
+    }
+
+    void renderAccept() {
+        TextBox notice = TextBox(5, 10, 40, 3, false, 0, 10).setText("input successfully, loading ...");
+        notice.render();
+    }
+
+    string inputVerifPassProc(bool& isCancel) {
+        sll<InputRow> inputList;
+        sll<Button> buttonList;
+        sll<pair<int, int> > pos;
+        string res;
+        bool isOver = false;
+
+        setupVerifPassInputList(inputList, buttonList, pos);
+        setOnClickSubmitButton(buttonList[0], inputList, res, isOver);
+
+        renderInputProc(inputList, buttonList, pos, isOver);
+        isCancel = !isOver;
+        return res;
+    }
+
+    bool verifPassProc() {
+        assert(curId >= 0);
+        bool isCancel = false;
+        system("cls");
+        string input = inputVerifPassProc(isCancel);
+        while (input != list[curId].pass) {
+            renderCaution();
+            input = inputVerifPassProc(isCancel);
+        };
+        if (isCancel) return false;
+        renderAccept();
+        Sleep(1500);
+        return true;
+    }
+
+    //-----
+
+    void setupChangePassInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
+        for (int i = 0; i < 2; ++i) {
+            inputList.push_back(InputRow(1, 4 * i + 1, 50, 3, 0, 15));
+            pos.push_back(inputList.back().getInside());
+            inputList.back().setTitleBoxWidth(25).setContentBoxWidth(30);
+            inputList.back().setDefaultType();
+        }
+
+        inputList[0].setTitle("Enter Password: ").setContent("");
+        inputList[0].getContentBox().setTxtEncoded(true);
+        inputList[1].setTitle("Enter Password again: ").setContent("");
+        inputList[1].getContentBox().setTxtEncoded(true);
+
+        inputList[0].setCursorInside();
+        buttonList.push_back(Button(2, 8, 10, 3));
+        pos.push_back(buttonList.back().getInside());
+        buttonList.back().setText("   OK");
+        buttonList.back().setDefaultType();
+
+        for (auto& elem : buttonList) elem.render();
+        for (auto& elem : inputList) elem.update();
+        for (auto& elem : inputList) elem.render();
+    }
+
+    void setOnClickSubmitButton(Button& target, sll<InputRow>& inputList, pair<string, string>& res, bool& isOver) {
+        target.setOnClick([&](Button& button) {
+            res.first = inputList[0].getContentBox().getText();
+            res.second = inputList[1].getContentBox().getText();
+            isOver = true;
+            });
+    }
+
+    pair<string, string> inputChangePassProc(bool& isCancel) {
+        sll<InputRow> inputList;
+        sll<Button> buttonList;
+        sll<pair<int, int> > pos;
+        pair<string, string> res;
+        bool isOver = false;
+
+        setupChangePassInputList(inputList, buttonList, pos);
+        setOnClickSubmitButton(buttonList[0], inputList, res, isOver);
+
+        renderInputProc(inputList, buttonList, pos, isOver);
+        isCancel = !isOver;
+        return res;
+    }
+
+    void renderMismatchCaution() {
+        TextBox notice = TextBox(5, 10, 40, 3, false, 0, 12).setText("Different!");
+        notice.render();
+    }
+
+    void changePassProc() {
+        if (!verifPassProc()) return;
+        bool isCancel = false;
+        system("cls");
+        pair<string, string> ans = inputChangePassProc(isCancel);
+
+        while (ans.first != ans.second && !isCancel) {
+            renderMismatchCaution();
+            ans = inputChangePassProc(isCancel);
+        }
+        renderAccept();
+        if (!isCancel) return;
+        list[curId].pass = ans.first;
+        exportData();
+    }
+
     void proc() {
         int option;
         while (true) {
@@ -181,7 +390,7 @@ public:
                 viewProfileProc();
                 break;
             case 4:
-                
+                changePassProc();
                 break;
             default:
                 return;
