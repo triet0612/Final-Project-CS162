@@ -14,6 +14,7 @@ private:
 public:
     StaffController() {
         loadData();
+        curId = -1;
     }
 
     void loadData() {
@@ -54,9 +55,8 @@ public:
     };
 
     bool loginProc(string username, string password) override {
-        Staff ans = list.find([&](Staff s) {return s.username == username && s.pass == password; });
-        if (ans.username == "" && ans.pass == "") return false;
-        return true;
+        curId = list.findIndex([&](Staff s) {return s.username == username && s.pass == password; });
+        return curId != -1;
     }
 
     int chooseOptions(Table& table) {
@@ -86,12 +86,14 @@ public:
 
     void setupOptionsTable(Table& table) {
         system("cls");
-        table = Table(0, 0, 4);
+        table = Table(0, 0, 6);
 
         table.addTitleRow_back(30);
         table.getRow(0).addText("WHAT DO YOU WANT ?");
         table.addRow_back("Create School Year");
         table.addRow_back("Show All School Year");
+        table.addRow_back("View profile");
+        table.addRow_back("Change password");
         table.addRow_back("Get me out the here");
 
         table.setDefaultType();
@@ -135,6 +137,35 @@ public:
 
     };
 
+    void setupProfileTable(Table& table) {
+        system("cls");
+        assert(curId >= 0);
+        table = Table(0, 0, 6);
+
+        table.addTitleRow_back(20, 30);
+        Staff target = list[curId];
+        table.getRow(0).addText("   Categories","       Information");
+        table.addRow_back((string)"Name", target.name);
+        table.addRow_back((string)"Phone", target.phone);
+        table.addRow_back((string)"Mail", target.mail);
+        table.addRow_back((string)"Gender", target.gender);
+        table.addRow_back((string)"Date of birth", target.dob.convert2String());
+
+        table.setDefaultType();
+        table.render();
+
+        table.setCursorInside();
+
+        TextBox notice = TextBox(0, 10, 20, 3, false).setText("Press ESC to exit");
+        notice.render();
+    }
+
+    void viewProfileProc() {
+        Table table;
+        setupProfileTable(table);
+        table.update();
+    }
+
     void proc() {
         int option;
         while (true) {
@@ -145,6 +176,12 @@ public:
                 break;
             case 2:
                 showAllSchoolYears();
+                break;
+            case 3:
+                viewProfileProc();
+                break;
+            case 4:
+                
                 break;
             default:
                 return;

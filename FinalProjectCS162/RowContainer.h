@@ -39,7 +39,7 @@ public:
         assert(len <= this->columns);
         //if (len == 0) return;
         auto it = this->textBoxes.begin();
-        for (auto txt : { txtCols... }) {
+        for (string txt : { txtCols... }) {
             it->data.setText(txt);
             it++;
         }

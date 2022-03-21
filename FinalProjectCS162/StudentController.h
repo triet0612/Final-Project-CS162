@@ -10,6 +10,7 @@ private:
 public:
     StudentController() {
         loadData();
+        curId = -1;
     }
 
 	void regProc() override {
@@ -38,9 +39,8 @@ public:
         }
     }
 
-	bool loginProc(string username, string password) override {
-        Student ans = list.find([&](Student s) {return s.username == username && s.pass == password; });
-        if (ans.username == "" && ans.pass == "") return false;
-		return true;
-	}
+    bool loginProc(string username, string password) override {
+        curId = list.findIndex([&](Student s) {return s.username == username && s.pass == password; });
+        return curId != -1;
+    }
 };

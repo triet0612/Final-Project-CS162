@@ -6,6 +6,9 @@
 #include "Button.h"
 class PeopleController
 {
+protected:
+    int curId;
+
 public:
 
     void setupLoginInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
