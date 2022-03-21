@@ -154,6 +154,8 @@
     <ClInclude Include="LogRegHandler.h" />
     <ClInclude Include="PeopleController.h" />
     <ClInclude Include="RowContainer.h" />
+    <ClInclude Include="Schoolyear.h" />
+    <ClInclude Include="Schoolyear_controller.h" />
     <ClInclude Include="Staff.h" />
     <ClInclude Include="StaffController.h" />
     <ClInclude Include="Student.h" />

@@ -111,6 +111,12 @@
     <ClInclude Include="CourseSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Schoolyear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Schoolyear_controller.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp">
