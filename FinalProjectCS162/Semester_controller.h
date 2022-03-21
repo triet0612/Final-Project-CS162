@@ -28,7 +28,7 @@ public:
 		cout << endl << "Input the semester you want to add: " << endl;
 		cin >> semester_name;
 		string path = '/' + yearName + '/' + semesterName;
-		int a = mkdir(path.c_str());
+		int a = _mkdir(path.c_str());
 		return;
 	}
 	void getSemester(int num) {

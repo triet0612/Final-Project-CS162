@@ -1,6 +1,8 @@
 #pragma once
 #include "PeopleController.h"
 #include "Staff.h"
+#include "Table.h"
+#include <fstream>
 //#include "CourseController.h"
 //#include "SemesterController.h"
 //#include "SchoolYearController.h"
@@ -10,6 +12,30 @@ private:
     //SchoolYearController schoolYears;
     sll<Staff> list;
 public:
+    StaffController() {
+        loadData();
+    }
+
+    void loadData() {
+        ifstream ifs("Data/Staff_account.txt");
+        if (!ifs.is_open()) return;
+        string tmp;
+        getline(ifs, tmp);
+        while (!ifs.eof()) {
+
+            Staff s;
+            getline(ifs, tmp, ','); s.addUsername(tmp);
+            if (tmp == "") break;
+            getline(ifs, tmp, ','); s.addPassword(tmp);
+            getline(ifs, tmp, ','); s.name = tmp;
+            getline(ifs, tmp, ','); s.dob = tmp;
+            getline(ifs, tmp, ','); s.isMale = tmp;
+            getline(ifs, tmp, ','); s.phone = tmp;
+            getline(ifs, tmp); s.mail = tmp;
+            list.push_back(s);
+        }
+    }
+
     void regProc() override {
         //Staff staff;
         //system("cls");
@@ -27,21 +53,60 @@ public:
         //list.push_back(staff);
     };
 
-    bool loginProc() override {
-        string username, password;
-        pair<string, string> ans = inputLoginProc();
-        username = ans.first;
-        password = ans.second;
-
-        return false;
+    bool loginProc(string username, string password) override {
+        Staff ans = list.find([&](Staff s) {return s.username == username && s.pass == password; });
+        if (ans.username == "" && ans.pass == "") return false;
+        return true;
     }
 
-    void showOptions() {
-        system("cls");
-        cout << "0. Back" << endl;
-        cout << "1. Create School Year" << endl;
-        cout << "2. Show All School Years" << endl;
+    int chooseType(Table& table) {
+        ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
+        int type = -1;
+        graphics->loopBoolean([&](pair<int, int> input) {
+            int y = 0, x = 0;
+            if (input.first == INPUT_CODE::ESC) return false;
+            if (input.first == INPUT_CODE::ENTER) {
+                table.defaultPressAnimation();
+                type = table.getCurRow();
+                return false;
+            }
+            else if (input.first == INPUT_CODE::DIRECTION) {
+                graphics->getNextDirection(input, x, y);
+
+                table.switchPage(table.getCurPage() + x);
+                table.focusRow(table.getCurRow() + y);
+
+                graphics->hideCursor();
+            }
+            return true;
+
+            });
+        return type;
     };
+
+    void setupTypeTable(Table& table) {
+        system("cls");
+        table = Table(0, 0, 4);
+
+        table.addTitleRow_back(30);
+        table.getRow(0).addText("WHAT DO YOU WANT ?");
+        table.addRow_back("Create School Year");
+        table.addRow_back("Show All School Year");
+        table.addRow_back("Get me out the here");
+
+        table.setDefaultType();
+        table.render();
+
+        table.setCursorInside();
+    }
+
+    int inputTypeProc() {
+        int type = 0;
+        Table table;
+        setupTypeTable(table);
+        table.update({ -32, 0 }, [&](Table& table) {type = chooseType(table); });
+        return type;
+    }
 
     void createSchoolYear() {
         //system("cls");
@@ -71,27 +136,20 @@ public:
     };
 
     void proc() {
-        //int option;
-        //while (true) {
-        //    showOptions();
-        //    cout << "Enter option: ";
-        //    cin >> option;
-        //    switch (option) {
-        //    case 0:
-        //        return;
-        //    case 1:
-        //        createSchoolYear();
-        //        break;
-        //    case 2:
-        //        showAllSchoolYears();
-        //        break;
-        //    default:
-        //        cout << "Invalid option" << endl;
-        //        cin.get();
-        //        cin.get();
-        //        break;
-        //    }
-        //}
+        int option;
+        while (true) {
+            option = inputTypeProc();
+            switch (option) {
+            case 1:
+                createSchoolYear();
+                break;
+            case 2:
+                showAllSchoolYears();
+                break;
+            default:
+                return;
+            }
+        }
 
     };
 

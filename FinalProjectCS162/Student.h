@@ -5,7 +5,7 @@ class Student : public GeneralPersonalInfo {
 private:
     string id, stuId, socialId;
 public:
-    Student(string fName, string lName, string uName, string pWord, string phone, string mail, bool isMale, Date dob, string id, string stuId, string socialId) : GeneralPersonalInfo(name, uName, pWord, phone, mail, isMale, dob) {
+    Student(string fName, string lName, string uName, string pWord, string phone, string mail, string isMale, Date dob, string id, string stuId, string socialId) : GeneralPersonalInfo(name, uName, pWord, phone, mail, isMale, dob) {
         this->id = id;
         this->stuId = stuId;
         this->socialId = socialId;

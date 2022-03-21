@@ -7,18 +7,17 @@
 using namespace std;
 class GeneralPersonalInfo
 {
-protected:
-    string name;
+public:
     string username;
     string pass;
+    string name;
+
     string phone;
     string mail;
-    bool isMale;
+    string isMale;
     Date dob;
-    friend class PeopleController;
-public:
 
-    GeneralPersonalInfo(string name, string uName, string pWord, string phone, string mail, bool isMale, Date dob) {
+    GeneralPersonalInfo(string name, string uName, string pWord, string phone, string mail, string isMale, Date dob) {
         this->name = name;
         this->username = uName;
         this->pass = pWord;
@@ -34,7 +33,7 @@ public:
         pass = "";
         mail = "";
         phone = "";
-        isMale = true;
+        isMale = "Male";
         dob = Date();
     }
 

@@ -98,7 +98,8 @@ public:
         return res;
     }
 
-    virtual bool loginProc() = 0;
+
+    virtual bool loginProc(string username, string password) = 0;
 
     virtual void regProc() = 0;
 
