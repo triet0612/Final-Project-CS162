@@ -139,28 +139,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="Class_controller.h" />
+    <ClInclude Include="ConsoleGraphics.h" />
+    <ClInclude Include="Container.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="Course_controller.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="helper.h" />
+    <ClInclude Include="InputRow.h" />
+    <ClInclude Include="RowContainer.h" />
     <ClInclude Include="StudentScore.h" />
     <ClInclude Include="semester.h" />
     <ClInclude Include="Semester_controller.h" />
     <ClInclude Include="SinglyLinkedList.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="Textbox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Class_controller.cpp" />
+    <ClCompile Include="ConsoleGraphics.cpp" />
+    <ClCompile Include="Container.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="Course_controller.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="FinalProjectCS162.cpp" />
     <ClCompile Include="helper.cpp" />
+    <ClCompile Include="InputRow.cpp" />
+    <ClCompile Include="RowContainer.cpp" />
     <ClCompile Include="semester.cpp" />
     <ClCompile Include="Semester_controller.cpp" />
     <ClCompile Include="SinglyLinkedList.cpp" />
     <ClCompile Include="StudentScore.cpp" />
+    <ClCompile Include="Table.cpp" />
+    <ClCompile Include="Textbox.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

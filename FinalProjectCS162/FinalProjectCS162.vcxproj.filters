@@ -16,11 +16,11 @@
     <Filter Include="Data Structures">
       <UniqueIdentifier>{4384b1c2-bc30-4793-97a3-55bbd486b4c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{94549841-84ec-401c-9882-769a4ac81829}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Class_controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Class.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -47,6 +47,30 @@
     </ClInclude>
     <ClInclude Include="SinglyLinkedList.h">
       <Filter>Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="InputRow.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="RowContainer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Textbox.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Class_controller.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleGraphics.h">
+      <Filter>Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +103,30 @@
     </ClCompile>
     <ClCompile Include="SinglyLinkedList.cpp">
       <Filter>Data Structures</Filter>
+    </ClCompile>
+    <ClCompile Include="FinalProjectCS162.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleGraphics.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Textbox.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Table.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="RowContainer.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="InputRow.cpp">
+      <Filter>Graphics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
