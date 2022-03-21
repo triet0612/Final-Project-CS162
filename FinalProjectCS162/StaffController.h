@@ -59,7 +59,7 @@ public:
         return true;
     }
 
-    int chooseType(Table& table) {
+    int chooseOptions(Table& table) {
         ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
         int type = -1;
         graphics->loopBoolean([&](pair<int, int> input) {
@@ -84,7 +84,7 @@ public:
         return type;
     };
 
-    void setupTypeTable(Table& table) {
+    void setupOptionsTable(Table& table) {
         system("cls");
         table = Table(0, 0, 4);
 
@@ -103,8 +103,8 @@ public:
     int inputTypeProc() {
         int type = 0;
         Table table;
-        setupTypeTable(table);
-        table.update({ -32, 0 }, [&](Table& table) {type = chooseType(table); });
+        setupOptionsTable(table);
+        table.update({ -32, 0 }, [&](Table& table) {type = chooseOptions(table); });
         return type;
     }
 
