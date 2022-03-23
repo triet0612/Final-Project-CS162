@@ -7,36 +7,102 @@
 #include "Date.h"
 using namespace std;
 
-class Semester_controller : public semester
+class Semester_controller
 {
-public: 
-	void create_semester() {
-		cout << "Choose the year to add the semester: " << endl;
-		cin >> yearName;
-		ifstream fin;
-		fin.open('/' + yearName + "/semesters.txt");
-		SinglyLinkedList<string> lst;
-		while (!fin.eof()) {
-			string temp;
-			fin >> temp;
-			lst.push_back(temp);
+private:
+	SinglyLinkedList<semester> semesterlist;
+	bool checkSemester(string name) {
+		for (auto i : semesterlist) {
+			if (i.semester_name == name) {
+				return true;
+			}
 		}
-		cout << "Current created semesters in year: " << yearName << ": ";
-		for (auto i : lst) {
-			cout << i << " ";
+		return false;
+	}
+	void saveSemester(string yearname) {
+		ofstream fout;
+		fout.open('/' + yearname + "/semesters.txt");
+		for (auto i : semesterlist) {
+			fout << i.semester_name << " " << i.startdate << " " << i.endate << endl;
 		}
-		cout << endl << "Input the semester you want to add: " << endl;
-		cin >> semester_name;
-		string path = '/' + yearName + '/' + semesterName;
-		int a = _mkdir(path.c_str());
+		fout.close();
 		return;
 	}
-	void getSemester(int num) {
-		semesterName = 's'+num;
+public: 
+	semester create_semester(string yearname) {
+		getSemesterList(yearname);
+		viewSemester();
+		cout << "Input the semester you want to create" << endl;
+		string temp = "";
+		while (checkSemester(temp)) {
+			cout << "Input: " << endl;
+			cin >> temp;
+		}
+		int day, month, year;
+		cin >> day >> month >> year;
+		Date d1(day, month, year);
+		cin >> day >> month >> year;
+		Date d2(day, month, year);
+		semester s(temp, d1, d2);
+		semesterlist.push_back(s);
+		return s;
 	}
-	Date createCourseReg() {
-		Date d;
-		d.defaultInputDate();
-		return d;
+	
+	void getSemesterList(string yearname) {
+		ifstream fin;
+		fin.open('/' + yearname + "/semesters.txt");
+		string temp1;
+		string temp2;
+		string temp3;
+		while (!fin.eof()) {
+			fin >> temp1;
+			fin >> temp2;
+			fin >> temp3;
+			Date d1;
+			Date d2;
+			d1.operator=(temp2);
+			d2.operator=(temp3);
+			semester t(temp1, d1, d2);
+			semesterlist.push_back(t);
+		}
+		fin.close();
+		saveSemester(yearname);
+		return;
+	}
+	
+	void viewSemester() {
+		cout << "List of semesters:" << endl;
+		for (auto i : semesterlist) {
+			cout << i.semester_name << " " << i.startdate << " " << i.endate << endl;
+		}
+		return;
+	}
+	
+	semester& getSemester(string yearname, int num) {
+		getSemesterList(yearname);
+		for (auto i : semesterlist) {
+			if (i.semester_name == "s" + num) {
+				return i;
+			}
+		}
+		return;
+	}
+	
+	void createCourseReg(semester& s, string yearname) {
+		ofstream fout;
+		fout.open('/' + yearname + '/' + s.semester_name + "/course_reg.txt");
+		string temp;
+		cout << "Start date: " << endl;
+		cin >> temp;
+		fout << temp << " ";
+		cout << "End date: " << endl;
+		cin >> temp;
+		fout << temp << endl;
+		fout.close();
+		return;
+	}
+	
+	void viewCourse(semester& s) {
+
 	}
 };

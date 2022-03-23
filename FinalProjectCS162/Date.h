@@ -28,7 +28,7 @@ public:
     void defaultInputDate();
 
     static Date getCurrentDate();
-
+    
     string convert2String();
 
     friend ostream& operator<<(ostream& os, const Date& d);
