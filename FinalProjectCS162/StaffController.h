@@ -205,7 +205,7 @@ public:
         inputList[0].getContentBox().setTxtEncoded(true);
 
         inputList[0].setCursorInside();
-        buttonList.push_back(Button(2, 8, 10, 3));
+        buttonList.push_back(Button(6, 8, 10, 3));
         pos.push_back(buttonList.back().getInside());
         buttonList.back().setText("   OK");
         buttonList.back().setDefaultType();
@@ -235,7 +235,7 @@ public:
         int cur = 0;
         ConsoleGraphics& graphics = ConsoleGraphics::getInstance();
 
-        TextBox notice = TextBox(15, 8, 40, 3, false).setText("Press ESC for cancel");
+        TextBox notice = TextBox(17, 8, 40, 3, false).setText("Press ESC for cancel");
         notice.render();
 
         graphics.loopBoolean([&](pair<int, int> input) {
