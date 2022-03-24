@@ -15,3 +15,18 @@ void adjustString(string& s) {
 	while (!s.empty() && isspace(s.back()))
 		s.pop_back();
 };
+
+bool checkLeapYear(const int year) {
+	if (year % 4)
+		return false;
+	if (year % 100)
+		return true;
+	return year % 400 == 0;
+};
+
+bool checkValidDate(const int day, const int month, const int year) {
+	if (month < 1 || month > 12)
+		return false;
+	const int days[12] = {31, 28 + checkLeapYear(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	return 1 <= day && day <= days[month - 1];
+};
