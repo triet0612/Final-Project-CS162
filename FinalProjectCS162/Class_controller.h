@@ -28,7 +28,7 @@ public:
 		cout << "Thank you for input" << endl;
 		return;
 	}
-	//load class list
+	//load data of classes list
 	void Load_Classes() {
 		SinglyLinkedList<string> Classes_name = Get_Classes();
 		for (auto i : Classes_name) {
@@ -38,7 +38,7 @@ public:
 		}
 		return;
 	}
-	//load class list from /yearname/class.txt
+	//load class name list from /yearname/class.txt
 	SinglyLinkedList<string> Get_Classes() {
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
@@ -50,6 +50,27 @@ public:
 		}
 		fin.close();
 		return Classes_name;
+	}
+	void viewClasses(string name) {
+		for (auto i : Classes) {
+			cout << i.class_name << endl;
+		}
+		return;
+	}
+	void viewScoreOfClass(string semester, string coursename) {
+		ifstream fin;
+		string NO, stuID, name, totalm, finalm, midm,othem;
+		fin.open('/' + yearname + '/' + semester + "/Mark/" + coursename + ".csv");
+		while (getline(fin, NO, ',')) {
+			getline(fin, stuID, ',');
+			getline(fin, name, ',');
+			getline(fin, totalm, ',');
+			getline(fin, finalm, ',');
+			getline(fin, midm, ',');
+			getline(fin, othem, ',');
+			cout << NO << stuID << name << totalm << finalm << midm << othem << endl;
+		}
+		return;
 	}
 };
 
