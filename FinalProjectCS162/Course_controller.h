@@ -24,4 +24,6 @@ public:
 	void updateScore(const string& courseID, const int studentID);
 	void addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses);
 	void viewScoresOfStudents(const string& courseID, const int studentID) const;
+	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > getListOfEnrolledCourses() const;
+	SinglyLinkedList<string> getListOfEnrolledCoursesOfStudent(const int studentID) const;
 };

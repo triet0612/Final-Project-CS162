@@ -117,6 +117,9 @@
     <ClInclude Include="Schoolyear_controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CourseRegistration.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp">
@@ -196,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="FinalProjectCS162.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseRegistration.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

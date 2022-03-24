@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cmath>
 #include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -233,4 +234,33 @@ void Course_controller::viewScoresOfStudents(const string& courseID, const int s
 			return;
 		}
 	cout << "There was no student with student " << studentID << " in the course " << courseID << '\n';
+};
+
+SinglyLinkedList<pair<int, SinglyLinkedList<string> > > Course_controller::getListOfEnrolledCourses() const {
+	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > result;
+	ifstream finput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/EnrolledCourses.csv");
+	if (finput) {
+		SinglyLinkedList<string> coursesID;
+		string line, courseID;
+		int studentID;
+		finput.ignore(1000, '\n'); //ignore first line
+		while (getline(finput, line)) {
+			stringstream information(line + ',');
+			information >> studentID;
+			information.ignore(1000, ',');
+			coursesID.clear();
+			while (getline(information, courseID, ','))
+				coursesID.push_back(courseID);
+			result.push_back({ studentID, coursesID});
+		}
+	}
+	finput.close();
+	return result;
+};
+
+SinglyLinkedList<string> Course_controller::getListOfEnrolledCoursesOfStudent(const int studentID) const {
+	for (const auto& data : (this->getListOfEnrolledCourses()))
+		if (data.first == studentID)
+			return data.second;
+	return SinglyLinkedList<string>();
 };

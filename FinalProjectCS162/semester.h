@@ -1,8 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "Course_controller.h"
+
 using namespace std;
+
+#include "Date.h"
+#include "Course_controller.h"
 
 class semester
 {

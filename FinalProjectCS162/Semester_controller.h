@@ -85,7 +85,6 @@ public:
 				return i;
 			}
 		}
-		return;
 	}
 	
 	void createCourseReg(semester& s, string yearname) {
