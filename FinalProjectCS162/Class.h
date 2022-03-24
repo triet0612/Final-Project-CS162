@@ -6,7 +6,7 @@
 using namespace std;
 class Class
 {
-private:
+public:
 	struct student {
 		string NO;
 		string ID;
@@ -16,14 +16,14 @@ private:
 		string DOB;
 		string Social_ID;
 	};
-public:
 	string class_name;
+	string year_name;
 	SinglyLinkedList<student> students;
 
-	void addStuByCSV(string yearname, string name) {
-		class_name = name;
+	void addStuByCSV(string yearname, string classname) {
+		class_name = classname;
 		ifstream fin;
-		fin.open('/' + yearname + '/' + name + ".csv", ios::in);
+		fin.open('/' + yearname + '/' + classname + ".csv", ios::in);
 		student temp;
 		while (getline(fin, temp.NO, ',')) {
 			getline(fin, temp.ID, ',');
@@ -49,6 +49,14 @@ public:
 				 << i.DOB << " " 
 				 << i.Social_ID << endl;
 		}
+	}
+	bool checkStu(string ID) {
+		for (auto i : students) {
+			if (i.ID == ID) {
+				return true;
+			}
+		}
+		return false;
 	}
 };
 

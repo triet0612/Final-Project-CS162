@@ -102,6 +102,6 @@ public:
 	}
 	
 	void viewCourse(semester& s) {
-
+		s.course.viewListOfCourses();
 	}
 };

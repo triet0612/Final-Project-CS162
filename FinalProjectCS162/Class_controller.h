@@ -4,14 +4,12 @@
 #include <fstream>
 #include "Class.h"
 #include "SinglyLinkedList.h"
+#include "Course_controller.h"
 class Class_controller
 {
 public:
-	string yearname;
 	SinglyLinkedList<Class> Classes;
 	void createClass(string year) {
-		yearname = year;
-		
 		ofstream fout;
 		fout.open('/' + year + "/class.txt");
 
@@ -28,8 +26,8 @@ public:
 		cout << "Thank you for input" << endl;
 		return;
 	}
-	//load data of classes list
-	void Load_Classes() {
+	//load student data of classes
+	void Load_Classes(string yearname) {
 		SinglyLinkedList<string> Classes_name = Get_Classes();
 		for (auto i : Classes_name) {
 			Class c_temp;
@@ -39,7 +37,7 @@ public:
 		return;
 	}
 	//load class name list from /yearname/class.txt
-	SinglyLinkedList<string> Get_Classes() {
+	SinglyLinkedList<string> Get_Classes(string yearname) {
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
 		string temp;
@@ -57,20 +55,30 @@ public:
 		}
 		return;
 	}
-	void viewScoreOfClass(string semester, string coursename) {
+	void viewScoreOfClass(Class c, Course co, string semesterName) {
 		ifstream fin;
-		string NO, stuID, name, totalm, finalm, midm,othem;
-		fin.open('/' + yearname + '/' + semester + "/Mark/" + coursename + ".csv");
-		while (getline(fin, NO, ',')) {
-			getline(fin, stuID, ',');
-			getline(fin, name, ',');
-			getline(fin, totalm, ',');
-			getline(fin, finalm, ',');
-			getline(fin, midm, ',');
-			getline(fin, othem, ',');
-			cout << NO << stuID << name << totalm << finalm << midm << othem << endl;
+		fin.open('/' + c.year_name + '/' + semesterName + "/Mark/" + co.courseID + ".csv");
+		string No, Student_ID, Name, Total_Mark, Final_Mark, Midtern_Mark, Orther_Mark;
+		while (getline(fin, No, ',')) {
+			getline(fin, Student_ID, ',');
+			getline(fin, Name, ',');
+			getline(fin, Total_Mark, ',');
+			getline(fin, Final_Mark, ',');
+			getline(fin, Midtern_Mark, ',');
+			getline(fin, Orther_Mark, ',');
+			if (checkStudentInClass(c, Student_ID)) {
+				cout << No << ' ' << Student_ID << ' ' << Name << ' ' << Total_Mark << ' ' << Final_Mark << ' ' << Midtern_Mark << ' ' << Orther_Mark << endl;
+			}
 		}
 		return;
+	}
+	bool checkStudentInClass(Class c, string ID) {
+		for (auto i : c.students) {
+			if (i.ID == ID) {
+				return true;
+			}
+		}
+		return false;
 	}
 };
 
