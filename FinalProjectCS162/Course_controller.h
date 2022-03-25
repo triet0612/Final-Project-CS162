@@ -26,4 +26,5 @@ public:
 	void viewScoresOfStudents(const string& courseID, const int studentID) const;
 	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > getListOfEnrolledCourses() const;
 	SinglyLinkedList<string> getListOfEnrolledCoursesOfStudent(const int studentID) const;
+	int countStudentsInCourse(const string& courseID) const;
 };

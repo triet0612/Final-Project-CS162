@@ -28,7 +28,7 @@ public:
 	}
 	//load student data of classes
 	void Load_Classes(string yearname) {
-		SinglyLinkedList<string> Classes_name = Get_Classes();
+		SinglyLinkedList<string> Classes_name = Get_Classes(yearname);
 		for (auto i : Classes_name) {
 			Class c_temp;
 			c_temp.addStuByCSV(yearname, i);

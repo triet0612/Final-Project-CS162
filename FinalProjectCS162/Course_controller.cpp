@@ -264,3 +264,14 @@ SinglyLinkedList<string> Course_controller::getListOfEnrolledCoursesOfStudent(co
 			return data.second;
 	return SinglyLinkedList<string>();
 };
+
+int Course_controller::countStudentsInCourse(const string& courseID) const {
+	int result = 0;
+	for (const auto& information : (this->getListOfEnrolledCourses()))
+		for (const string& id : information.second)
+			if (id == courseID) {
+				++result;
+				break;
+			}
+	return result;
+};
