@@ -349,6 +349,7 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 	for (const Course& course : (this->courses)) {
 		CourseRegistration courseRegistration;
 		courseRegistration.createRegistration(this->yearName, this->semesterName, course.courseID);
+		courseRegistration.loadDates();
 		coursesRegistrations.push_back(courseRegistration);
 	}
 	for (const string& courseID : (this->getListOfEnrolledCoursesOfStudent(studentID)))
@@ -386,6 +387,11 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 				id = i;
 				break;
 			}
+		if (!coursesRegistrations[id].checkRegistrationDates()) {
+			cout << "The course registration is not currently active\n";
+			system("pause");
+			continue;
+		}
 		if (option == 2) {
 			if (status[id]) {
 				cout << "Course has already been in your enrolled course list\n";

@@ -14,6 +14,7 @@ public:
 	string semester_name;
 	Date startdate;
 	Date endate;
+	semester() {};
 	semester(string name, Date s, Date e) {
 		semester_name = name;
 		startdate = s;

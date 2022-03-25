@@ -17,6 +17,6 @@ public:
 	Date getStartDate() const;
 	Date getEndDate() const;
 	bool loadDates();
-	bool checkRegistration() const;
+	bool checkRegistrationDates() const;
 	void changeDates();
 };

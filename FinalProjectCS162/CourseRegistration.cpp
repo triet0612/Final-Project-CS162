@@ -48,7 +48,7 @@ bool CourseRegistration::loadDates() {
 	return false;
 };
 
-bool CourseRegistration::checkRegistration() const {
+bool CourseRegistration::checkRegistrationDates() const {
 	/*
 		return true if student can enroll in course and false otherwise
 	*/
