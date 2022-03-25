@@ -96,7 +96,7 @@ void CourseRegistration::changeDates() {
 			 << "2. Change start date\n"
 			 << "3. Change end date\n"
 			 << "Please enter the option you want to choose: ";
-		cin >> option;
+		readInteger(option);
 		if (option == 1)
 			break;
 		if (option > 3) {
@@ -107,11 +107,11 @@ void CourseRegistration::changeDates() {
 		while (true) {
 			cout << "Please enter date\n";
 			cout << "Please enter day: ";
-			cin >> day;
+			readInteger(day);
 			cout << "Please enter month: ";
-			cin >> month;
+			readInteger(month);
 			cout << "Please enter year: ";
-			cin >> year;
+			readInteger(year);
 			if (!checkValidDate(day, month, year)) {
 				cout << "Enter date is invalid\n";
 				continue;

@@ -1,3 +1,7 @@
+#include <iostream>
+
+using namespace std;
+
 #include "helper.h"
 
 int getNumberOfDigits(long long x) {
@@ -29,4 +33,28 @@ bool checkValidDate(const int day, const int month, const int year) {
 		return false;
 	const int days[12] = {31, 28 + checkLeapYear(year), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 	return 1 <= day && day <= days[month - 1];
+};
+
+bool readInteger(int& result) {
+	string s;
+	cin >> s;
+	const int n = s.size();
+	if (n >= 9) //Integer is too large
+		return false;
+	result = 0;
+	if (s[0] == '-') {
+		for (int i = 1; i < n; ++i)
+			if (isdigit(s[i]))
+				(result *= 10) += s[i] - '0';
+			else
+				return false;
+		result *= -1;
+	} else {
+		for (int i = 0; i < n; ++i)
+			if (isdigit(s[i]))
+				(result *= 10) += s[i] - '0';
+			else
+				return false;
+	}
+	return true;
 };
