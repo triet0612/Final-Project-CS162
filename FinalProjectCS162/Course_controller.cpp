@@ -338,6 +338,7 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 	*/
 	int* numberOfStudents = new int[numberOfCourses];
 	SinglyLinkedList<CourseRegistration> coursesRegistrations;
+	SinglyLinkedList<string> enrolledCoursesID;
 	int option = 0, id;
 	string courseID;
 	//Load information
@@ -394,7 +395,6 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 				cout << "Register sucessfully\n";
 				status[id] = true;
 				++numberOfStudents[id];
-				//Update file later, add student to enrolled course
 			}
 			system("pause");
 		} else { // if (option == 3)
@@ -402,13 +402,40 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 				cout << "Remove sucessfully\n";
 				--numberOfStudents[id];
 				status[id] = false;
-				//Update file later, remove student from enrolled course
 			} else {
 				cout << "Student has not joined the course yet\n";
 			}
 			system("pause");
 		}
 	}
+	for (int i = 0; i < numberOfCourses; ++i)
+		if (status[i])
+			enrolledCoursesID.push_back((this->courses)[i].courseID);
+	this->updateEnrolledCoursesInCSVfile(studentID, enrolledCoursesID);
 	delete[] status;
 	delete[] numberOfStudents;
 };	
+
+void Course_controller::updateEnrolledCoursesInCSVfile(const int studentID, const SinglyLinkedList<string>& enrolledCoursesID) {
+	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > coursesID = this->getListOfEnrolledCourses();
+	for (auto& data : coursesID)
+		if (data.first == studentID) {
+			data.second = enrolledCoursesID;
+			break;
+		}
+	this->printEnrolledCoursesInCSVfile(coursesID);
+};
+
+void Course_controller::printEnrolledCoursesInCSVfile(const SinglyLinkedList<pair<int, SinglyLinkedList<string> > >& information) {
+	ofstream foutput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/EnrolledCourses.csv");
+	if (foutput) {
+		foutput << "Student ID, Course1, Course2, Course3, Course4, Course5\n";
+		for (const auto& data : information) {
+			foutput << data.first;
+			for (const auto& courseID : data.second)
+				foutput << ',' << courseID;
+			foutput << '\n';
+		}
+	}
+	foutput.close();
+};
