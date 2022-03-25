@@ -277,7 +277,7 @@ int Course_controller::countStudentsInCourse(const string& courseID) const {
 	return result;
 };
 
-void Course_controller::displayEnrolledCoursesTable(const bool* status, const int* numberOfStudents,const SinglyLinkedList<CourseRegistration>& courseRegistration) const {
+void Course_controller::displayRegistrationTable(const bool* status, const int* numberOfStudents,const SinglyLinkedList<CourseRegistration>& coursesRegistrations) const {
 	int number_length = strlen("no"),
 		credits_length = strlen("credits"),
 		nameOfCourse_length = strlen("Name of course"),
@@ -320,8 +320,8 @@ void Course_controller::displayEnrolledCoursesTable(const bool* status, const in
 			 << setw(courseID_length) << course.courseID << '|'
 			 << setw(nameOfCourse_length) << course.nameOfCourse << '|'
 			 << setw(credits_length) << course.credits << '|'
-			 << setw(startDate_length) << courseRegistration[i].getStartDate().convert2String() << '|'
-			 << setw(endDate_length) << courseRegistration[i].getEndDate().convert2String() << '|'
+			 << setw(startDate_length) << coursesRegistrations[i].getStartDate().convert2String() << '|'
+			 << setw(endDate_length) << coursesRegistrations[i].getEndDate().convert2String() << '|'
 			 << setw(numberOfStudents_length) << studentsNumber.str() << '|'
 			 << setw(status_length) << (status[i] ? "Join" : "") << '|'
 	 		 << '\n';
@@ -338,6 +338,9 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 	*/
 	int* numberOfStudents = new int[numberOfCourses];
 	SinglyLinkedList<CourseRegistration> coursesRegistrations;
+	int option = 0, id;
+	string courseID;
+	//Load information
 	for (int i = 0; i < numberOfCourses; ++i) {
 		status[i] = false;
 		numberOfStudents[i] = this->countStudentsInCourse((this->courses)[i].courseID);
@@ -353,13 +356,59 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 				status[i] = true;
 				break;
 			}
-	/*
-	while (true) {
+	//Change information
+	while (option != 1) {
 		system("cls");
 		cout << "Student ID:" << studentID << '\n';
-		
+		this->displayRegistrationTable(status, numberOfStudents, coursesRegistrations);
+		cout << "1. Escape\n"
+			 << "2. Join a course\n"
+			 << "3. Remove a course from enrolled course list\n"
+			 << "Please enter your option: ";
+		cin >> option;
+		if (option < 0 || option > 4) {
+			cout << "Option is invalid\n";
+			system("pause");
+			continue;
+		}
+		if (option == 1)
+			break;
+		cout << "Please enter course id: ";
+		cin >> courseID;
+		if (!(this->containsCourse(courseID))) {
+			cout << "There were currently no course with id " << courseID << '\n';
+			system("pause");
+			continue;
+		}
+		for (int i = 0; i < numberOfCourses; ++i)
+			if ((this->courses)[i].courseID == courseID) {
+				id = i;
+				break;
+			}
+		if (option == 2) {
+			if (status[id]) {
+				cout << "Course has already been in your enrolled course list\n";
+			} else if (numberOfStudents[id] >= (this->courses)[id].maximumStudent) {
+				cout << "The allowed number of students in this course is maximum\n";
+			} else {
+				cout << "Register sucessfully\n";
+				status[id] = true;
+				++numberOfStudents[id];
+				//Update file later, add student to enrolled course
+			}
+			system("pause");
+		} else { // if (option == 3)
+			if (status[id]) {
+				cout << "Remove sucessfully\n";
+				--numberOfStudents[id];
+				status[id] = false;
+				//Update file later, remove student from enrolled course
+			} else {
+				cout << "Student has not joined the course yet\n";
+			}
+			system("pause");
+		}
 	}
-	*/
 	delete[] status;
 	delete[] numberOfStudents;
 };	

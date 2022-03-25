@@ -13,7 +13,7 @@ class Course_controller {
 private:
 	SinglyLinkedList<StudentScore> getScore(const string& courseID) const;
 	void printScoresToCSVfile(const string&courseID, const SinglyLinkedList<StudentScore>& scoresOfStudents) const;
-	void displayEnrolledCoursesTable(const bool* status, const int* numberOfStudents, const SinglyLinkedList<CourseRegistration> &courseRegistration) const;
+	void displayRegistrationTable(const bool* status, const int* numberOfStudents, const SinglyLinkedList<CourseRegistration> &coursesRegistrations) const;
 public:
 	string yearName, semesterName;
 	SinglyLinkedList<Course> courses;
