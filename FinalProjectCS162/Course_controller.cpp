@@ -10,6 +10,7 @@ using namespace std;
 #include "Course_controller.h"
 #include "helper.h"
 #include "StudentScore.h"
+#include "CourseRegistration.h"
 
 Course_controller::Course_controller() {};
 
@@ -275,3 +276,90 @@ int Course_controller::countStudentsInCourse(const string& courseID) const {
 			}
 	return result;
 };
+
+void Course_controller::displayEnrolledCoursesTable(const bool* status, const int* numberOfStudents,const SinglyLinkedList<CourseRegistration>& courseRegistration) const {
+	int number_length = strlen("no"),
+		credits_length = strlen("credits"),
+		nameOfCourse_length = strlen("Name of course"),
+		courseID_length = strlen("Course ID"),
+		totalLength, i = 0;
+	const int numberOfStudents_length = 25,
+		      status_length = 10,
+			  startDate_length = 20,
+			  endDate_length = 20,
+			  numberOfCourses = (this->courses).size();
+	// Find the require length for each information
+	for (const Course& course : (this->courses)) {
+		number_length = max(number_length, getNumberOfDigits(course.number));
+		credits_length = max(credits_length, getNumberOfDigits(course.credits));
+		courseID_length = max(courseID_length, (int)course.courseID.size());
+		nameOfCourse_length = max(nameOfCourse_length, (int)course.nameOfCourse.size());
+	}
+	number_length += 2;
+	credits_length += 2;
+	courseID_length += 2;
+	nameOfCourse_length += 2;
+	totalLength = 9 + startDate_length + endDate_length + number_length + credits_length + nameOfCourse_length + courseID_length + numberOfStudents_length + status_length;
+	cout << string(totalLength, '-') << '\n';
+	cout << '|'
+		<< setw(number_length) << "No" << '|'
+		<< setw(courseID_length) << "Course ID" << '|'
+		<< setw(nameOfCourse_length) << "Name of course" << '|'
+		<< setw(credits_length) << "Credits" << '|'
+		<< setw(startDate_length) << "Registration start" << '|'
+		<< setw(endDate_length) << "Registration end" << '|'
+		<< setw(numberOfStudents_length) << "Number of students" << '|'
+		<< setw(status_length) << "Status" << '|'
+		<< '\n';
+	cout << string(totalLength, '-') << '\n';
+	for (const Course& course : (this->courses)) {
+		stringstream studentsNumber;
+		studentsNumber << numberOfStudents[i] << '/' << course.maximumStudent;
+		cout << '|'
+			 << setw(number_length) << course.number << '|'
+			 << setw(courseID_length) << course.courseID << '|'
+			 << setw(nameOfCourse_length) << course.nameOfCourse << '|'
+			 << setw(credits_length) << course.credits << '|'
+			 << setw(startDate_length) << courseRegistration[i].getStartDate().convert2String() << '|'
+			 << setw(endDate_length) << courseRegistration[i].getEndDate().convert2String() << '|'
+			 << setw(numberOfStudents_length) << studentsNumber.str() << '|'
+			 << setw(status_length) << (status[i] ? "Join" : "") << '|'
+	 		 << '\n';
+		++i;
+	}
+	cout << string(totalLength, '-') << '\n';
+};
+
+void Course_controller::changeEnrolledCourses(const int studentID) {
+	const int numberOfCourses = (this->courses).size();
+	bool* status = new bool[numberOfCourses];
+	/*
+	status[i] is true if student has joined course and false otherwise
+	*/
+	int* numberOfStudents = new int[numberOfCourses];
+	SinglyLinkedList<CourseRegistration> coursesRegistrations;
+	for (int i = 0; i < numberOfCourses; ++i) {
+		status[i] = false;
+		numberOfStudents[i] = this->countStudentsInCourse((this->courses)[i].courseID);
+	}
+	for (const Course& course : (this->courses)) {
+		CourseRegistration courseRegistration;
+		courseRegistration.createRegistration(this->yearName, this->semesterName, course.courseID);
+		coursesRegistrations.push_back(courseRegistration);
+	}
+	for (const string& courseID : (this->getListOfEnrolledCoursesOfStudent(studentID)))
+		for (int i = 0; i < numberOfCourses; ++i)
+			if (courseID == (this->courses)[i].courseID) {
+				status[i] = true;
+				break;
+			}
+	/*
+	while (true) {
+		system("cls");
+		cout << "Student ID:" << studentID << '\n';
+		
+	}
+	*/
+	delete[] status;
+	delete[] numberOfStudents;
+};	

@@ -206,7 +206,7 @@ public:
         return this->dummy->next->data;
     };
 
-    int size() {
+    int size() const {
         return sz;
     };
 
