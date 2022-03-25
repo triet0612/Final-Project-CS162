@@ -9,8 +9,12 @@ using namespace std;
 
 class Semester_controller
 {
-private:
+public:
+
 	SinglyLinkedList<semester> semesterlist;
+
+	semester cur_semester;
+	
 	bool checkSemester(string name) {
 		for (auto i : semesterlist) {
 			if (i.semester_name == name) {
@@ -19,6 +23,7 @@ private:
 		}
 		return false;
 	}
+	
 	void saveSemester(string yearname) {
 		ofstream fout;
 		fout.open('/' + yearname + "/semesters.txt");
@@ -28,24 +33,19 @@ private:
 		fout.close();
 		return;
 	}
-public: 
-	semester create_semester(string yearname) {
-		getSemesterList(yearname);
-		viewSemester();
-		cout << "Input the semester you want to create" << endl;
-		string temp = "";
-		while (checkSemester(temp)) {
-			cout << "Input: " << endl;
-			cin >> temp;
-		}
+
+	void create_semester(string yearname, string semestername) {
+		cout << "Input start date: " << endl;
 		int day, month, year;
 		cin >> day >> month >> year;
 		Date d1(day, month, year);
+		cout << "Input end date: " << endl;
 		cin >> day >> month >> year;
 		Date d2(day, month, year);
-		semester s(temp, d1, d2);
+		semester s(semestername, d1, d2);
 		semesterlist.push_back(s);
-		return s;
+		cur_semester = s;
+		return;
 	}
 	
 	void getSemesterList(string yearname) {
@@ -88,16 +88,7 @@ public:
 	}
 	
 	void createCourseReg(semester& s, string yearname) {
-		ofstream fout;
-		fout.open('/' + yearname + '/' + s.semester_name + "/course_reg.txt");
-		string temp;
-		cout << "Start date: " << endl;
-		cin >> temp;
-		fout << temp << " ";
-		cout << "End date: " << endl;
-		cin >> temp;
-		fout << temp << endl;
-		fout.close();
+		s.course_reg.changeDates();
 		return;
 	}
 	

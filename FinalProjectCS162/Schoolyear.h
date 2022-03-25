@@ -4,6 +4,6 @@
 class Schoolyear {
 public:
 	string this_year;
-	SinglyLinkedList<semester> Semester_list;
 	SinglyLinkedList<string> yearList;
+	Semester_controller semester_control;
 };

@@ -11,6 +11,7 @@ class semester
 {
 public:
 	Course_controller course;
+	CourseRegistration course_reg;
 	string semester_name;
 	Date startdate;
 	Date endate;
@@ -21,4 +22,3 @@ public:
 		endate = e;
 	}
 };
-

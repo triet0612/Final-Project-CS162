@@ -1,10 +1,10 @@
 #pragma once
 #include "Schoolyear.h"
 
-class Schoolyear_controller : public Schoolyear {
+class Schoolyear_controller {
 private:
 	bool CheckYear(string yearname) {
-		for (auto i : yearList) {
+		for (auto i : sc.yearList) {
 			if (i == yearname) {
 				return true;
 			}
@@ -12,16 +12,19 @@ private:
 		return false;
 	}
 	
+public:
+	Schoolyear sc;
+
 	void saveYearList() {
 		ofstream fout;
 		fout.open("SchoolYear.txt");
-		for (auto i : yearList) {
+		for (auto i : sc.yearList) {
 			fout << i << endl;
 		}
 		fout.close();
 		return;
 	}
-public:
+	
 	void createSchoolYear() {
 		getYearList();
 		viewSchoolYear();
@@ -29,20 +32,20 @@ public:
 		cout << "Select the year to create: " << endl;
 		cout << "Example: 2020-2021" << endl;
 		
-		while (CheckYear(this_year)) {
+		while (CheckYear(sc.this_year)) {
 			cout << "Input:" << endl;
-			cin >> this_year;
+			cin >> sc.this_year;
 		}
-		yearList.push_back(this_year);
+		sc.yearList.push_back(sc.this_year);
 		
-		int check = mkdir(('/' + this_year).c_str());
+		int check = mkdir(('/' + sc.this_year).c_str());
 		saveYearList();
 		cout << "Year create completed!" << endl;
 	}
 	
 	void viewSchoolYear() {
 		cout << "List of years: " << endl;
-		for (auto i : yearList) {
+		for (auto i : sc.yearList) {
 			cout << i << endl;
 		}
 		return;
@@ -54,26 +57,35 @@ public:
 		string temp;
 		while (!fin.eof()) {
 			fin >> temp;
-			yearList.push_back(temp);
+			sc.yearList.push_back(temp);
 		}
 		fin.close();
 		return;
 	}
 	
-	void loadSchoolYear() {
-		cout << "Choose the year you want to use" << endl;
+	Schoolyear getSchoolYear(string name) {
 		getYearList();
-		viewSchoolYear();
-		string name = "";
-		while (CheckYear(name)) {
-			cout << "Input: " << endl;
-			cin >> name;
-		}
-		this_year = name;
+		sc.this_year = name;
 		ifstream fin;
-		fin.open('/' + this_year + "/semesters.txt");
-		while (!fin.eof()) {
-			fin >> 
+		sc.semester_control.getSemesterList(sc.this_year);
+		return sc;
+	}
+
+	void addSemesterToSchoolYear(string yearname) {
+		sc.semester_control.getSemesterList(yearname);
+		viewSemestersInYear();
+		string semestername;
+		cout << "Input semester: " << endl;
+		cin >> semestername;
+		while (!sc.semester_control.checkSemester(semestername)) {
+			cout << "Semester already there, input again: " << endl;
+			cin >> semestername;
 		}
+		sc.semester_control.create_semester(yearname, semestername);
+		return;
+	}
+	
+	void viewSemestersInYear() {
+		sc.semester_control.viewSemester();
 	}
 };
