@@ -367,7 +367,7 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 			 << "2. Join a course\n"
 			 << "3. Remove a course from enrolled course list\n"
 			 << "Please enter your option: ";
-		if (!readInteger(option) || option < 0 || option > 4) {
+		if (!readInteger(option) || option < 0 || option > 3) {
 			cout << "Option is invalid\n";
 			system("pause");
 			continue;
@@ -375,9 +375,9 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 		if (option == 1)
 			break;
 		cout << "Please enter course id: ";
-		cin >> courseID;
+		getline(cin, courseID);
 		if (!(this->containsCourse(courseID))) {
-			cout << "There were currently no course with id " << courseID << '\n';
+			cout << "There were currently no course with id '" << courseID << "'\n";
 			system("pause");
 			continue;
 		}

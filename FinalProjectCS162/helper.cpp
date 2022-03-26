@@ -37,7 +37,7 @@ bool checkValidDate(const int day, const int month, const int year) {
 
 bool readInteger(int& result) {
 	string s;
-	cin >> s;
+	getline(cin, s);
 	const int n = s.size();
 	if (n >= 9) //Integer is too large
 		return false;
