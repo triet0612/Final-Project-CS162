@@ -32,4 +32,6 @@ public:
 	SinglyLinkedList<string> getListOfEnrolledCoursesOfStudent(const int studentID) const;
 	int countStudentsInCourse(const string& courseID) const;
 	void changeEnrolledCourses(const int studentID);
+	SinglyLinkedList<int> getCourseListOfStudentsID(const string& courseID) const;
+	bool exportListOfStudentsID(const string& courseID) const;
 };

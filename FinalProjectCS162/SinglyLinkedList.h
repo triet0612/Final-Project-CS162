@@ -164,7 +164,7 @@ public:
     };
 
 
-    void push_back(T& d) {
+    void push_back(const T& d) {
         SinglyNode<T>* newNode = new SinglyNode<T>(d);
         this->rear->next = newNode;
         this->rear = newNode;

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <iomanip>
 #include <sstream>
+#include <direct.h>
 
 using namespace std;
 
@@ -443,4 +444,37 @@ void Course_controller::printEnrolledCoursesInCSVfile(const SinglyLinkedList<pai
 		}
 	}
 	foutput.close();
+};
+
+SinglyLinkedList<int> Course_controller::getCourseListOfStudentsID(const string& courseID) const {
+	SinglyLinkedList<int> result;
+	for (const auto &information : (this->getListOfEnrolledCourses()))
+		for (const string& id : information.second)
+			if (id == courseID) {
+				result.push_back(information.first);
+				break;
+			}
+	return result;
+};
+
+bool Course_controller::exportListOfStudentsID(const string& courseID) const {
+	//Print list of student ID in a course to a CSV file (save file at input path)
+	if (!(this->containsCourse(courseID))) {
+		cout << "There is no course with " << courseID << '\n';
+		return false;
+	}
+	string path;
+	cout << "Please enter the path of the csv file you want to save at: ";
+	cin >> path;
+	if (_mkdir(path.c_str())) {
+		ofstream foutput(path + "/" + courseID + ".csv");
+		foutput << "StudentID\n";
+		for (const int& studentID : (this->getCourseListOfStudentsID(courseID)))
+			foutput << studentID << '\n';
+		foutput.close();
+		cout << "File was successfully saved\n";
+		return true;
+	}
+	cout << "File was not successfully saved\n";
+	return false;
 };
