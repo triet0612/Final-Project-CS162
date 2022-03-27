@@ -87,11 +87,14 @@ public:
 	
 	semester& getSemester(string yearname, int num) {
 		getSemesterList(yearname);
+		semester ans;
 		for (auto i : semesterlist) {
 			if (i.semester_name == "s" + num) {
-				return i;
+				ans = i;
+				break;
 			}
 		}
+		return ans;
 	}
 	
 	void createCourseReg(semester& s, string yearname) {

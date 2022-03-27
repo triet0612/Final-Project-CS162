@@ -70,6 +70,7 @@ public:
 				cout << No << ' ' << Student_ID << ' ' << Name << ' ' << Total_Mark << ' ' << Final_Mark << ' ' << Midtern_Mark << ' ' << Orther_Mark << endl;
 			}
 		}
+		fin.close();
 		return;
 	}
 	bool checkStudentInClass(Class c, string ID) {

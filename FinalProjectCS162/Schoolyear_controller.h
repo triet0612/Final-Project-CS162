@@ -70,7 +70,6 @@ public:
 	Schoolyear getSchoolYear(string name) {
 		getYearList();
 		sc.this_year = name;
-		ifstream fin;
 		sc.semester_control.getSemesterList(sc.this_year);
 		return sc;
 	}
