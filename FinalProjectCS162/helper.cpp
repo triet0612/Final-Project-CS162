@@ -35,13 +35,13 @@ bool checkValidDate(const int day, const int month, const int year) {
 	return 1 <= day && day <= days[month - 1];
 };
 
-bool readInteger(int& result) {
+bool readInteger(int& answer) {
 	string s;
 	getline(cin, s);
 	const int n = s.size();
 	if (n >= 9) //Integer is too large
 		return false;
-	result = 0;
+	int result = 0;
 	if (s[0] == '-') {
 		for (int i = 1; i < n; ++i)
 			if (isdigit(s[i]))
@@ -56,5 +56,7 @@ bool readInteger(int& result) {
 			else
 				return false;
 	}
+	//The value of variable is only updated when number is successfully inputted
+	answer = result;
 	return true;
 };

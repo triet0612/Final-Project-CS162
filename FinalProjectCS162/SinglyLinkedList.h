@@ -186,7 +186,7 @@ public:
     };
 
 
-    void push_front(T& d) {
+    void push_front(const T& d) {
         SinglyNode<T>* newNode = new SinglyNode<T>(d);
         newNode->next = this->dummy->next;
         this->dummy->next = newNode;
