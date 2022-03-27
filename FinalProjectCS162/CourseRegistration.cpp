@@ -107,11 +107,20 @@ void CourseRegistration::changeDates() {
 		while (true) {
 			cout << "Please enter date\n";
 			cout << "Please enter day: ";
-			readInteger(day);
+			if (!readInteger(day)) {
+				cout << "Invalid input\nPlease enter again\n";
+				continue;
+			};
 			cout << "Please enter month: ";
-			readInteger(month);
+			if (!readInteger(month)) {
+				cout << "Invalid input\nPlease enter again\n";
+				continue;
+			};
 			cout << "Please enter year: ";
-			readInteger(year);
+			if (!readInteger(year)) {
+				cout << "Invalid input\nPlease enter again\n";
+				continue;
+			};
 			if (!checkValidDate(day, month, year)) {
 				cout << "Enter date is invalid\n";
 				continue;

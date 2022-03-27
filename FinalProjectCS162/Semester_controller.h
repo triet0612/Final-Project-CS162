@@ -45,9 +45,9 @@ public:
 		semester s(semestername, d1, d2);
 		semesterlist.push_back(s);
 		cur_semester = s;
-		int checker = mkdir(('/' + yearname + '/' + semestername).c_str());
-		checker = mkdir(('/' + yearname + '/' + semestername + "Mark").c_str());
-		checker = mkdir(('/' + yearname + '/' + semestername + "Studentlist").c_str());
+		int checker = _mkdir(('/' + yearname + '/' + semestername).c_str());
+		checker = _mkdir(('/' + yearname + '/' + semestername + "Mark").c_str());
+		checker = _mkdir(('/' + yearname + '/' + semestername + "Studentlist").c_str());
 		return;
 	}
 	

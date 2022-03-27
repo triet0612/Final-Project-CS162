@@ -367,7 +367,7 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 			 << "2. Join a course\n"
 			 << "3. Remove a course from enrolled course list\n"
 			 << "Please enter your option: ";
-		if (!readInteger(option) || option < 0 || option > 3) {
+		if (!readInteger(option) || option < 1 || option > 3) {
 			cout << "Option is invalid\n";
 			system("pause");
 			continue;
