@@ -4,6 +4,7 @@
 #include <cmath>
 #include <string>
 #include <cstring>
+#include <fstream>
 
 using namespace std;
 
@@ -81,9 +82,9 @@ void CoursesList::updateInformation() {
 		this->displayListOfCourses();
 		cout << "1. Escape (stop updating courses information)\n"
 			 << "2. Update course information\n"
-			 // << "3. Remove a course\n"
+			 << "3. Remove a course\n"
 			 << "Please enter your option: ";
-		if (!readInteger(option) || option < 1 || option > 2) {
+		if (!readInteger(option) || option < 1 || option > 3) {
 			cout << "Invalid option\n";
 			system("pause");
 			continue;
@@ -101,9 +102,51 @@ void CoursesList::updateInformation() {
 				for (Course& course : (*this))
 					if (course.courseID == courseID) {
 						course.updateCourse();
+						cout << "Information is updated successfully\n";
+						system("pause");
 						break;
 					}
 			}
+		} else if (option == 3) {
+			cout << "Please enter the id of course you want to remove: ";
+			getline(cin, courseID);
+			if (!(this->containsCourse(courseID))) {
+				cout << "There was no course with course id " << courseID << '\n';
+				system("pause");
+				continue;
+			} else {
+				this->deleteNode([&](const Course& course) -> bool {
+					return course.courseID == courseID;
+				});
+				cout << "Course is removed successfully\n";
+				system("pause");
+			}
 		}
 	}
+};
+
+bool CoursesList::readFile(const string& path) {
+	ifstream finput(path);
+	if (finput) {
+		Course course;
+		finput.ignore(5000, '\n'); //ignore first line
+		while (course.readData(finput))
+			this -> push_back(course);
+		finput.close();
+		return true;
+	}
+	finput.close();
+	return false;
+};
+
+bool CoursesList::writeFile(const string& path) const {
+	ofstream foutput(path);
+	if (foutput) {
+		foutput << "No,CourseID,NameOfCourse,NameOfTeacher,Credits,MaximumStudent,Day-Session1,Day-Session2\n";
+		for (const Course& course : (*this))
+			course.writeData(foutput);
+		return true;
+	}
+	foutput.close();
+	return false;
 };

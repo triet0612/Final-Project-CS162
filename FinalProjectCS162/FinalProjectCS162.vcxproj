@@ -146,6 +146,7 @@
     <ClInclude Include="Container.h" />
     <ClInclude Include="Course.h" />
     <ClInclude Include="CourseRegistration.h" />
+    <ClInclude Include="CoursesList.h" />
     <ClInclude Include="CourseSystem.h" />
     <ClInclude Include="Course_controller.h" />
     <ClInclude Include="Date.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="CourseRegistration.cpp" />
+    <ClCompile Include="CoursesList.cpp" />
     <ClCompile Include="CourseSystem.cpp" />
     <ClCompile Include="Course_controller.cpp" />
     <ClCompile Include="Date.cpp" />

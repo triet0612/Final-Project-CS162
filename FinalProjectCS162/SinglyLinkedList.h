@@ -222,7 +222,7 @@ public:
         sz = 0;
     };
 
-    void deleteNode(function<bool(T)> cmp) {
+    void deleteNode(const function<bool(T)> &cmp) {
         SinglyNode<T>* cur = this->dummy;
         while (cur->next != NULL) {
             if (cmp(cur->next->data)) {

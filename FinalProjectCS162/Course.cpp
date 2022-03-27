@@ -27,7 +27,7 @@ bool Course::readData(ifstream& finput) {
 	return false;
 };
 
-void Course::writeDate(ofstream& foutput) const {
+void Course::writeData(ofstream& foutput) const {
 	foutput << (this->number) << ',' 
 		    << (this->courseID) << ',' 
 			<< (this->nameOfCourse) << ',' 
@@ -83,7 +83,7 @@ bool Course::updateCourse() {
 		}
 		break;
 	case 6:
-		cout << "Please enter the maximum number of students in a course:";
+		cout << "Please enter the maximum number of students in a course: ";
 		if (!readInteger(this->maximumStudent))
 			cout << "Input number is invalid\n";
 		else if ((this->maximumStudent) <= 0) {

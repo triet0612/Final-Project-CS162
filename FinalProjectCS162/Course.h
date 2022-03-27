@@ -10,6 +10,6 @@ public:
 	int number, credits, maximumStudent;
 	string courseID, nameOfCourse, nameOfTeacher, daySession1, daySession2;
 	bool readData(ifstream& finput);
-	void writeDate(ofstream& foutput) const;
+	void writeData(ofstream& foutput) const;
 	bool updateCourse();
 };

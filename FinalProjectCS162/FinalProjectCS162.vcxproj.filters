@@ -120,6 +120,9 @@
     <ClInclude Include="CourseRegistration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CoursesList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp">
@@ -201,6 +204,9 @@
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="CourseRegistration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CoursesList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

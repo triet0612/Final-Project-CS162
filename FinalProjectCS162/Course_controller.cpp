@@ -16,17 +16,10 @@ using namespace std;
 Course_controller::Course_controller() {};
 
 void Course_controller::createCourses(const string& yearName, const string& semesterName) {
-	ifstream finput("Data/" + yearName + "/" + semesterName + "/Courses.csv");
 	(this->yearName) = yearName;
 	(this->semesterName) = semesterName;
-	if (finput) {
-		Course course;
-		finput.ignore(5000, '\n'); //ignore first line
-		while (course.readData(finput)) 
-			courses.push_back(course);
-	} else
-		cerr << "There was error in opening file\n";
-	finput.close();
+	if (!(this->courses).readFile("Data/" + yearName + "/" + semesterName + "/Courses.csv"))
+		cerr << "There was error in reading data\n";
 };
 
 void Course_controller::viewListOfCourses() {
@@ -426,4 +419,5 @@ bool Course_controller::exportListOfStudentsID(const string& courseID) const {
 
 void Course_controller::updateCoursesInformation() {
 	(this->courses).updateInformation();
+	(this->courses).writeFile("Data/" + yearName + "/" + semesterName + "/Courses.csv");
 };
