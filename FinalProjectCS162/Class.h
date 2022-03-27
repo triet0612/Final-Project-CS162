@@ -50,6 +50,7 @@ public:
 				 << i.Social_ID << endl;
 		}
 	}
+	
 	bool checkStu(string ID) {
 		for (auto i : students) {
 			if (i.ID == ID) {

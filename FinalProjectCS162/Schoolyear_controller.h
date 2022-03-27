@@ -44,6 +44,10 @@ public:
 	}
 	
 	void viewSchoolYear() {
+		if (sc.yearList.size() == 0) {
+			cout << "No year created" << endl;
+			return;
+		}
 		cout << "List of years: " << endl;
 		for (auto i : sc.yearList) {
 			cout << i << endl;

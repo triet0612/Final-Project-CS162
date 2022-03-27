@@ -45,6 +45,9 @@ public:
 		semester s(semestername, d1, d2);
 		semesterlist.push_back(s);
 		cur_semester = s;
+		int checker = mkdir(('/' + yearname + '/' + semestername).c_str());
+		checker = mkdir(('/' + yearname + '/' + semestername + "Mark").c_str());
+		checker = mkdir(('/' + yearname + '/' + semestername + "Studentlist").c_str());
 		return;
 	}
 	
@@ -71,6 +74,10 @@ public:
 	}
 	
 	void viewSemester() {
+		if (semesterlist.size() == 0) {
+			cout << "No semester created" << endl;
+			return;
+		}
 		cout << "List of semesters:" << endl;
 		for (auto i : semesterlist) {
 			cout << i.semester_name << " " << i.startdate << " " << i.endate << endl;
