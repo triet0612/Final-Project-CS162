@@ -48,7 +48,7 @@ bool Course::updateCourse() {
 		 << "2. Course ID\n"
 		 << "3. Name of course\n"
 		 << "4. Name of teacher\n"
-		 << "5. Credits"
+		 << "5. Credits\n"
 		 << "6. Maximum number of students in course\n"
 		 << "7. Day-session 1\n"
 		 << "8. Day-session 2\n"

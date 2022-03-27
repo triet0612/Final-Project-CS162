@@ -8,6 +8,7 @@ using namespace std;
 #include "Course.h"
 #include "StudentScore.h"
 #include "CourseRegistration.h"
+#include "CoursesList.h"
 
 class Course_controller {
 private:
@@ -18,7 +19,7 @@ private:
 	void printEnrolledCoursesInCSVfile(const SinglyLinkedList<pair<int, SinglyLinkedList<string> > > &information);
 public:
 	string yearName, semesterName;
-	SinglyLinkedList<Course> courses;
+	CoursesList courses;
 	Course_controller();
 	
 	void createCourses(const string& yearName, const string& semesterName);
@@ -34,4 +35,5 @@ public:
 	void changeEnrolledCourses(const int studentID);
 	SinglyLinkedList<int> getCourseListOfStudentsID(const string& courseID) const;
 	bool exportListOfStudentsID(const string& courseID) const;
+	void updateCoursesInformation();
 };
