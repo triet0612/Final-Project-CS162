@@ -311,8 +311,13 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 			system("pause");
 			continue;
 		}
-		if (option == 1)
+		if (option == 1) {
+			if ((this->courses).checkSessionsConflicted(status)) {
+				cout << "Warning: There might be two courses whose sessions conflicted\n";
+				system("pause");
+			}
 			break;
+		}
 		cout << "Please enter course id: ";
 		getline(cin, courseID);
 		if (!(this->containsCourse(courseID))) {

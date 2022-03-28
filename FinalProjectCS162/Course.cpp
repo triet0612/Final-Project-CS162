@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -101,4 +102,36 @@ bool Course::updateCourse() {
 		break;
 	}
 	return true;
+};
+
+pair<string, pair<int, int> > Course::getDaySession1() const {
+	string day, t;
+	/*
+	start, end (minutes)
+	*/
+	int start, end, number;
+	stringstream s(this->daySession1);
+	s >> day;
+	s.ignore(100, ' ');
+	getline(s, t, '-');
+	start = getMinutes(t);
+	getline(s, t);
+	end = getMinutes(t);
+	return make_pair(day, make_pair(start, end));
+};
+
+pair<string, pair<int, int> > Course::getDaySession2() const {
+	string day, t;
+	/*
+	start, end (minutes)
+	*/
+	int start, end, number;
+	stringstream s(this->daySession2);
+	s >> day;
+	s.ignore(100, ' ');
+	getline(s, t, '-');
+	start = getMinutes(t);
+	getline(s, t);
+	end = getMinutes(t);
+	return make_pair(day, make_pair(start, end));
 };

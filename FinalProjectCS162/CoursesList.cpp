@@ -150,3 +150,21 @@ bool CoursesList::writeFile(const string& path) const {
 	foutput.close();
 	return false;
 };
+
+bool CoursesList::checkSessionsConflicted(const bool* enrolled) const {
+	const int numberOfCourses = this->size();
+	SinglyLinkedList<pair<string, pair<int, int> > > sessions[2];
+	for (int i = 0; i < numberOfCourses; ++i)
+		if (enrolled[i]) {
+			sessions[0].push_back((*this)[i].getDaySession1());
+			sessions[1].push_back((*this)[i].getDaySession2());
+		}
+	const int numberOfEnrolledCourses = sessions[0].size();
+	for (int i = 1; i < numberOfEnrolledCourses; ++i)
+		for (int j = 0; j < i; ++j)
+			for (int x = 0; x < 2; ++x)
+				for (int y = 0; y < 2; ++y)
+					if (sessions[x][i].first == sessions[y][j].first && checkIntersection(sessions[x][i].second, sessions[y][j].second))
+						return true;
+	return false;
+};

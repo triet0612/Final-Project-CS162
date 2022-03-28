@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 
 using namespace std;
 
@@ -59,4 +61,23 @@ bool readInteger(int& answer) {
 	//The value of variable is only updated when number is successfully inputted
 	answer = result;
 	return true;
+};
+
+bool checkIntersection(pair<int, int> a, pair<int, int> b) {
+	if (a > b)
+		swap(a, b);
+	return b.first <= a.second;
+};
+
+int getMinutes(const string& t) {
+	/*
+		t has the form "h:m"
+	*/
+	int result, minutes;
+	stringstream s(t);
+	s >> result;
+	s.ignore(100, ':');
+	s >> minutes;
+	(result *= 60) += minutes;
+	return result;
 };

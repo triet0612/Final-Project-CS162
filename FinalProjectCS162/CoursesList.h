@@ -10,4 +10,5 @@ public:
 	bool containsCourse(const string& courseID) const;
 	void updateInformation();
 	bool writeFile(const string& path) const;
+	bool checkSessionsConflicted(const bool *enrolled) const;
 };
