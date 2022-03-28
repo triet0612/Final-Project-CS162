@@ -63,8 +63,8 @@ public:
 			fin >> temp3;
 			Date d1;
 			Date d2;
-			d1.operator=(temp2);
-			d2.operator=(temp3);
+			d1 = temp2;
+			d2 = temp3;
 			semester t(temp1, d1, d2);
 			semesterlist.push_back(t);
 		}
