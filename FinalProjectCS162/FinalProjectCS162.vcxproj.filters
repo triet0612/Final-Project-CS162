@@ -111,16 +111,16 @@
     <ClInclude Include="CourseSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Schoolyear.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Schoolyear_controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CourseRegistration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CoursesList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Schoolyear_controller.h">
+      <Filter>Objects Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Schoolyear.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

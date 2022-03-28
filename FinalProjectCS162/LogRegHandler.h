@@ -66,6 +66,8 @@ public:
 		return type;
 	}
 
+	//---
+
 	void setupLogRegTable(Table& table, int type) {
 		system("cls");
 		table = Table(0, 0, 4);
@@ -81,6 +83,8 @@ public:
 
 		table.setCursorInside();
 	}
+
+	//---
 
 	int inputLogRegProc(int type) {
 		if (type < 1 || type > 2) return -1;

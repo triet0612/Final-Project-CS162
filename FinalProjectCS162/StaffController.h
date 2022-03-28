@@ -3,13 +3,13 @@
 #include "Staff.h"
 #include "Table.h"
 #include <fstream>
+#include "Schoolyear_controller.h"
 //#include "CourseController.h"
-//#include "SemesterController.h"
-//#include "SchoolYearController.h"
 class StaffController : public PeopleController
 {
 private:
     //SchoolYearController schoolYears;
+    Schoolyear_controller schoolYears;
     sll<Staff> list;
 public:
     StaffController() {
@@ -132,32 +132,13 @@ public:
     }
 
     void createSchoolYear() {
-        //system("cls");
-        //cin.ignore();
-        //cout << "Enter name of school year: ";
-        //string name;
-        //getline(cin, name);
-        //SchoolYear schoolYear(name);
-        //schoolYears.addSchoolYear(name);
-        //cout << "School year is created" << endl;
-        //cin.get();
+        schoolYears.createSchoolYear();
     };
 
     //----------------
 
     void showAllSchoolYears() {
-        //system("cls");
-        //cout << "School years: \n";
-        //const auto& list = schoolYears.getSchoolYears();
-        //size_t sz = schoolYears.getSize();
-        //cout << "Total: " << sz << "\n\n";
-        //for (int i = 0; i < sz; i++)
-        //{
-        //    cout << i << ". " << list[i].getName() << "\n";
-        //}
-        //cin.get();
-        //cin.get();
-
+        schoolYears.viewSchoolYear();
     };
 
     //----------------
