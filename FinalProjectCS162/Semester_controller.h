@@ -1,11 +1,13 @@
 #pragma once
 #include <iostream>
 #include <direct.h>
-#include <string.h>
+#include <string>
 #include "semester.h"
 #include "SinglyLinkedList.h"
 #include "Date.h"
 #include "Table.h"
+#include "InputRow.h"
+#include "Button.h"
 using namespace std;
 
 class Semester_controller
@@ -27,7 +29,7 @@ public:
 	
 	void saveSemester(string yearname) {
 		ofstream fout;
-		fout.open('/' + yearname + "/semesters.txt");
+		fout.open("Data/" + yearname + "/semesters.txt");
 		for (auto i : semesterlist) {
 			fout << i.semester_name << " " << i.startdate << " " << i.endate << endl;
 		}
@@ -35,20 +37,15 @@ public:
 		return;
 	}
 
-	void create_semester(string yearname, string semestername) {
-		cout << "Input start date: " << endl;
-		int day, month, year;
-		cin >> day >> month >> year;
-		Date start(day, month, year);
-		cout << "Input end date: " << endl;
-		cin >> day >> month >> year;
-		Date end(day, month, year);
-		semester s(semestername, start, end);
+	void create_semester(string yearname, sll<string> data) {
+
+		semester s(data[0], Date(stoi(data[1]), stoi(data[2]), stoi(data[3])), Date(stoi(data[4]), stoi(data[5]), stoi(data[6])));
 		semesterlist.push_back(s);
 		cur_semester = s;
-		int checker = _mkdir(("Data/" + yearname + '/' + semestername).c_str());
-		checker = _mkdir(("Data/" + yearname + '/' + semestername + "Mark").c_str());
-		checker = _mkdir(("Data/" + yearname + '/' + semestername + "Studentlist").c_str());
+		int checker = _mkdir(("Data/" + yearname + '/' + data[0]).c_str());
+		checker = _mkdir(("Data/" + yearname + '/' + data[0] + "/Mark").c_str());
+		checker = _mkdir(("Data/" + yearname + '/' + data[0] + "/Studentlist").c_str());
+		saveSemester(yearname);
 		return;
 	}
 	
@@ -59,6 +56,7 @@ public:
 		string temp1;
 		string temp2;
 		string temp3;
+		semesterlist.clear();
 		while (!fin.eof()) {
 			temp1 = temp2 = temp3 = "";
 			fin >> temp1;
@@ -104,7 +102,7 @@ public:
 
 	void setupSchoolYearTable(Table& table) {
 		system("cls");
-		table = Table(0, 0, 4);
+		table = Table(0, 0, 5);
 
 		table.addTitleRow_back(15, 17, 17);
 		table.getRow(0).addText((string)" SEMESTERS", (string)" Start date", (string)" End date");
@@ -119,7 +117,7 @@ public:
 		table.setCursorInside();
 	}
 
-	int inputSemesterProc() {
+	int inputSemesterTableProc() {
 		int type = 0;
 		Table table;
 		setupSchoolYearTable(table);
@@ -129,12 +127,12 @@ public:
 	
 	void viewSemester(string yearname) {
 		getSemesterList(yearname);
-		int type = inputSemesterProc();
+		int type = inputSemesterTableProc();
 		while (type != -1) {
 			if (type == 1){
-				//addSemesterToSchoolYear(yearname);
+				addSemesterToSchoolYear(yearname);
 			}
-			type = inputSemesterProc();
+			type = inputSemesterTableProc();
 		}
 		return;
 	}
@@ -160,16 +158,149 @@ public:
 		s.course.viewListOfCourses();
 	}
 
-	void addSemesterToSchoolYear(string yearname) {
-		getSemesterList(yearname);
-		string semestername;
-		cout << "Input semester: " << endl;
-		cin >> semestername;
-		while (!checkSemester(semestername)) {
-			cout << "Semester already there, input again: " << endl;
-			cin >> semestername;
+	//--
+
+	void setupSemesterInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
+
+		inputList.push_back(InputRow(1, 1, 50, 3, 0, 15));
+		pos.push_back(inputList.back().getInside());
+		inputList.back().setTitleBoxWidth(25).setContentBoxWidth(30);
+		inputList.back().setDefaultType();
+
+		for (int i = 0; i < 3; ++i) {
+			inputList.push_back(InputRow(25*i + 1, 5, 10, 3, 0, 15));
+			pos.push_back(inputList.back().getInside());
+			inputList.back().setTitleBoxWidth(15).setContentBoxWidth(5);
+			inputList.back().setDefaultType2();
 		}
-		create_semester(yearname, semestername);
+
+		for (int i = 0; i < 3; ++i) {
+			inputList.push_back(InputRow(25 * i + 1, 10, 10, 3, 0, 15));
+			pos.push_back(inputList.back().getInside());
+			inputList.back().setTitleBoxWidth(15).setContentBoxWidth(5);
+			inputList.back().setDefaultType2();
+		}
+
+		inputList[0].setTitle("Semester's name: ").setContent("");
+		inputList[1].setTitle("Start Day:").setContent("").getContentBox().setNumberMode(true);
+		inputList[2].setTitle("Start Month:").setContent("").getContentBox().setNumberMode(true);
+		inputList[3].setTitle("Start Year:").setContent("").setContentBoxWidth(7).getContentBox().setNumberMode(true);
+
+		inputList[4].setTitle("End Day:").setContent("").getContentBox().setNumberMode(true);
+		inputList[5].setTitle("End Month:").setContent("").getContentBox().setNumberMode(true);
+		inputList[6].setTitle("End Year:").setContent("").setContentBoxWidth(7).getContentBox().setNumberMode(true);
+
+		inputList[0].setCursorInside();
+		buttonList.push_back(Button(10, 13, 10, 3));
+		pos.push_back(buttonList.back().getInside());
+		buttonList.back().setText("   OK");
+		buttonList.back().setDefaultType();
+
+		for (auto& elem : buttonList) elem.render();
+		for (auto& elem : inputList) elem.update();
+		for (auto& elem : inputList) elem.render();
+	}
+
+	void setOnClickSubmitButton(Button& target, sll<InputRow>& inputList, sll<string>& res, bool& isOver) {
+		target.setOnClick([&](Button& button) {
+			res.clear();
+			bool flag = true;
+			for (auto elem : inputList) {
+				res.push_back(elem.getContentBox().getText());
+				if (res.back() == "") flag = false;
+			}
+			if (!Date::isValidDay(stoi(res[1]), stoi(res[2]), stoi(res[3])) || !Date::isValidDay(stoi(res[4]), stoi(res[5]), stoi(res[6]))) flag = false;
+			if (!flag) renderCaution();
+			isOver = flag;
+			});
+	}
+
+	void setValidPosition(COORD c, int x, int y, int& cur, bool inTxt, bool inBtn, sll<pair<int, int> >& pos, ConsoleGraphics& graphics) {
+		if (!inTxt && !inBtn) {
+			if (x > 0 || y > 0) cur = (cur + 1) % pos.size();
+			else if (x < 0 || y < 0) cur = (cur + pos.size() - 1) % pos.size();
+			graphics.gotoXY(pos[cur].first, pos[cur].second, true);
+		}
+		else if (inTxt) graphics.gotoXY(c.X, c.Y);
+	};
+
+	void renderInputSemesterProc(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos, bool& isOver) {
+		int cur = 0;
+		ConsoleGraphics& graphics = ConsoleGraphics::getInstance();
+
+		TextBox notice = TextBox(7, 16, 40, 3, false).setText("Press ESC for cancel");
+		notice.render();
+
+		graphics.loopBoolean([&](pair<int, int> input) {
+			COORD c = graphics.GetConsoleCursorPosition();
+			int x = 0, y = 0;
+			bool inBtn = false, inTxt = false;
+			if (input.first == INPUT_CODE::ESC) return false;
+			graphics.getNextDirection(input, x, y);
+			c.X += x; c.Y += y;
+
+			for (auto& elem : inputList) if (elem.checkPosInsideContentBox(c)) inTxt = true;
+			for (auto& elem : buttonList) if (elem.isPosInContainer(c)) inBtn = true;
+
+			setValidPosition(c, x, y, cur, inTxt, inBtn, pos, graphics);
+
+			for (auto& elem : inputList) elem.update(input);
+			for (auto& elem : buttonList) elem.update(input);
+
+			Sleep(60);
+
+			for (auto& elem : inputList) elem.render();
+			for (auto& elem : buttonList) elem.render();
+			if (inBtn) graphics.hideCursor();
+			else graphics.showCursor();
+			graphics.color(0);
+			return !isOver;
+			});
+	}
+
+	void renderCaution() {
+		TextBox notice = TextBox(5, 12, 40, 3, false, 0, 12).setText("Do not leave empty");
+		notice.render();
+	}
+
+	void renderAccept() {
+		TextBox notice = TextBox(5, 12, 40, 3, false, 0, 10).setText("input successfully, loading ...");
+		notice.render();
+	}
+
+	sll<string> inputSemesterProc(bool& isCancel) {
+		sll<InputRow> inputList;
+		sll<Button> buttonList;
+		sll<pair<int, int> > pos;
+		sll<string> res;
+		bool isOver = false;
+
+		setupSemesterInputList(inputList, buttonList, pos);
+		setOnClickSubmitButton(buttonList[0], inputList, res, isOver);
+
+		renderInputSemesterProc(inputList, buttonList, pos, isOver);
+		isCancel = !isOver;
+		return res;
+	}
+
+	//--
+
+	void addSemesterToSchoolYear(string yearname) {
+		bool isCancel = false;
+		system("cls");
+		sll<string> res = inputSemesterProc(isCancel);
+
+		getSemesterList(yearname);
+
+		while (checkSemester(res[0]) && !isCancel) {
+			//cout << "Semester already there, input again: " << endl;
+			renderCaution();
+			res = inputSemesterProc(isCancel);
+		}
+		if (isCancel) return;
+		create_semester(yearname, res);
+		renderAccept();
+		Sleep(200);
 		return;
 	}
 };

@@ -29,10 +29,10 @@ public:
 		ifstream ifs;
 		ifs.open("Data/SchoolYear.txt");
 		string tmp;
-		getline(ifs, tmp);
+
 		while (!ifs.eof()) {
 			tmp = "";
-			ifs >> tmp;
+			getline(ifs, tmp);
 			if (tmp == "") break;
 			sc.yearList.push_back(tmp);
 		}
@@ -146,7 +146,7 @@ public:
 			if(res == "") renderCaution();
 			res = inputSchoolYearProc(cancel);
 		}
-
+		if (cancel) return;
 		sc.this_year = res;
 		sc.yearList.push_front(sc.this_year);
 		

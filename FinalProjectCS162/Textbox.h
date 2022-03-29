@@ -1,6 +1,9 @@
 #pragma once
 #include "Container.h"
 class TextBox : public Container {
+private:
+    bool numberMode;
+
 public:
 
     TextBox() : Container() {
@@ -10,6 +13,7 @@ public:
     TextBox(int x, int y, int width, int height, bool border = true, int idleBgColor = 0, int idleTextColor = 15, int idleBorderColor = 15)
         : Container(x, y, width, height, border, idleBgColor, idleTextColor, idleBorderColor) {
         txtEncoded = false;
+        numberMode = false;
     }
 
     COORD findTextEnding() {
@@ -78,6 +82,11 @@ public:
         return *this;
     }
 
+    TextBox& setNumberMode(bool isNumber) {
+        this->numberMode = isNumber;
+        return *this;
+    }
+
     void deleteText() {
         auto c = graphics->GetConsoleCursorPosition();
         int l = getInnerWidth() * (c.Y - cursor_y_min) + (c.X - cursor_x_min + 1) - 2;
@@ -143,6 +152,7 @@ public:
                 graphics.gotoXY(c.X, c.Y);*/
             }
             else if (input.first != -32) {
+                if (numberMode && (input.first > '9' || input.first < '0')) return;
                 addChar(input.second);
                 this->reRender = true;
             }

@@ -59,6 +59,16 @@ public:
         this->hover2Idle();
     }
 
+    void setDefaultType2() {
+        this->textBoxes.front().setIdleBgColor(HOVER_BG1);
+        this->textBoxes.front().setHoverBgColor(HOVER_BG1);
+        this->textBoxes.front().setIdleTextColor(IDLE_TEXT);
+        this->textBoxes.front().setHoverTextColor(IDLE_TEXT);
+        this->textBoxes.front().setIdleBorderColor(0);
+        this->textBoxes.front().setHoverBorderColor(0);
+        this->hover2Idle();
+    }
+
     bool checkMouseInsideContentBox() {
         return this->getContentBox().isMouseInContainer();
     }
