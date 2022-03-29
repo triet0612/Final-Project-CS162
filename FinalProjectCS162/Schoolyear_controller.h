@@ -209,8 +209,13 @@ public:
 	void viewSchoolYear() {
 		loadYearList();
 		int type = inputSchoolYearProc();
-		while (type == 1) {
-			createSchoolYear();
+		while (type != -1) {
+			if (type == 1) {
+				createSchoolYear();
+			}
+			else {
+				sc.semester_control.viewSemester(sc.yearList[type - 2]);
+			}
 			type = inputSchoolYearProc();
 		}
 	}
@@ -223,20 +228,10 @@ public:
 	}
 
 	void addSemesterToSchoolYear(string yearname) {
-		sc.semester_control.getSemesterList(yearname);
-		viewSemestersInYear();
-		string semestername;
-		cout << "Input semester: " << endl;
-		cin >> semestername;
-		while (!sc.semester_control.checkSemester(semestername)) {
-			cout << "Semester already there, input again: " << endl;
-			cin >> semestername;
-		}
-		sc.semester_control.create_semester(yearname, semestername);
-		return;
+		sc.semester_control.addSemesterToSchoolYear(yearname);
 	}
 	
 	void viewSemestersInYear() {
-		sc.semester_control.viewSemester();
+		//sc.semester_control.viewSemester();
 	}
 };
