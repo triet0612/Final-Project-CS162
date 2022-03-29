@@ -111,8 +111,7 @@ public:
 
         table.addTitleRow_back(30);
         table.getRow(0).addText("WHAT DO YOU WANT ?");
-        table.addRow_back("Create School Year");
-        table.addRow_back("Show All School Year");
+        table.addRow_back("School Year");
         table.addRow_back("View profile");
         table.addRow_back("Change password");
         table.addRow_back("Get me out the here");
@@ -363,15 +362,12 @@ public:
             option = inputTypeProc();
             switch (option) {
             case 1:
-                createSchoolYear();
-                break;
-            case 2:
                 showAllSchoolYears();
                 break;
-            case 3:
+            case 2:
                 viewProfileProc();
                 break;
-            case 4:
+            case 3:
                 changePassProc();
                 break;
             default:

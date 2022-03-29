@@ -49,7 +49,7 @@ public:
 		return;
 	}
 	
-	void getSemesterList(string yearname) {
+	void LoadSemesterList(string yearname) {
 		ifstream fin;
 		string path = "Data/" + yearname + "/semesters.txt";
 		fin.open(path);
@@ -126,7 +126,7 @@ public:
 	}
 	
 	void viewSemester(string yearname) {
-		getSemesterList(yearname);
+		LoadSemesterList(yearname);
 		int type = inputSemesterTableProc();
 		while (type != -1) {
 			if (type == 1){
@@ -138,7 +138,7 @@ public:
 	}
 	
 	semester& getSemester(string yearname, int num) {
-		getSemesterList(yearname);
+		LoadSemesterList(yearname);
 		semester ans;
 		for (auto i : semesterlist) {
 			if (i.semester_name == "s" + num) {
@@ -209,7 +209,7 @@ public:
 				res.push_back(elem.getContentBox().getText());
 				if (res.back() == "") flag = false;
 			}
-			if (!Date::isValidDay(stoi(res[1]), stoi(res[2]), stoi(res[3])) || !Date::isValidDay(stoi(res[4]), stoi(res[5]), stoi(res[6]))) flag = false;
+			if (flag && (!Date::isValidDay(stoi(res[1]), stoi(res[2]), stoi(res[3])) || !Date::isValidDay(stoi(res[4]), stoi(res[5]), stoi(res[6])))) flag = false;
 			if (!flag) renderCaution();
 			isOver = flag;
 			});
@@ -258,8 +258,8 @@ public:
 			});
 	}
 
-	void renderCaution() {
-		TextBox notice = TextBox(5, 12, 40, 3, false, 0, 12).setText("Do not leave empty");
+	void renderCaution(string s = "Invalid input") {
+		TextBox notice = TextBox(5, 12, 40, 3, false, 0, 12).setText(s);
 		notice.render();
 	}
 
@@ -290,11 +290,11 @@ public:
 		system("cls");
 		sll<string> res = inputSemesterProc(isCancel);
 
-		getSemesterList(yearname);
+		LoadSemesterList(yearname);
 
-		while (checkSemester(res[0]) && !isCancel) {
+		while (!isCancel && checkSemester(res[0])) {
 			//cout << "Semester already there, input again: " << endl;
-			renderCaution();
+			renderCaution("Already exist");
 			res = inputSemesterProc(isCancel);
 		}
 		if (isCancel) return;

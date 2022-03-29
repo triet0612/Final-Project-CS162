@@ -29,7 +29,7 @@ public:
 		ifstream ifs;
 		ifs.open("Data/SchoolYear.txt");
 		string tmp;
-
+		sc.yearList.clear();
 		while (!ifs.eof()) {
 			tmp = "";
 			getline(ifs, tmp);
@@ -223,7 +223,7 @@ public:
 	Schoolyear getSchoolYear(string name) {
 		loadYearList();
 		sc.this_year = name;
-		sc.semester_control.getSemesterList(sc.this_year);
+		sc.semester_control.LoadSemesterList(sc.this_year);
 		return sc;
 	}
 
