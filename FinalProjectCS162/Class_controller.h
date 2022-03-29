@@ -11,7 +11,7 @@ public:
 	SinglyLinkedList<Class> Classes;
 	void createClass(string year) {
 		ofstream fout;
-		fout.open('/' + year + "/class.txt");
+		fout.open("Data/" + year + "/class.txt");
 
 		string class_name;
 		cout << "Please input the classes you want to create one per each line" << endl;
@@ -41,7 +41,7 @@ public:
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
 		string temp;
-		fin.open('/' + yearname + "/class.txt");
+		fin.open("Data/" + yearname + "/class.txt");
 		while (!fin.eof()) {
 			fin >> temp;
 			Classes_name.push_back(temp);
@@ -57,7 +57,7 @@ public:
 	}
 	void viewScoreOfClass(Class c, Course co, string semesterName) {
 		ifstream fin;
-		fin.open('/' + c.year_name + '/' + semesterName + "/Mark/" + co.courseID + ".csv");
+		fin.open("Data/" + c.year_name + '/' + semesterName + "/Mark/" + co.courseID + ".csv");
 		string No, Student_ID, Name, Total_Mark, Final_Mark, Midtern_Mark, Orther_Mark;
 		while (getline(fin, No, ',')) {
 			getline(fin, Student_ID, ',');

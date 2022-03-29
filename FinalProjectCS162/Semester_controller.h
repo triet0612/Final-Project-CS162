@@ -75,7 +75,9 @@ public:
 		return;
 	}
 
-	int chooseSemester(Table& table) {
+	//--
+
+	int chooseOption(Table& table) {
 		ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
 		int type = -1;
 		graphics->loopBoolean([&](pair<int, int> input) {
@@ -100,7 +102,7 @@ public:
 		return type;
 	};
 
-	void setupSchoolYearTable(Table& table) {
+	void setupSemestersTable(Table& table) {
 		system("cls");
 		table = Table(0, 0, 5);
 
@@ -120,33 +122,24 @@ public:
 	int inputSemesterTableProc() {
 		int type = 0;
 		Table table;
-		setupSchoolYearTable(table);
-		table.update({ -32, 0 }, [&](Table& table) {type = chooseSemester(table); });
+		setupSemestersTable(table);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
 		return type;
 	}
 	
-	void viewSemester(string yearname) {
+	void viewSemesters(string yearname) {
 		LoadSemesterList(yearname);
 		int type = inputSemesterTableProc();
 		while (type != -1) {
 			if (type == 1){
 				addSemesterToSchoolYear(yearname);
 			}
+			else {
+				viewSemesterInfoTable(type - 2, yearname);
+			}
 			type = inputSemesterTableProc();
 		}
 		return;
-	}
-	
-	semester& getSemester(string yearname, int num) {
-		LoadSemesterList(yearname);
-		semester ans;
-		for (auto i : semesterlist) {
-			if (i.semester_name == "s" + num) {
-				ans = i;
-				break;
-			}
-		}
-		return ans;
 	}
 	
 	void createCourseReg(semester& s, string yearname) {
@@ -284,7 +277,6 @@ public:
 	}
 
 	//--
-
 	void addSemesterToSchoolYear(string yearname) {
 		bool isCancel = false;
 		system("cls");
@@ -303,4 +295,36 @@ public:
 		Sleep(200);
 		return;
 	}
+
+	//--
+	void setupSemesterInfoTable(Table& table, int id, string yearname) {
+		system("cls");
+		table = Table(0, 0, 3);
+
+		table.addTitleRow_back(30);
+		table.getRow(0).addText((string)" SEMESTER " + to_string(id + 1) + " Of " + yearname);
+
+		table.addRow_back("Start: " + semesterlist[id].startdate.convert2String());
+		table.addRow_back("End: " + semesterlist[id].endate.convert2String());
+
+		table.setDefaultType();
+		table.render();
+
+	}
+
+	void SemesterInfoTableProc(int id, string yearname) {
+		Table table;
+		setupSemesterInfoTable(table, id, yearname);
+	}
+
+	void viewSemesterInfoTable(int id, string yearname) {
+		system("cls");
+		SemesterInfoTableProc(id, yearname);
+		Sleep(2000);
+		return;
+	}
+
+	//--
+
+
 };

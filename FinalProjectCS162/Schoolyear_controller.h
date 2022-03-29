@@ -150,7 +150,7 @@ public:
 		sc.this_year = res;
 		sc.yearList.push_front(sc.this_year);
 		
-		int check = _mkdir(('/' + sc.this_year).c_str());
+		int check = _mkdir(("Data/" + sc.this_year).c_str());
 		renderAccept();
 		Sleep(100);
 		saveYearList();
@@ -214,7 +214,7 @@ public:
 				createSchoolYear();
 			}
 			else {
-				sc.semester_control.viewSemester(sc.yearList[type - 2]);
+				sc.semester_control.viewSemesters(sc.yearList[type - 2]);
 			}
 			type = inputSchoolYearProc();
 		}
