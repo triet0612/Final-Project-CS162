@@ -1,5 +1,6 @@
 #pragma once
 #include "Schoolyear.h"
+#include "Class_controller.h"
 
 class Schoolyear_controller {
 private:
@@ -11,7 +12,7 @@ private:
 		}
 		return false;
 	}
-	
+	Class_controller classes;
 public:
 	Schoolyear sc;
 
@@ -156,7 +157,7 @@ public:
 		saveYearList();
 	}
 	
-	int chooseSchoolYear(Table& table) {
+	int chooseOption(Table& table) {
 		ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
 		int type = -1;
 		graphics->loopBoolean([&](pair<int, int> input) {
@@ -181,7 +182,7 @@ public:
 		return type;
 	};
 
-	void setupSchoolYearTable(Table& table) {
+	void setupSchoolYearsTable(Table& table) {
 		system("cls");
 		table = Table(0, 0, 10);
 
@@ -201,8 +202,8 @@ public:
 	int inputSchoolYearProc() {
 		int type = 0;
 		Table table;
-		setupSchoolYearTable(table);
-		table.update({ -32, 0 }, [&](Table& table) {type = chooseSchoolYear(table); });
+		setupSchoolYearsTable(table);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
 		return type;
 	}
 
@@ -214,7 +215,7 @@ public:
 				createSchoolYear();
 			}
 			else {
-				sc.semester_control.viewSemesters(sc.yearList[type - 2]);
+				schoolYearOptions(sc.yearList[type - 2]);
 			}
 			type = inputSchoolYearProc();
 		}
@@ -234,4 +235,44 @@ public:
 	void viewSemestersInYear() {
 		//sc.semester_control.viewSemester();
 	}
+
+	//--
+
+	void setupSchoolYearOptionsTable(Table& table, string yearname) {
+		system("cls");
+		table = Table(0, 0, 10);
+
+		table.addTitleRow_back(30);
+		table.getRow(0).addText(yearname);
+		table.addRow_back((string)"View Semesters");
+		table.addRow_back((string)"View 1st year Classes");
+
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int inputSchoolYearOptionProc(string yearname) {
+		int type = 0;
+		Table table;
+		setupSchoolYearOptionsTable(table, yearname);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void schoolYearOptions(string yearname) {
+		int type = inputSchoolYearOptionProc(yearname);
+		while (type != -1) {
+			switch (type)
+			{
+			case 1: sc.semester_control.viewSemesters(yearname); break;
+			case 2: classes.viewClasses(yearname); break;
+			default:
+				break;
+			}
+			type = inputSchoolYearOptionProc(yearname);
+		}
+	}
+
 };
