@@ -83,4 +83,5 @@ public:
 	void updateInformation();
 	bool writeFile(const string& path) const;
 	bool checkSessionsConflicted(const bool *enrolled) const;
+	Course& getCourse(const string& courseID);
 };

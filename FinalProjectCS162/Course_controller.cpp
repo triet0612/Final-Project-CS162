@@ -313,10 +313,12 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 			continue;
 		}
 		if (option == 1) {
+			/*
 			if ((this->courses).checkSessionsConflicted(status)) {
-				cout << "Warning: There might be two courses whose sessions conflicted\n";
+				cout << "Warning: There might be two courses whose sessions are conflicted\n";
 				system("pause");
 			}
+			*/
 			break;
 		}
 		cout << "Please enter course id: ";
@@ -338,13 +340,18 @@ void Course_controller::changeEnrolledCourses(const int studentID) {
 		}
 		if (option == 2) {
 			if (status[id]) {
-				cout << "Course has already been in your enrolled course list\n";
+				cout << "The course has already been in your enrolled course list\n";
 			} else if (numberOfStudents[id] >= (this->courses)[id].maximumStudent) {
 				cout << "The allowed number of students in this course is maximum\n";
 			} else {
-				cout << "Register sucessfully\n";
 				status[id] = true;
-				++numberOfStudents[id];
+				if ((this->courses).checkSessionsConflicted(status)) {
+					cout << "Register unsucessfully because the sessions of the course are conflicted with existing enrolled course sessions\n";
+					status[id] = false;
+				} else {
+					cout << "Register sucessfully\n";
+					++numberOfStudents[id];
+				}
 			}
 			system("pause");
 		} else { // if (option == 3)

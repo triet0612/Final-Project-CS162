@@ -169,3 +169,9 @@ bool CoursesList::checkSessionsConflicted(const bool* enrolled) const {
 						return true;
 	return false;
 };
+
+Course& CoursesList::getCourse(const string& courseID) {
+	for (Course& course : (*this))
+		if (course.courseID == courseID)
+			return course;
+};
