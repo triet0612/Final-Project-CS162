@@ -74,6 +74,7 @@ public:
 			}
 			else {
 				//schoolYearOptions(sc.yearList[type - 2]);
+				classes[type - 2].viewStu(yearname, classes[type - 2].class_name);
 			}
 			type = inputClassesProc();
 		}
@@ -208,7 +209,7 @@ public:
 	//load student data of classes
 	void loadClasses(string yearname) {
 		classes.clear();
-		SinglyLinkedList<string> classname = Get_Classes(yearname);
+		SinglyLinkedList<string> classname = getClasses(yearname);
 		for (auto i : classname) {
 			Class c_temp;
 			c_temp.addStuByCSV(yearname, i);
@@ -217,7 +218,7 @@ public:
 		return;
 	}
 	//load class name list from /yearname/class.txt
-	SinglyLinkedList<string> Get_Classes(string yearname) {
+	SinglyLinkedList<string> getClasses(string yearname) {
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
 		string temp;
