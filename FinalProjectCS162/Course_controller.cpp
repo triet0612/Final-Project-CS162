@@ -15,7 +15,7 @@ using namespace std;
 
 Course_controller::Course_controller() {};
 
-void Course_controller::createCourses(const string& yearName, const string& semesterName) {
+void Course_controller::loadCourses(const string& yearName, const string& semesterName) {
 	(this->yearName) = yearName;
 	(this->semesterName) = semesterName;
 	if (!(this->courses).readFile("Data/" + yearName + "/" + semesterName + "/Courses.csv"))

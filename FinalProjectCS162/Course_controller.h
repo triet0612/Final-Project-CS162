@@ -22,7 +22,7 @@ public:
 	CoursesList courses;
 	Course_controller();
 	
-	void createCourses(const string& yearName, const string& semesterName);
+	void loadCourses(const string& yearName, const string& semesterName);
 	void viewListOfCourses(string yearname, string semester);
 	bool containsCourse(const string& courseID) const;
 	bool viewScore(const string& courseID) const;
