@@ -22,8 +22,9 @@ void Course_controller::createCourses(const string& yearName, const string& seme
 		cerr << "There was error in reading data\n";
 };
 
-void Course_controller::viewListOfCourses() {
-	(this->courses).displayListOfCourses();
+void Course_controller::viewListOfCourses(string yearname, string semester) {
+	//(this->courses).displayListOfCourses();
+	(this->courses).viewCourses(yearname, semester);
 }
 
 bool Course_controller::containsCourse(const string& courseID) const {

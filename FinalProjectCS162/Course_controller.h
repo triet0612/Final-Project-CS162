@@ -23,7 +23,7 @@ public:
 	Course_controller();
 	
 	void createCourses(const string& yearName, const string& semesterName);
-	void viewListOfCourses();
+	void viewListOfCourses(string yearname, string semester);
 	bool containsCourse(const string& courseID) const;
 	bool viewScore(const string& courseID) const;
 	void updateScore(const string& courseID, const int studentID);

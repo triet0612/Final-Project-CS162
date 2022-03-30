@@ -135,7 +135,7 @@ public:
 				addSemesterToSchoolYear(yearname);
 			}
 			else {
-				viewSemesterInfoTable(type - 2, yearname);
+				viewSemesterOptions(type - 2, yearname);
 			}
 			type = inputSemesterTableProc();
 		}
@@ -145,10 +145,6 @@ public:
 	void createCourseReg(semester& s, string yearname) {
 		s.course_reg.changeDates();
 		return;
-	}
-	
-	void viewCourse(semester& s) {
-		s.course.viewListOfCourses();
 	}
 
 	//--
@@ -312,19 +308,57 @@ public:
 
 	}
 
-	void SemesterInfoTableProc(int id, string yearname) {
+	void semesterInfoTableProc(int id, string yearname) {
 		Table table;
 		setupSemesterInfoTable(table, id, yearname);
 	}
 
 	void viewSemesterInfoTable(int id, string yearname) {
 		system("cls");
-		SemesterInfoTableProc(id, yearname);
-		Sleep(2000);
+		semesterInfoTableProc(id, yearname);
 		return;
 	}
 
 	//--
+
+	void setupSemesterOptionsTable(Table& table) {
+		table = Table(0, 7, 5);
+
+		table.addTitleRow_back(40);
+		table.getRow(0).addText((string)" OPTIONS");
+		table.addRow_back("Create course registration");
+		table.addRow_back("View courses");
+
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int inputSemesterOptionTableProc() {
+		int type = 0;
+		Table table;
+		setupSemesterOptionsTable(table);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void viewSemesterOptions(int id, string yearname) {
+		viewSemesterInfoTable(id, yearname);
+		int type = inputSemesterOptionTableProc();
+		while (type != -1) {
+			if (type == 1) {
+				//addSemesterToSchoolYear(yearname);
+				
+			}
+			else {
+				//viewSemesterInfoTable(id, yearname);
+				semesterlist[id].course.viewListOfCourses(yearname, "s" + to_string(id + 1));
+			}
+			type = inputSemesterOptionTableProc();
+		}
+		return;
+	}
 
 
 };

@@ -127,6 +127,7 @@ void CoursesList::updateInformation() {
 
 bool CoursesList::readFile(const string& path) {
 	ifstream finput(path);
+	this->clear();
 	if (finput) {
 		Course course;
 		finput.ignore(5000, '\n'); //ignore first line
