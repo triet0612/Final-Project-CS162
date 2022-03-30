@@ -34,6 +34,9 @@
     <Filter Include="Main">
       <UniqueIdentifier>{fa842d06-04ad-488d-9a50-372df7bea718}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Courses Supporters">
+      <UniqueIdentifier>{c1087feb-13ca-4f39-b0e5-4c5db8d29306}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class.h">
@@ -108,20 +111,20 @@
     <ClInclude Include="LogRegHandler.h">
       <Filter>Handlers</Filter>
     </ClInclude>
-    <ClInclude Include="CourseSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CourseRegistration.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CoursesList.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Schoolyear_controller.h">
       <Filter>Objects Controllers</Filter>
     </ClInclude>
     <ClInclude Include="Schoolyear.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseRegistration.h">
+      <Filter>Courses Supporters</Filter>
+    </ClInclude>
+    <ClInclude Include="CoursesList.h">
+      <Filter>Courses Supporters</Filter>
+    </ClInclude>
+    <ClInclude Include="CourseSystem.h">
+      <Filter>Handlers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -197,17 +200,17 @@
     <ClCompile Include="LogRegHandler.cpp">
       <Filter>Handlers</Filter>
     </ClCompile>
-    <ClCompile Include="CourseSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="FinalProjectCS162.cpp">
       <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="CourseRegistration.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Courses Supporters</Filter>
     </ClCompile>
     <ClCompile Include="CoursesList.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Courses Supporters</Filter>
+    </ClCompile>
+    <ClCompile Include="CourseSystem.cpp">
+      <Filter>Handlers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
