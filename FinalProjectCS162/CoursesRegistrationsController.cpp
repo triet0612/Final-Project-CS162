@@ -49,13 +49,11 @@ bool CoursesRegistrationsController::writeData() const {
 	return this->writeDataToFile("Data/" + (this->yearName) + "/" + (this->semesterName) + "/coursesRegistrationsDates.txt");
 };
 
-/*
 CourseRegistration& CoursesRegistrationsController::getCourseRegistration(const string& courseID) {
 	for (CourseRegistration& courseRegistration : (this->coursesRegistrations))
 		if (courseRegistration.getCourseID() == courseID)
 			return courseRegistration;
 };
-*/
 
 void CoursesRegistrationsController::createCoursesRegistration(const string& yearName, const string& semesterName) {
 	(this->yearName) = yearName;
@@ -91,4 +89,41 @@ void CoursesRegistrationsController::displayCoursesRegistrationTable() const {
 			 << '\n';
 	}
 	cout << string(totalLength, '-') << '\n';
+};
+
+bool CoursesRegistrationsController::containsCourseRegistration(const string& courseID) {
+	for (const CourseRegistration& courseRegistration : (this->coursesRegistrations))
+		if (courseRegistration.getCourseID() == courseID)
+			return true;
+	return false;
+};
+
+void CoursesRegistrationsController::changeDates() {
+	int option = 0;
+	string courseID;
+	while (option != 1) {
+		system("cls");
+		this->displayCoursesRegistrationTable();
+		cout << "1. Stop updating dates of courses registrations sessions\n"
+			 << "2. Update dates of registrion sessions of a course\n"
+			 << "Please enter your option: ";
+		if (!readInteger(option) || option < 1 || option > 2) {
+			cout << "Invalid option\nPlease enter again\n";
+			system("pause");
+			continue;
+		}
+		if (option == 1)
+			break;
+		else {// if (option == 2)
+			cout << "Please enter course ID: ";
+			getline(cin, courseID);
+			if (this->containsCourseRegistration(courseID)) 
+				(this->getCourseRegistration(courseID)).changeDates();
+			else {
+				cout << "There was no course with course ID " << courseID << '\n';
+				system("pause");
+			}
+		}
+	}
+	this->writeData();
 };

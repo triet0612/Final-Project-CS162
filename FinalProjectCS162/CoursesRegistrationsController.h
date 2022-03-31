@@ -9,6 +9,9 @@ using namespace std;
 #include "CourseRegistration.h"
 
 class CoursesRegistrationsController {
+private:
+	CourseRegistration& getCourseRegistration(const string& courseID);
+	bool containsCourseRegistration(const string& courseID);
 public:
 	SinglyLinkedList<CourseRegistration> coursesRegistrations;
 	string yearName, semesterName;
@@ -19,6 +22,6 @@ public:
 	bool loadDataFromFile(const string& path);
 	bool writeData() const;
 	bool writeDataToFile(const string& path) const;
-	//CourseRegistration& getCourseRegistration(const string& courseID);
 	void displayCoursesRegistrationTable() const;
+	void changeDates();
 };
