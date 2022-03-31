@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <fstream>
 
 using namespace std;
 
@@ -80,4 +81,8 @@ int getMinutes(const string& t) {
 	s >> minutes;
 	(result *= 60) += minutes;
 	return result;
+};
+
+void printDates(ofstream& foutput, const Date& date, const string& s) {
+	foutput << date.getDay() << s << date.getMonth() << s << date.getYear();
 };

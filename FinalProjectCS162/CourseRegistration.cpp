@@ -56,7 +56,7 @@ bool CourseRegistration::checkRegistrationDates() const {
 	return (this->startDate) <= today && today <= (this->endDate);
 };
 
-bool CourseRegistration::writeDatesToFile() {
+bool CourseRegistration::writeDataToFile() {
 	ifstream finput("Data/" + (this->yearName) + "/" + semesterName + "/coursesRegistrationsDates.txt");
 	if (finput) {
 		bool flag = false;
@@ -136,5 +136,9 @@ void CourseRegistration::changeDates() {
 			system("pause");
 		}
 	}
-	this->writeDatesToFile();
+	this->writeDataToFile();
+};
+
+string CourseRegistration::getCourseID() const {
+	return this->courseID;
 };

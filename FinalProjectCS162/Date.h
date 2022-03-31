@@ -20,9 +20,9 @@ public:
     void setMonth(int m);
     void setYear(int y);
 
-    int getDay();
-    int getMonth();
-    int getYear();
+    int getDay() const;
+    int getMonth() const;
+    int getYear() const;
     int getAge();
 
     static bool isLeapYear(int year) {

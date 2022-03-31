@@ -126,6 +126,9 @@
     <ClInclude Include="CourseSystem.h">
       <Filter>Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="CoursesRegistrationsController.h">
+      <Filter>Courses Supporters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="CourseSystem.cpp">
       <Filter>Handlers</Filter>
+    </ClCompile>
+    <ClCompile Include="CoursesRegistrationsController.cpp">
+      <Filter>Courses Supporters</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
