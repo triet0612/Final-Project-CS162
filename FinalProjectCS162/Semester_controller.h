@@ -39,7 +39,7 @@ public:
 
 	void create_semester(string yearname, sll<string> data) {
 
-		semester s(data[0], Date(stoi(data[1]), stoi(data[2]), stoi(data[3])), Date(stoi(data[4]), stoi(data[5]), stoi(data[6])));
+		semester s(data[0], yearname, Date(stoi(data[1]), stoi(data[2]), stoi(data[3])), Date(stoi(data[4]), stoi(data[5]), stoi(data[6])));
 		semesterlist.push_back(s);
 		cur_semester = s;
 		int checker = _mkdir(("Data/" + yearname + '/' + data[0]).c_str());
@@ -49,7 +49,7 @@ public:
 		return;
 	}
 	
-	void LoadSemesterList(string yearname) {
+	void loadSemesterList(string yearname) {
 		ifstream fin;
 		string path = "Data/" + yearname + "/semesters.txt";
 		fin.open(path);
@@ -67,7 +67,7 @@ public:
 			if (temp2 == "" || temp3 == "") break;
 			d1 = temp2;
 			d2 = temp3;
-			semester t(temp1, d1, d2);
+			semester t(temp1, yearname, d1, d2);
 			semesterlist.push_back(t);
 		}
 		fin.close();
@@ -128,7 +128,7 @@ public:
 	}
 	
 	void viewSemesters(string yearname) {
-		LoadSemesterList(yearname);
+		loadSemesterList(yearname);
 		int type = inputSemesterTableProc();
 		while (type != -1) {
 			if (type == 1){
@@ -142,8 +142,9 @@ public:
 		return;
 	}
 	
-	void createCourseReg(semester& s, string yearname) {
-		s.course_reg.changeDates();
+	void createCourseReg(semester& s) {
+		s.initCourseReg();
+		s.course_reg.changeRegCourseDates();
 		return;
 	}
 
@@ -278,7 +279,7 @@ public:
 		system("cls");
 		sll<string> res = inputSemesterProc(isCancel);
 
-		LoadSemesterList(yearname);
+		loadSemesterList(yearname);
 
 		while (!isCancel && checkSemester(res[0])) {
 			//cout << "Semester already there, input again: " << endl;
@@ -348,11 +349,11 @@ public:
 		int type = inputSemesterOptionTableProc();
 		while (type != -1) {
 			if (type == 1) {
-				//addSemesterToSchoolYear(yearname);
+				createCourseReg(semesterlist[id]);
 				
 			}
 			else {
-				semesterlist[id].course.viewListOfCourses(yearname, "s" + to_string(id + 1));
+				semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
 			}
 			viewSemesterInfoTable(id, yearname);
 			type = inputSemesterOptionTableProc();

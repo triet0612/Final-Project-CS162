@@ -1,14 +1,23 @@
 #pragma once
-
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include <cmath>
+#include <iomanip>
+#include <sstream>
+#include <direct.h>
 #include <string>
 
-using namespace std;
+#include "helper.h"
+#include "StudentScore.h"
 
 #include "SinglyLinkedList.h"
 #include "Course.h"
 #include "StudentScore.h"
 #include "CourseRegistration.h"
 #include "CoursesList.h"
+using namespace std;
+
 
 class Course_controller {
 private:
@@ -21,6 +30,10 @@ public:
 	string yearName, semesterName;
 	CoursesList courses;
 	Course_controller();
+	Course_controller(string yearname, string semesterName) {
+		this->yearName = yearName;
+		this->semesterName = semesterName;
+	}
 	
 	void loadCourses(const string& yearName, const string& semesterName);
 	void viewListOfCourses(string yearname, string semester);

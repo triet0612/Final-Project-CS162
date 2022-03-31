@@ -224,7 +224,7 @@ public:
 	Schoolyear getSchoolYear(string name) {
 		loadYearList();
 		sc.this_year = name;
-		sc.semester_control.LoadSemesterList(sc.this_year);
+		sc.semester_control.loadSemesterList(sc.this_year);
 		return sc;
 	}
 

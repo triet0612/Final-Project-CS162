@@ -1,17 +1,5 @@
-#include <iostream>
-#include <fstream>
-#include <cstring>
-#include <cmath>
-#include <iomanip>
-#include <sstream>
-#include <direct.h>
-
-using namespace std;
-
 #include "Course_controller.h"
-#include "helper.h"
-#include "StudentScore.h"
-#include "CourseRegistration.h"
+
 
 Course_controller::Course_controller() {};
 
