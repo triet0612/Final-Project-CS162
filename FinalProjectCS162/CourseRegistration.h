@@ -38,6 +38,7 @@ public:
 	}
 
 	void createRegistration(const string yearName, const string semesterName, const string courseID);
+	void createRegistration(const string yearName, const string semesterName);
 	Date getStartDate() const;
 	Date getEndDate() const;
 	string getCourseID() const;

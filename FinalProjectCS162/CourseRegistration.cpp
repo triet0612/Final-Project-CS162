@@ -6,7 +6,7 @@ void CourseRegistration::createRegistration(const string yearName, const string 
 	(this->courseID) = courseID;
 };
 
-void CourseRegistration::createRegistration(const string& yearName, const string& semesterName) {
+void CourseRegistration::createRegistration(const string yearName, const string semesterName) {
 	(this->yearName) = yearName;
 	(this->semesterName) = semesterName;
 	//courseID should be assigned later
@@ -18,7 +18,12 @@ Date CourseRegistration::getStartDate() const {
 
 Date CourseRegistration::getEndDate() const {
 	return this->endDate;
-};
+}
+string CourseRegistration::getCourseID() const
+{
+	return string();
+}
+;
 
 bool CourseRegistration::loadDates() {
 	/*

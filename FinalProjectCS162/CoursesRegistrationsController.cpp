@@ -117,8 +117,9 @@ void CoursesRegistrationsController::changeDates() {
 		else {// if (option == 2)
 			cout << "Please enter course ID: ";
 			getline(cin, courseID);
-			if (this->containsCourseRegistration(courseID)) 
-				(this->getCourseRegistration(courseID)).changeDates();
+			if (this->containsCourseRegistration(courseID)) {
+				//(this->getCourseRegistration(courseID)).changeDates();
+			}
 			else {
 				cout << "There was no course with course ID " << courseID << '\n';
 				system("pause");
