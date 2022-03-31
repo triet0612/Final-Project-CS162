@@ -12,5 +12,7 @@ class CoursesRegistrationsController {
 public:
 	SinglyLinkedList<CourseRegistration> coursesRegistrations;
 	CoursesRegistrationsController();
+
+	bool loadDataFromFile(const string& path);
 	bool writeDataToFile(const string& path) const;
 };

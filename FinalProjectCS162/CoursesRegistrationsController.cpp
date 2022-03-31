@@ -24,3 +24,16 @@ bool CoursesRegistrationsController::writeDataToFile(const string& path) const {
 	foutput.close();
 	return false;
 };
+
+bool CoursesRegistrationsController::loadDataFromFile(const string& path) {
+	ifstream finput(path);
+	if (finput) {
+		CourseRegistration courseRegistration;
+		while (courseRegistration.loadData(finput))
+			(this->coursesRegistrations).push_back(courseRegistration);
+		finput.close();
+		return true;
+	}
+	finput.close();
+	return false;
+};

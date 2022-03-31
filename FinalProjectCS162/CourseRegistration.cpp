@@ -48,6 +48,19 @@ bool CourseRegistration::loadDates() {
 	return false;
 };
 
+bool CourseRegistration::loadData(ifstream& finput) {
+	string id;
+	int day, month, year;
+	if (finput >> id) {
+		(this->courseID) = id;
+		finput >> day >> month >> year;
+		(this->startDate).setDate(day, month, year);
+		finput >> day >> month >> year;
+		(this->endDate).setDate(day, month, year);
+	}
+	return false;
+};
+
 bool CourseRegistration::checkRegistrationDates() const {
 	/*
 		return true if student can enroll in course and false otherwise

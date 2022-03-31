@@ -2,6 +2,7 @@
 
 #include <string>
 #include <cstring>
+#include <fstream>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ public:
 	Date getEndDate() const;
 	string getCourseID() const;
 	bool loadDates();
+	bool loadData(ifstream& finput);
 	bool checkRegistrationDates() const;
 	void changeDates();
 };
