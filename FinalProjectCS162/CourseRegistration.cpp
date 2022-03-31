@@ -14,6 +14,12 @@ void CourseRegistration::createRegistration(const string& yearName, const string
 	(this->courseID) = courseID;
 };
 
+void CourseRegistration::createRegistration(const string& yearName, const string& semesterName) {
+	(this->yearName) = yearName;
+	(this->semesterName) = semesterName;
+	//courseID should be assigned later
+};
+
 Date CourseRegistration::getStartDate() const {
 	return this->startDate;
 };
@@ -57,6 +63,7 @@ bool CourseRegistration::loadData(ifstream& finput) {
 		(this->startDate).setDate(day, month, year);
 		finput >> day >> month >> year;
 		(this->endDate).setDate(day, month, year);
+		return true;
 	}
 	return false;
 };
