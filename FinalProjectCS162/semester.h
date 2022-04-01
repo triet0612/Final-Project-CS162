@@ -6,12 +6,13 @@ using namespace std;
 
 #include "Date.h"
 #include "Course_controller.h"
+#include "CoursesRegistrationsController.h"
 
 class semester
 {
 public:
 	Course_controller courses;
-	CourseRegistration course_reg;
+	CoursesRegistrationsController courseRegs;
 	string semester_name;
 	string yearname;
 	Date startdate;
@@ -23,10 +24,9 @@ public:
 		endate = e;
 		this->yearname = yearname;
 		this->courses = Course_controller(yearname, semester_name);
+		this->courseRegs = CoursesRegistrationsController(yearname, semester_name);
+		//this->courseRegs;
 	};
 
-	void initCourseReg() {
-		course_reg = CourseRegistration(this->yearname, this->semester_name, "");
-	}
 
 };

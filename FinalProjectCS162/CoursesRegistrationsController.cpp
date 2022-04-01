@@ -10,20 +10,17 @@ using namespace std;
 CoursesRegistrationsController::CoursesRegistrationsController() {};
 
 bool CoursesRegistrationsController::writeDataToFile(const string& path) const {
-	ofstream foutput(path + "/coursesRegistrationsDates.txt");
-	if (foutput) {
-		for (const CourseRegistration& courseRegistration : (this->coursesRegistrations)) {
-			foutput << courseRegistration.getCourseID() << '\n';
-			printDates(foutput, courseRegistration.getStartDate(), " ");
-			cout << " ";
-			printDates(foutput, courseRegistration.getEndDate(), " ");
-			cout << '\n';
-		}
-		foutput.close();
-		return true;
+	ofstream foutput;
+	foutput.open(path);
+	for (const CourseRegistration& courseRegistration : (this->coursesRegistrations)) {
+		foutput << courseRegistration.getCourseID() << '\n';
+		printDates(foutput, courseRegistration.getStartDate(), " ");
+		foutput << " ";
+		printDates(foutput, courseRegistration.getEndDate(), " ");
+		foutput << '\n';
 	}
 	foutput.close();
-	return false;
+	return true;
 };
 
 bool CoursesRegistrationsController::loadDataFromFile(const string& path) {
@@ -60,7 +57,9 @@ void CoursesRegistrationsController::createCoursesRegistration(const string& yea
 	(this->semesterName) = semesterName;
 };
 
-void CoursesRegistrationsController::displayCoursesRegistrationTable() const {
+void CoursesRegistrationsController::displayCoursesRegistrationTable() {
+	viewCourseRegTable();
+
 	int courseID_length = strlen("Course ID"),
 		startDate_length = strlen("Start date"),
 		endDate_length = strlen("End date"),

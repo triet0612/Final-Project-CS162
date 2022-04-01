@@ -11,6 +11,10 @@ private:
 	struct CourseStudent {
 		string no, ID, lastname, firstname;
 	};
+	struct ScoreStudent {
+		string no, ID, name;
+		string totScore, FinScore, midScore, otherScore;
+	};
 public:
 	sll<CourseStudent> students;
 	int number, credits, maximumStudent;
@@ -23,11 +27,12 @@ public:
 	bool checkConflicted(const Course& course) const;
 	pair<string, pair<int, int> > getDaySession1() const;
 	pair<string, pair<int, int> > getDaySession2() const;
-	void getCourseInformation();
+	sll<CourseStudent> students;
+	sll<ScoreStudent> scoreStudents;
 
 	void getCourseStudents(string yearname, string semester) {
 		string tmp;
-		ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID +".csv");
+		ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID + ".csv");
 		if (!ifs.is_open()) return;
 		getline(ifs, tmp);
 		while (!ifs.eof()) {
@@ -43,6 +48,35 @@ public:
 			getline(ifs, tmp);
 			stu.firstname = tmp;
 			students.push_back(stu);
+		}
+
+		ifs.close();
+	};
+
+	void getScoreCourseStudents(string yearname, string semester) {
+		string tmp;
+		ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Mark" + '/' + courseID + ".csv");
+		if (!ifs.is_open()) return;
+		getline(ifs, tmp);
+		while (!ifs.eof()) {
+			ScoreStudent stu;
+			tmp = "";
+			getline(ifs, tmp, ',');
+			if (tmp == "") return;
+			stu.no = tmp;
+			getline(ifs, tmp, ',');
+			stu.ID = tmp;
+			getline(ifs, tmp, ',');
+			stu.name = tmp;
+			getline(ifs, tmp, ',');
+			stu.totScore = tmp;
+			getline(ifs, tmp, ',');
+			stu.FinScore = tmp;
+			getline(ifs, tmp, ',');
+			stu.midScore = tmp;
+			getline(ifs, tmp);
+			stu.otherScore = tmp;
+			scoreStudents.push_back(stu);
 		}
 
 		ifs.close();

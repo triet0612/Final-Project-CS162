@@ -89,12 +89,15 @@ public:
 		string courseID = this->courses[id].courseID;
 		int type = inputCourseOptionTableProc(courseID, id);
 		while (type != -1) {
-			if (type == 1) {
-				viewStu(yearname, semester, id);
-
-			}
-			else {
-				//semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
+			switch (type)
+			{
+			case 1:
+				viewStu(yearname, semester, id); break;
+			case 2: break;
+			case 3: 
+				viewScoreStu(yearName, semester, id); break;
+			default:
+				break;
 			}
 			type = inputCourseOptionTableProc(courseID, id);
 		}
@@ -141,6 +144,46 @@ public:
 
 	void viewListOfCourses(string yearname, string semester);
 	bool containsCourse(const string& courseID) const;
+
+	//--
+	void setupScoreCourseStudentsTable(Table& table, int id) {
+		system("cls");
+		table = Table(0, 0, 30);
+
+		table.addTitleRow_back(12, 16, 14, 18, 18, 14, 18);
+		table.getRow(0).addText((string)"No", (string)"ID", (string)"Name", (string)"Total Score", (string)"Final Score", (string)"Midterm", (string)"Other Score");
+		if (courses[id].scoreStudents.size() == 0) {
+			table.addRow_back("Empty");
+		}
+		for (auto i : courses[id].scoreStudents) {
+			table.addRow_back(i.no, i.ID, i.name, i.totScore, i.FinScore, i.midScore, i.otherScore);
+		}
+
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int getScoreCourseStudentFromTableProc(int id) {
+		int type = 0;
+		Table table;
+		setupScoreCourseStudentsTable(table, id);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void viewScoreStu(string yearname, string semester, int id) {
+
+		courses[id].getScoreCourseStudents(yearname, semester);
+		int type = getScoreCourseStudentFromTableProc(id);
+
+		while (type != -1) {
+
+			type = getScoreCourseStudentFromTableProc(id);
+		}
+	}
+
 	bool viewScore(const string& courseID) const;
 	void updateScore(const string& courseID, const int studentID);
 	void addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses);

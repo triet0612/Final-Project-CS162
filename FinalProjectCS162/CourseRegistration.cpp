@@ -21,7 +21,7 @@ Date CourseRegistration::getEndDate() const {
 }
 string CourseRegistration::getCourseID() const
 {
-	return string();
+	return this->courseID;
 }
 ;
 
@@ -102,9 +102,9 @@ bool CourseRegistration::writeDataToFile() {
 	return false;
 };
 
-void CourseRegistration::changeRegCourseDates() {
+void CourseRegistration::ModifyRegCourseDates() {
 
-	this->changeDatesReg();
+	//this->changeDatesReg();
 
 
 	//int option = 0, day, month, year;

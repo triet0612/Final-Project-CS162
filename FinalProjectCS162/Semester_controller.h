@@ -142,8 +142,8 @@ public:
 	}
 	
 	void createCourseReg(semester& s) {
-		s.initCourseReg();
-		s.course_reg.changeRegCourseDates();
+		s.courseRegs.modifyDatesReg();
+		//s.course_reg.ModifyRegCourseDates();
 		return;
 	}
 
@@ -348,7 +348,8 @@ public:
 		int type = inputSemesterOptionTableProc();
 		while (type != -1) {
 			if (type == 1) {
-				createCourseReg(semesterlist[id]);
+				semesterlist[id].courseRegs.displayCoursesRegistrationTable();
+				//createCourseReg(semesterlist[id]);
 				
 			}
 			else {
