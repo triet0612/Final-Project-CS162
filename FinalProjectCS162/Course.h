@@ -27,7 +27,6 @@ public:
 	bool checkConflicted(const Course& course) const;
 	pair<string, pair<int, int> > getDaySession1() const;
 	pair<string, pair<int, int> > getDaySession2() const;
-	sll<CourseStudent> students;
 	sll<ScoreStudent> scoreStudents;
 
 	void getCourseStudents(string yearname, string semester) {

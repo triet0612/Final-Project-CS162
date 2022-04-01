@@ -140,7 +140,7 @@ void CoursesList::updateInformation() {
 			else {
 				Course course;
 				course.courseID = courseID;
-				course.getCourseInformation();
+				//course.getCourseInformation();
 				this->push_back(course);
 				cout << "New course is added successfully\n";
 				system("pause");
