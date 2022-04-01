@@ -108,17 +108,6 @@ public:
 
 			type = getStudentFromTableProc();
 		}
-
-		cout << "List of students in class " << class_name << endl;
-		for (auto i : students) {
-			cout << i.NO << " " 
-				 << i.ID << " " 
-				 << i.First_name << " "
-				 << i.Last_name << " " 
-				 << i.Gender << " " 
-				 << i.DOB << " " 
-				 << i.Social_ID << endl;
-		}
 	}
 	
 	bool checkStu(string ID) {

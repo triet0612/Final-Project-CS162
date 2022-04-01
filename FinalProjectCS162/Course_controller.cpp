@@ -10,9 +10,22 @@ void Course_controller::loadCourses(const string& yearName, const string& semest
 		cerr << "There was error in reading data\n";
 };
 
+//--
+
+
 void Course_controller::viewListOfCourses(string yearname, string semester) {
-	//(this->courses).displayListOfCourses();
-	(this->courses).viewCourses(yearname, semester);
+	int type = this->courses.inputCoursesProc();
+	while (type != -1) {
+		if (type == 1) {
+			//createClass(yearname);
+		}
+		else {
+			string courseID = this->courses[type - 2].courseID;
+			viewCourseOptions(yearname, semester, type - 2);
+		}
+		type = this->courses.inputCoursesProc();
+	}
+	system("cls");
 }
 
 bool Course_controller::containsCourse(const string& courseID) const {
@@ -59,7 +72,7 @@ bool Course_controller::viewScore(const string& courseID) const {
 	cerr << "There is error in opening file\n";
 	return false;
 };
-
+//*
 void Course_controller::updateScore(const string& courseID, const int studentID) {
 	if (!(this->containsCourse(courseID))) {
 		cout << "There is no course with " << courseID << '\n';
@@ -204,7 +217,7 @@ int Course_controller::countStudentsInCourse(const string& courseID) const {
 			}
 	return result;
 };
-
+//*
 void Course_controller::displayRegistrationTable(const bool* status, const int* numberOfStudents,const SinglyLinkedList<CourseRegistration>& coursesRegistrations) const {
 	int number_length = strlen("no"),
 		credits_length = strlen("credits"),

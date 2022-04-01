@@ -13,7 +13,6 @@ using namespace std;
 class Semester_controller
 {
 public:
-
 	SinglyLinkedList<semester> semesterlist;
 
 	semester cur_semester;

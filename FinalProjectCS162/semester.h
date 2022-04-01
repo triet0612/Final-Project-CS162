@@ -23,7 +23,7 @@ public:
 		endate = e;
 		this->yearname = yearname;
 		this->courses = Course_controller(yearname, semester_name);
-	}
+	};
 
 	void initCourseReg() {
 		course_reg = CourseRegistration(this->yearname, this->semester_name, "");

@@ -33,9 +33,112 @@ public:
 	Course_controller(string yearname, string semesterName) {
 		this->yearName = yearName;
 		this->semesterName = semesterName;
-	}
+		loadCourses(yearname, semesterName);
+	};
 	
 	void loadCourses(const string& yearName, const string& semesterName);
+	//--
+	int chooseOption(Table& table) {
+		ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
+		int type = -1;
+		graphics->loopBoolean([&](pair<int, int> input) {
+			int y = 0, x = 0;
+			if (input.first == INPUT_CODE::ESC) return false;
+			if (input.first == INPUT_CODE::ENTER) {
+				table.defaultPressAnimation();
+				type = table.getCurRow();
+				return false;
+			}
+			else if (input.first == INPUT_CODE::DIRECTION) {
+				graphics->getNextDirection(input, x, y);
+
+				table.switchPage(table.getCurPage() + x);
+				table.focusRow(table.getCurRow() + y);
+
+				graphics->hideCursor();
+			}
+			return true;
+
+			});
+		return type;
+	};
+
+	void setupCourseOptionsTable(Table& table, string courseID, int offsetY = 0) {
+		table = Table(10, 5 + offsetY, 5);
+
+		table.addTitleRow_back(40);
+		table.getRow(0).addText(courseID);
+		table.addRow_back("View students in course");
+		table.addRow_back("Export student list to CSV");
+		table.addRow_back("View the scoreboard in course");
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int inputCourseOptionTableProc(string courseID, int offsetY = 0) {
+		int type = 0;
+		Table table;
+		setupCourseOptionsTable(table, courseID, offsetY);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void viewCourseOptions(string yearname, string semester, int id) {
+		string courseID = this->courses[id].courseID;
+		int type = inputCourseOptionTableProc(courseID, id);
+		while (type != -1) {
+			if (type == 1) {
+				viewStu(yearname, semester, id);
+
+			}
+			else {
+				//semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
+			}
+			type = inputCourseOptionTableProc(courseID, id);
+		}
+		return;
+	};
+
+	void setupCourseStudentsTable(Table& table, int id) {
+		system("cls");
+		table = Table(0, 0, 30);
+
+		table.addTitleRow_back(12, 16, 14, 20);
+		table.getRow(0).addText((string)"No", (string)"ID", (string)"First Name", (string)"Last Name");
+		if (courses[id].students.size() == 0) {
+			table.addRow_back("Empty");
+		}
+		for (auto i : courses[id].students) {
+			table.addRow_back(i.no, i.ID, i.firstname, i.lastname);
+		}
+
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int getCourseStudentFromTableProc(int id) {
+		int type = 0;
+		Table table;
+		setupCourseStudentsTable(table, id);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void viewStu(string yearname, string semester, int id) {
+
+		courses[id].getCourseStudents(yearname, semester);
+		int type = getCourseStudentFromTableProc(id);
+
+		while (type != -1) {
+
+			type = getCourseStudentFromTableProc(id);
+		}
+	}
+
 	void viewListOfCourses(string yearname, string semester);
 	bool containsCourse(const string& courseID) const;
 	bool viewScore(const string& courseID) const;

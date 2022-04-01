@@ -9,6 +9,9 @@
 class CoursesList : public SinglyLinkedList<Course> {
 public:
 	bool readFile(const string& path);
+	bool loadCourse(string yearname, string semester) {
+		return readFile("Data/" + yearname + "/" + semester + "/Courses.csv");
+	}
 	//--
 	int chooseOption(Table& table) {
 		ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
@@ -63,15 +66,16 @@ public:
 	}
 
 	//--
-	void viewCourses(string yearname, string semester) {
-		readFile("Data/" + yearname + "/" + semester + "/Courses.csv");
+	int viewCourses(string yearname, string semester) {
+		loadCourse(yearname, semester);
 		int type = inputCoursesProc();
 		while (type != -1) {
 			if (type == 1) {
 				//createClass(yearname);
 			}
 			else {
-				//schoolYearOptions(sc.yearList[type - 2]);
+				return type - 2;
+				system("cls");
 			}
 			type = inputCoursesProc();
 		}
@@ -79,6 +83,7 @@ public:
 	}
 
 	void displayListOfCourses() const;
+
 	bool containsCourse(const string& courseID) const;
 	void updateInformation();
 	bool writeFile(const string& path) const;
