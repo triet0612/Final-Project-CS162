@@ -6,6 +6,11 @@ using namespace std;
 #include "Course.h"
 #include "helper.h"
 
+Course::Course() {
+	(this->maximumStudent) = 50;
+	// number and credits should be initialized later
+};
+
 bool Course::readData(ifstream& finput) {
 	if (finput >> (this->number)) {
 		finput.ignore(1, ',');
@@ -134,4 +139,17 @@ pair<string, pair<int, int> > Course::getDaySession2() const {
 	getline(s, t);
 	end = getMinutes(t);
 	return make_pair(day, make_pair(start, end));
+};
+
+bool Course::checkConflicted(const Course& course) const {
+	SinglyLinkedList<pair<string, pair<int, int> > > sessions[2];
+	sessions[0].push_back(this->getDaySession1());
+	sessions[0].push_back(course.getDaySession1());
+	sessions[1].push_back(this->getDaySession2());
+	sessions[1].push_back(course.getDaySession2());
+	for (int x = 0; x < 2; ++x)
+		for (int y = 0; y < 2; ++y)
+			if (sessions[x][0].first == sessions[y][1].first && checkIntersection(sessions[x][0].second, sessions[y][1].second))
+				return true;
+	return false;
 };
