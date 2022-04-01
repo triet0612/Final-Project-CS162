@@ -75,16 +75,20 @@ bool CoursesList::containsCourse(const string& courseID) const {
 };
 
 void CoursesList::updateInformation() {
+	/*
+	Remember to write file (outside of the function) after updating information of courses list
+	*/
 	int option;
 	string courseID;
 	while (true) {
 		system("cls");
 		this->displayListOfCourses();
 		cout << "1. Escape (stop updating courses information)\n"
-			 << "2. Update course information\n"
-			 << "3. Remove a course\n"
-			 << "Please enter your option: ";
-		if (!readInteger(option) || option < 1 || option > 3) {
+			<< "2. Update course information\n"
+			<< "3. Remove a course\n"
+			<< "4. Add new course\n"
+			<< "Please enter your option: ";
+		if (!readInteger(option) || option < 1 || option > 4) {
 			cout << "Invalid option\n";
 			system("pause");
 			continue;
@@ -98,7 +102,8 @@ void CoursesList::updateInformation() {
 				cout << "There was no course with course id " << courseID << '\n';
 				system("pause");
 				continue;
-			} else {
+			}
+			else {
 				for (Course& course : (*this))
 					if (course.courseID == courseID) {
 						course.updateCourse();
@@ -107,18 +112,37 @@ void CoursesList::updateInformation() {
 						break;
 					}
 			}
-		} else if (option == 3) {
+		}
+		else if (option == 3) {
 			cout << "Please enter the id of course you want to remove: ";
 			getline(cin, courseID);
 			if (!(this->containsCourse(courseID))) {
 				cout << "There was no course with course id " << courseID << '\n';
 				system("pause");
 				continue;
-			} else {
+			}
+			else {
 				this->deleteNode([&](const Course& course) -> bool {
 					return course.courseID == courseID;
-				});
+					});
 				cout << "Course is removed successfully\n";
+				system("pause");
+			}
+		}
+		else if (option == 4) {
+			cout << "Please enter the id of the new course you want to add: ";
+			getline(cin, courseID);
+			if ((this->containsCourse(courseID))) {
+				cout << "There has been already a course with course id " << courseID << " in the courses list\n";
+				system("pause");
+				continue;
+			}
+			else {
+				Course course;
+				course.courseID = courseID;
+				course.getCourseInformation();
+				this->push_back(course);
+				cout << "New course is added successfully\n";
 				system("pause");
 			}
 		}

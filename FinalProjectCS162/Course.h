@@ -12,6 +12,7 @@ private:
 		string no, ID, lastname, firstname;
 	};
 public:
+	sll<CourseStudent> students;
 	int number, credits, maximumStudent;
 	string courseID, nameOfCourse, nameOfTeacher, daySession1, daySession2;
 
@@ -22,7 +23,7 @@ public:
 	bool checkConflicted(const Course& course) const;
 	pair<string, pair<int, int> > getDaySession1() const;
 	pair<string, pair<int, int> > getDaySession2() const;
-	sll<CourseStudent> students;
+	void getCourseInformation();
 
 	void getCourseStudents(string yearname, string semester) {
 		string tmp;

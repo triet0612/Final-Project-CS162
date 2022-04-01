@@ -153,3 +153,29 @@ bool Course::checkConflicted(const Course& course) const {
 				return true;
 	return false;
 };
+
+void Course::getCourseInformation() {
+	//courseID should be set outside of the function
+	cout << "Please enter new name of course: ";
+	getline(cin, this->nameOfCourse);
+	cout << "Please enter name of teacher: ";
+	getline(cin, this->nameOfTeacher);
+	cout << "Please enter new number of credits: ";
+	while (!readInteger(this->credits))
+		cout << "Input number is invalid\n";
+	if ((this->credits) <= 0) {
+		cout << "Warning: the number of credits is not positive\n";
+		system("pause");
+	}
+	cout << "Please enter the maximum number of students in a course: ";
+	while (!readInteger(this->maximumStudent))
+		cout << "Input number is invalid\n";
+	if ((this->maximumStudent) <= 0) {
+		cout << "Warning: the number is not positive\n";
+		system("pause");
+	}
+	cout << "Please enter day-session 1: ";
+	getline(cin, this->daySession1);
+	cout << "Please enter day-session 2: ";
+	getline(cin, this->daySession2);
+};
