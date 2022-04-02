@@ -354,7 +354,7 @@ public:
 			}
 			else {
 				//semesterlist[id].
-				semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
+				//semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
 			}
 			viewSemesterInfoTable(id, yearname);
 			type = inputSemesterOptionTableProc();

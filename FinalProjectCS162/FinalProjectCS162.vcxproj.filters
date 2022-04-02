@@ -129,6 +129,9 @@
     <ClInclude Include="CoursesRegistrationsController.h">
       <Filter>Courses Supporters</Filter>
     </ClInclude>
+    <ClInclude Include="StudentInformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp">
@@ -217,6 +220,9 @@
     </ClCompile>
     <ClCompile Include="CoursesRegistrationsController.cpp">
       <Filter>Courses Supporters</Filter>
+    </ClCompile>
+    <ClCompile Include="StudentInformation.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

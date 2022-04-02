@@ -163,6 +163,7 @@
     <ClInclude Include="StaffController.h" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentController.h" />
+    <ClInclude Include="StudentInformation.h" />
     <ClInclude Include="StudentScore.h" />
     <ClInclude Include="semester.h" />
     <ClInclude Include="Semester_controller.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="StaffController.cpp" />
     <ClCompile Include="Student.cpp" />
     <ClCompile Include="StudentController.cpp" />
+    <ClCompile Include="StudentInformation.cpp" />
     <ClCompile Include="StudentScore.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="Textbox.cpp" />
