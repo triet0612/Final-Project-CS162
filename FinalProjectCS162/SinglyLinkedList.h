@@ -239,6 +239,22 @@ public:
         }
     };
 
+    void deleteAt(int index) {
+        SinglyNode<T>* cur = this->dummy;
+        for (int i = 0; i < index && cur->next != NULL; i++) {
+            cur = cur->next;
+        }
+        if (cur->next != NULL) {
+            SinglyNode<T>* temp = cur->next;
+            cur->next = cur->next->next;
+            delete temp;
+            --sz;
+            if (cur->next == NULL) {
+                this->rear = cur;
+            }
+        }
+    };
+
     void deleteNode(T d) {
         deleteNode([&d](T data) { return data == d; });
     };
