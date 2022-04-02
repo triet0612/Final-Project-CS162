@@ -16,6 +16,7 @@ private:
 		string totScore, FinScore, midScore, otherScore;
 	};
 public:
+	sll <string> timeset;
 	sll<CourseStudent> students;
 	int number, credits, maximumStudent;
 	string courseID, nameOfCourse, nameOfTeacher, daySession1, daySession2;
@@ -79,5 +80,9 @@ public:
 		}
 
 		ifs.close();
+	}
+
+	int getTimesetId(string s) {
+		return this->timeset.findIndex([&](string target) {return target == s; });
 	}
 };

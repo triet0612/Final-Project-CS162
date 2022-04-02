@@ -8,6 +8,10 @@ using namespace std;
 
 Course::Course() {
 	(this->maximumStudent) = 50;
+	timeset.push_back("7:30");
+	timeset.push_back("9:30");
+	timeset.push_back("13:30");
+	timeset.push_back("15:30");
 	// number and credits should be initialized later
 };
 

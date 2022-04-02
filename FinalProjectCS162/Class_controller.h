@@ -66,7 +66,7 @@ public:
 
 	//--
 	void viewClasses(string yearname) {
-		loadClasses(yearname);
+		loadStudentsOfClasses(yearname);
 		int type = inputClassesProc();
 		while (type != -1) {
 			if (type == 1) {
@@ -81,7 +81,6 @@ public:
 	}
 
 	//--
-
 	void setupClassInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
 		for (int i = 0; i < 1; ++i) {
 			inputList.push_back(InputRow(40, 4 * i + 1, 50, 3, 0, 15));
@@ -206,8 +205,7 @@ public:
 		return;
 	}
 
-	//load student data of classes
-	void loadClasses(string yearname) {
+	void loadStudentsOfClasses(string yearname) {
 		classes.clear();
 		SinglyLinkedList<string> classname = getClasses(yearname);
 		for (auto i : classname) {
@@ -217,14 +215,17 @@ public:
 		}
 		return;
 	}
-	//load class name list from /yearname/class.txt
-	SinglyLinkedList<string> getClasses(string yearname) {
+
+	sll<string> getClasses(string yearname) {
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
 		string temp;
 		fin.open("Data/" + yearname + "/class.txt");
-		while (fin.is_open() && !fin.eof()) {
-			fin >> temp;
+		if (!fin.is_open()) return Classes_name;
+		while (!fin.eof()) {
+			temp = "";
+			getline(fin, temp);
+			if (temp == "") return Classes_name;
 			Classes_name.push_back(temp);
 		}
 		fin.close();
