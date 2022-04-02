@@ -143,6 +143,7 @@ public:
 	}
 
 	void viewListOfCourses(string yearname, string semester);
+
 	bool containsCourse(const string& courseID) const;
 
 	//--

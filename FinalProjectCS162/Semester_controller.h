@@ -353,6 +353,7 @@ public:
 				
 			}
 			else {
+				//semesterlist[id].
 				semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
 			}
 			viewSemesterInfoTable(id, yearname);

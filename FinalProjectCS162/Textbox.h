@@ -120,7 +120,7 @@ public:
     }
 
     void render() {
-        assert(text.length() < 1ll * getInnerWidth() * getInnerHeight());
+        //assert(text.length() < 1ll * getInnerWidth() * getInnerHeight());
         if (!this->reRender) return;
         this->reRender = false;
         graphics->drawRect(x, y, width, height, border, bgColor, borderColor);
