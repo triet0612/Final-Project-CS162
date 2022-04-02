@@ -37,6 +37,14 @@ public:
 	};
 	
 	void loadCourses(const string& yearName, const string& semesterName);
+
+	string getFinScoreOfStudent(int courseIdx, string stuID) {
+		return this->courses[courseIdx].getFinScoreOfStudent(this->yearName, this->semesterName, stuID);
+	}
+
+	void loadCourseStudent(int courseIdx) {
+		this->courses[courseIdx].loadScoreCourseStudents(this->yearName, this->semesterName);
+	}
 	//--
 	int chooseOption(Table& table) {
 		ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
@@ -175,7 +183,7 @@ public:
 
 	void viewScoreStu(string yearname, string semester, int id) {
 
-		courses[id].getScoreCourseStudents(yearname, semester);
+		courses[id].loadScoreCourseStudents(yearname, semester);
 		int type = getScoreCourseStudentFromTableProc(id);
 
 		while (type != -1) {

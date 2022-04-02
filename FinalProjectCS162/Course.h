@@ -53,7 +53,7 @@ public:
 		ifs.close();
 	};
 
-	void getScoreCourseStudents(string yearname, string semester) {
+	void loadScoreCourseStudents(string yearname, string semester) {
 		string tmp;
 		ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Mark" + '/' + courseID + ".csv");
 		if (!ifs.is_open()) return;
@@ -80,6 +80,12 @@ public:
 		}
 
 		ifs.close();
+	}
+
+	string getFinScoreOfStudent(string yearname, string semester, string stuID) {
+		int id = scoreStudents.findIndex([&](ScoreStudent target) { return target.ID == stuID; });
+		if (id == -1) return "X";
+		return scoreStudents[id].FinScore;
 	}
 
 	int getTimesetId(string s) {

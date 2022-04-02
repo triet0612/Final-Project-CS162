@@ -39,13 +39,13 @@ public:
 		return type;
 	};
 
-	void setupClassesTable(Table& table) {
+	void setupClassesTable(Table& table, bool adding = true) {
 		system("cls");
 		table = Table(0, 0, 30);
 
 		table.addTitleRow_back(30);
 		table.getRow(0).addText((string)"CLasses");
-		table.addRow_back("Add...");
+		if(adding) table.addRow_back("Add...");
 		for (auto i : classes) {
 			table.addRow_back(i.class_name);
 		}
@@ -56,10 +56,10 @@ public:
 		table.setCursorInside();
 	}
 
-	int inputClassesProc() {
+	int inputClassesProc(bool adding = true) {
 		int type = 0;
 		Table table;
-		setupClassesTable(table);
+		setupClassesTable(table, adding);
 		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
 		return type;
 	}
@@ -216,7 +216,17 @@ public:
 		return;
 	}
 
-	sll<string> getClasses(string yearname) {
+	static void loadStudentsOfClasses(string yearname, sll<Class>& res) {
+		SinglyLinkedList<string> classname = getClasses(yearname);
+		for (auto i : classname) {
+			Class c_temp;
+			c_temp.addStuByCSV(yearname, i);
+			res.push_back(c_temp);
+		}
+		return;
+	}
+
+	static sll<string> getClasses(string yearname) {
 		SinglyLinkedList<string> Classes_name;
 		ifstream fin;
 		string temp;
@@ -224,7 +234,7 @@ public:
 		if (!fin.is_open()) return Classes_name;
 		while (!fin.eof()) {
 			temp = "";
-			getline(fin, temp);
+			getline(fin, temp, '\n');
 			if (temp == "") return Classes_name;
 			Classes_name.push_back(temp);
 		}
@@ -232,23 +242,92 @@ public:
 		return Classes_name;
 	}
 
-	void viewScoreOfClass(Class c, Course co, string semesterName) {
+	static void getClasses(string yearname, sll<string>& classNames) {
 		ifstream fin;
-		fin.open("Data/" + c.year_name + '/' + semesterName + "/Mark/" + co.courseID + ".csv");
-		string No, Student_ID, Name, Total_Mark, Final_Mark, Midtern_Mark, Orther_Mark;
-		while (getline(fin, No, ',')) {
-			getline(fin, Student_ID, ',');
-			getline(fin, Name, ',');
-			getline(fin, Total_Mark, ',');
-			getline(fin, Final_Mark, ',');
-			getline(fin, Midtern_Mark, ',');
-			getline(fin, Orther_Mark, ',');
-			if (checkStudentInClass(c, Student_ID)) {
-				cout << No << ' ' << Student_ID << ' ' << Name << ' ' << Total_Mark << ' ' << Final_Mark << ' ' << Midtern_Mark << ' ' << Orther_Mark << endl;
-			}
+		string temp;
+		fin.open("Data/" + yearname + "/class.txt");
+		if (!fin.is_open()) return;
+		while (!fin.eof()) {
+			temp = "";
+			getline(fin, temp);
+			if (temp == "") return ;
+			classNames.push_back(temp);
 		}
 		fin.close();
 		return;
+	}
+
+	static void getAllClasses(sll<Class>& res) {
+		string path = "Data/SchoolYear.txt";
+		ifstream ifs(path);
+		if (!ifs.is_open()) return;
+		while (!ifs.eof()) {
+			string yearname;
+			ifs >> yearname;
+			if (yearname == "") return;
+			loadStudentsOfClasses(yearname, res);
+		}
+	}
+
+	void loadAllClasses() {
+		this->classes.clear();
+		getAllClasses(this->classes);
+	}
+
+	//--
+	void setupScoresClassTable(Table& table, int classIdx, Course_controller& coursesController) {
+		system("cls");
+		table = Table(0, 0, 30);
+
+		int sz = coursesController.courses.size();
+		table.addTitleRow_back(4,16,16, 16);
+		for (int i = 0; i < sz; ++i) table.addTitleRow_back(12);
+		table.addTitleRow_back(12);
+
+		table.getRow(0).addText((string)"No", (string)"First Name", (string)"Last Name", (string)"ID");
+
+		for (int i = 0; i < sz; ++i) {
+			table.getRow(0).setBoxText(i + 4,coursesController.courses[i].courseID);
+			coursesController.loadCourseStudent(i);
+		}
+
+		table.getRow(0).setBoxText(sz + 4, "GPA");
+		int stuNo = 1, rowIdx = 0, totSubjects = 0, totScore = 0;
+		for (auto stu : classes[classIdx].students) {
+			table.addRow_back(to_string(stuNo++), stu.First_name, stu.Last_name, stu.ID);
+			++rowIdx;
+			for (int i = 0; i < sz; ++i) {
+				string tmp = coursesController.getFinScoreOfStudent(i, stu.ID);
+				table.getRow(rowIdx).setBoxText(i + 4, tmp);
+				if (tmp != "X") {
+					++totSubjects;
+					totScore += stoi(tmp);
+				}
+			}
+			if (totSubjects == 0) table.getRow(rowIdx).setBoxText(sz + 4, "N/A");
+			else table.getRow(rowIdx).setBoxText(sz + 4, to_string(4*totScore/totSubjects/10));
+			totSubjects = 0;
+			totScore = 0;
+		}
+
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int inputScoresClasseProc(int classIdx, Course_controller& coursesController) {
+		int type = 0;
+		Table table;
+		setupScoresClassTable(table, classIdx, coursesController);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+
+	void viewScoreOfClass(int classIdx, string semesterName, string yearname) {
+		Course_controller coursesController(yearname, semesterName);
+		inputScoresClasseProc(classIdx, coursesController);
 	}
 
 	bool checkStudentInClass(Class c, string ID) {

@@ -4,6 +4,7 @@
 #include <string>
 #include "semester.h"
 #include "SinglyLinkedList.h"
+#include "Class_controller.h"
 #include "Date.h"
 #include "Table.h"
 #include "InputRow.h"
@@ -38,7 +39,7 @@ public:
 
 	void create_semester(string yearname, sll<string> data) {
 
-		semester s(data[0], yearname, Date(stoi(data[1]), stoi(data[2]), stoi(data[3])), Date(stoi(data[4]), stoi(data[5]), stoi(data[6])));
+		semester s("s" + data[0], yearname, Date(stoi(data[1]), stoi(data[2]), stoi(data[3])), Date(stoi(data[4]), stoi(data[5]), stoi(data[6])));
 		semesterlist.push_back(s);
 		cur_semester = s;
 		int checker = _mkdir(("Data/" + yearname + '/' + data[0]).c_str());
@@ -153,7 +154,7 @@ public:
 
 		inputList.push_back(InputRow(1, 1, 50, 3, 0, 15));
 		pos.push_back(inputList.back().getInside());
-		inputList.back().setTitleBoxWidth(25).setContentBoxWidth(30);
+		inputList.back().setTitleBoxWidth(25).setContentBoxWidth(4);
 		inputList.back().setDefaultType();
 
 		for (int i = 0; i < 3; ++i) {
@@ -170,14 +171,15 @@ public:
 			inputList.back().setDefaultType2();
 		}
 
-		inputList[0].setTitle("Semester's name: ").setContent("");
-		inputList[1].setTitle("Start Day:").setContent("").getContentBox().setNumberMode(true);
-		inputList[2].setTitle("Start Month:").setContent("").getContentBox().setNumberMode(true);
-		inputList[3].setTitle("Start Year:").setContent("").setContentBoxWidth(7).getContentBox().setNumberMode(true);
+		inputList[0].setTitle("Semester's number: ").setContent("").getContentBox().setNumberMode(true);
+		Date cur = Date::getCurrentDate();
+		inputList[1].setTitle("Start Day:").setContent(to_string(cur.getDay())).getContentBox().setNumberMode(true);
+		inputList[2].setTitle("Start Month:").setContent(to_string(cur.getMonth())).getContentBox().setNumberMode(true);
+		inputList[3].setTitle("Start Year:").setContent(to_string(cur.getYear())).setContentBoxWidth(7).getContentBox().setNumberMode(true);
 
-		inputList[4].setTitle("End Day:").setContent("").getContentBox().setNumberMode(true);
-		inputList[5].setTitle("End Month:").setContent("").getContentBox().setNumberMode(true);
-		inputList[6].setTitle("End Year:").setContent("").setContentBoxWidth(7).getContentBox().setNumberMode(true);
+		inputList[4].setTitle("End Day:").setContent(to_string(cur.getDay())).getContentBox().setNumberMode(true);
+		inputList[5].setTitle("End Month:").setContent(to_string(cur.getMonth())).getContentBox().setNumberMode(true);
+		inputList[6].setTitle("End Year:").setContent(to_string(cur.getYear())).setContentBoxWidth(7).getContentBox().setNumberMode(true);
 
 		inputList[0].setCursorInside();
 		buttonList.push_back(Button(10, 13, 10, 3));
@@ -280,7 +282,7 @@ public:
 
 		loadSemesterList(yearname);
 
-		while (!isCancel && checkSemester(res[0])) {
+		while (!isCancel && checkSemester("s" + res[0])) {
 			//cout << "Semester already there, input again: " << endl;
 			renderCaution("Already exist");
 			res = inputSemesterProc(isCancel);
@@ -320,7 +322,6 @@ public:
 	}
 
 	//--
-
 	void setupSemesterOptionsTable(Table& table) {
 		table = Table(0, 7, 5);
 
@@ -328,6 +329,7 @@ public:
 		table.getRow(0).addText((string)" OPTIONS");
 		table.addRow_back("Create course registration");
 		table.addRow_back("View courses");
+		table.addRow_back("View Score of Class");
 
 		table.setDefaultType();
 		table.render();
@@ -343,18 +345,29 @@ public:
 		return type;
 	}
 
+	void viewScoreClass(string semestername, string yearname) {
+		Class_controller classController;
+		classController.loadAllClasses();
+		int idx = classController.inputClassesProc(false) - 1;
+		classController.viewScoreOfClass(idx,semestername, yearname);
+	}
+
 	void viewSemesterOptions(int id, string yearname) {
 		viewSemesterInfoTable(id, yearname);
 		int type = inputSemesterOptionTableProc();
+		
 		while (type != -1) {
-			if (type == 1) {
-				semesterlist[id].courseRegs.displayCoursesRegistrationTable();
-				//createCourseReg(semesterlist[id]);
-				
-			}
-			else {
-				//semesterlist[id].
-				//semesterlist[id].courses.viewListOfCourses(yearname, "s" + to_string(id + 1));
+			switch (type)
+			{
+			case 1:
+				semesterlist[id].courseRegs.displayCoursesRegistrationTable(); break;
+			case 2:
+				semesterlist[id].courses.courseProc(yearname, "s" + to_string(id + 1)); break;
+			case 3:
+				viewScoreClass("s" + to_string(id + 1),yearname);
+				break;
+			default:
+				break;
 			}
 			viewSemesterInfoTable(id, yearname);
 			type = inputSemesterOptionTableProc();
