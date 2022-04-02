@@ -71,6 +71,7 @@ public:
 		table.addRow_back("View students in course");
 		table.addRow_back("Export student list to CSV");
 		table.addRow_back("View the scoreboard in course");
+		table.addRow_back("Modify/Delete course");
 		table.setDefaultType();
 		table.render();
 
@@ -88,22 +89,20 @@ public:
 	void viewCourseOptions(string yearname, string semester, int id) {
 		string courseID = this->courses[id].courseID;
 		int type = inputCourseOptionTableProc(courseID, id);
-		while (type != -1) {
-			switch (type)
-			{
-			case 1:
-				viewStu(yearname, semester, id); break;
-			case 2: break;
-			case 3: 
-				viewScoreStu(yearName, semester, id); break;
-			default:
-				break;
-			}
-			type = inputCourseOptionTableProc(courseID, id);
+		switch (type)
+		{
+		case 1: viewStu(yearname, semester, id); break;
+		case 2: break;
+		case 3: viewScoreStu(yearName, semester, id); break;
+		case 4: this->courses.modifyCourse(id); system("cls"); break;
+		default:
+			break;
 		}
+		//type = inputCourseOptionTableProc(courseID, id);
 		return;
 	};
 
+	//--
 	void setupCourseStudentsTable(Table& table, int id) {
 		system("cls");
 		table = Table(0, 0, 30);
@@ -142,7 +141,7 @@ public:
 		}
 	}
 
-	void viewListOfCourses(string yearname, string semester);
+	void courseProc(string yearname, string semester);
 
 	bool containsCourse(const string& courseID) const;
 
@@ -186,14 +185,24 @@ public:
 	}
 
 	bool viewScore(const string& courseID) const;
+
 	void updateScore(const string& courseID, const int studentID);
+
 	void addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses);
+
 	void viewScoresOfStudents(const string& courseID, const int studentID) const;
+
 	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > getListOfEnrolledCourses() const;
+
 	SinglyLinkedList<string> getListOfEnrolledCoursesOfStudent(const int studentID) const;
+
 	int countStudentsInCourse(const string& courseID) const;
+
 	void changeEnrolledCourses(const int studentID);
+
 	SinglyLinkedList<int> getCourseListOfStudentsID(const string& courseID) const;
+
 	bool exportListOfStudentsID(const string& courseID) const;
+
 	void updateCoursesInformation();
 };

@@ -13,9 +13,21 @@ void Course_controller::loadCourses(const string& yearName, const string& semest
 //--
 
 
-void Course_controller::viewListOfCourses(string yearname, string semester) {
+void Course_controller::courseProc(string yearname, string semester) {
 
-	this->courses.viewCourses(yearname, semester);
+	int type = this->courses.viewCourses(yearname, semester);
+	while (type != -1) {
+		if (type == 1) {
+			this->courses.createCourse();
+			system("cls");
+		}
+		else {
+			this->viewCourseOptions(yearname, semester, type - 2);
+			system("cls");
+		}
+		type = this->courses.inputCoursesTableProc();
+	}
+
 }
 
 bool Course_controller::containsCourse(const string& courseID) const {

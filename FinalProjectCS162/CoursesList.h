@@ -50,7 +50,7 @@ public:
 		system("cls");
 		table = Table(0, 0, 10);
 
-		table.addTitleRow_back(12, 16, 40, 30, 13, 18, 20, 20);
+		table.addTitleRow_back(12, 16, 40, 30, 13, 18, 20); table.addTitleRow_back(20);
 		table.getRow(0).addText((string)"No", (string)"Course ID", (string)"Name of course", (string)"Name of teacher", (string)"credits", (string)"Max student"
 			, (string)"Day session 1", (string)"Day session 2");
 		table.addRow_back((string)"Add...");
@@ -76,22 +76,7 @@ public:
 	//--
 	int viewCourses(string yearname, string semester) {
 		loadCourse(yearname, semester);
-		int type = inputCoursesTableProc();
-		while (type != -1) {
-			if (type == 1) {
-				//createClass(yearname);
-				createCourse();
-				system("cls");
-			}
-			else {
-				modifyCourse(type - 2);
-				system("cls");
-			}
-			type = inputCoursesTableProc();
-		}
-		saveCourses(yearname, semester);
-		system("cls");
-		return -1;
+		return inputCoursesTableProc();
 	}
 
 	void displayListOfCourses() const;
@@ -113,13 +98,13 @@ public:
 	//--
 	void setupCourseInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos, sll<string> initvalues, bool modify = false) {
 
-		inputList.push_back(InputRow(1, 12, 50, 3, 0, 15));
+		inputList.push_back(InputRow(56, 12, 50, 3, 0, 15));
 		pos.push_back(inputList.back().getInside());
 		inputList.back().setTitleBoxWidth(25).setContentBoxWidth(30);
 		inputList.back().setDefaultType();
 		
 		for (int i = 0; i < 2; ++i) {
-			inputList.push_back(InputRow(1, 16 + 3*i, 10, 3, 0, 15));
+			inputList.push_back(InputRow(56, 16 + 3*i, 10, 3, 0, 15));
 			pos.push_back(inputList.back().getInside());
 			inputList.back().setTitleBoxWidth(20).setContentBoxWidth(40);
 			inputList.back().setDefaultType2();
@@ -127,7 +112,7 @@ public:
 
 
 		for (int i = 0; i < 2; ++i) {
-			inputList.push_back(InputRow(34 * i + 1, 22, 10, 3, 0, 15));
+			inputList.push_back(InputRow(34 * i + 56, 22, 10, 3, 0, 15));
 			pos.push_back(inputList.back().getInside());
 			inputList.back().setTitleBoxWidth(20).setContentBoxWidth(6);
 			inputList.back().setDefaultType2();
@@ -135,14 +120,14 @@ public:
 
 
 		for (int i = 0; i < 2; ++i) {
-			inputList.push_back(InputRow(34 * i + 1, 25, 10, 3, 0, 15));
+			inputList.push_back(InputRow(34 * i + 56, 25, 10, 3, 0, 15));
 			pos.push_back(inputList.back().getInside());
 			inputList.back().setTitleBoxWidth(20).setContentBoxWidth(6 - 2*i);
 			inputList.back().setDefaultType2();
 		}
 
 		for (int i = 0; i < 2; ++i) {
-			inputList.push_back(InputRow(34 * i + 1, 28, 10, 3, 0, 15));
+			inputList.push_back(InputRow(34 * i + 56, 28, 10, 3, 0, 15));
 			pos.push_back(inputList.back().getInside());
 			inputList.back().setTitleBoxWidth(20).setContentBoxWidth(6 - 2*i);
 			inputList.back().setDefaultType2();
@@ -165,15 +150,15 @@ public:
 		inputList[8].setTitle("S (1, 2, 3, 4)").setContent(initvalues[8]).setContentBoxWidth(4).getContentBox().setNumberMode(true);
 
 		inputList[0].setCursorInside();
-		buttonList.push_back(Button(10, 31, 10, 3));
+		buttonList.push_back(Button(65, 31, 10, 3));
 		pos.push_back(buttonList.back().getInside());
 		buttonList.back().setText("   OK");
 		buttonList.back().setDefaultType();
 
 		if (modify) {
-			buttonList.push_back(Button(22, 31, 10, 3));
+			buttonList.push_back(Button(77, 31, 10, 3));
 			pos.push_back(buttonList.back().getInside());
-			buttonList.back().setText("Delete");
+			buttonList.back().setText(" Delete");
 			buttonList.back().setDefaultType();
 		}
 
@@ -228,7 +213,7 @@ public:
 		int cur = 0;
 		ConsoleGraphics& graphics = ConsoleGraphics::getInstance();
 
-		TextBox notice = TextBox(7, 33, 40, 3, false).setText("Press ESC for cancel");
+		TextBox notice = TextBox(77, 33, 40, 3, false).setText("Press ESC for cancel");
 		notice.render();
 
 		graphics.loopBoolean([&](pair<int, int> input) {
