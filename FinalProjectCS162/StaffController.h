@@ -59,20 +59,7 @@ public:
     }
 
     void regProc() override {
-        //Staff staff;
-        //system("cls");
-        //staff.getLoginData();
-        //GeneralPersonalInfo ans = findByUsername(staff);
-        //if (ans.checkDefault()) {
-        //    list.push_back(staff);
-        //}
-        //else {
-        //    cout << "Username is already exist" << endl;
-        //}
 
-        //staff.getGeneralData();
-
-        //list.push_back(staff);
     };
 
     bool loginProc(string username, string password) override {
@@ -80,6 +67,7 @@ public:
         return curId != -1;
     }
 
+    //--
     int chooseOptions(Table& table) {
         ConsoleGraphics* graphics = &ConsoleGraphics::getInstance();
         int type = -1;
@@ -141,7 +129,6 @@ public:
     };
 
     //----------------
-
     void setupProfileTable(Table& table) {
         system("cls");
         assert(curId >= 0);
@@ -172,7 +159,6 @@ public:
     }
 
     //----------------
-
     void setupVerifPassInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
         for (int i = 0; i < 1; ++i) {
             inputList.push_back(InputRow(5, 4 * i + 1, 50, 3, 0, 15));
@@ -286,7 +272,6 @@ public:
     }
 
     //-----
-
     void setupChangePassInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
         for (int i = 0; i < 2; ++i) {
             inputList.push_back(InputRow(1, 4 * i + 1, 50, 3, 0, 15));

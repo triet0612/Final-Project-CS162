@@ -8,6 +8,7 @@
 #include "Table.h"
 #include "InputRow.h"
 #include "Button.h"
+#include "helper.h"
 class Class_controller
 {
 public:
@@ -305,7 +306,7 @@ public:
 				}
 			}
 			if (totSubjects == 0) table.getRow(rowIdx).setBoxText(sz + 4, "N/A");
-			else table.getRow(rowIdx).setBoxText(sz + 4, to_string(4*totScore/totSubjects/10));
+			else table.getRow(rowIdx).setBoxText(sz + 4, doubleToStr((double)4*totScore/totSubjects/10, 2));
 			totSubjects = 0;
 			totScore = 0;
 		}

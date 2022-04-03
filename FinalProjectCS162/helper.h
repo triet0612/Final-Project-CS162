@@ -4,6 +4,7 @@
 #include <string>
 #include <string.h>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -26,9 +27,4 @@ int getMinutes(const string& t);
 
 void printDates(ofstream& foutput, const Date& date, const string& s);
 
-string doubleToStr(double x, int precision) {
-	stringstream ss;
-	ss << std::fixed;
-	ss << std::setprecision(precision) << x;
-	return ss.str();
-}
+string doubleToStr(double x, int precision);

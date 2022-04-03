@@ -34,46 +34,6 @@ bool Course_controller::containsCourse(const string& courseID) const {
 	return (this->courses).containsCourse(courseID);
 };
 
-bool Course_controller::viewScore(const string& courseID) const {
-	if (!(this->containsCourse(courseID))) {
-		cout << "There is no course with " << courseID << '\n';
-		return false;
-	}
-	ifstream finput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/Mark/" + courseID + ".csv");
-	if (finput) {
-		StudentScore studentScore;
-		finput.ignore(5000, '\n'); //not read first line
-		finput.precision(1);
-		const int number_length = 3, studentID_length = 15, name_length = 15, 
-			      totalMark_length = 15, finalMark_length = 15, midtermMark_length = 15, otherMark_length = 15,
-				  totalLength = 8 + number_length + studentID_length + name_length + totalMark_length + finalMark_length + midtermMark_length + otherMark_length;
-		cout << string(totalLength, '-') << '\n';
-		cout << '|'
-			 << setw(number_length) << "No" << '|'
-			 << setw(studentID_length) << "Student ID" << '|'
-			 << setw(name_length) << "Name" << '|'
-			 << setw(totalMark_length) << "Total mark" << '|'
-			 << setw(finalMark_length) << "Final mark" << '|'
-			 << setw(midtermMark_length) << "Midterm mark" << '|'
-			 << setw(otherMark_length) << "Other mark" << '|'
-			 << '\n';
-		cout << string(totalLength, '-') << '\n';
-		while (studentScore.readData(finput))
-			cout << '|'
-			 	 << setw(number_length) << studentScore.number << '|'
-				 << setw(studentID_length) << studentScore.studentID << '|'
-				 << setw(name_length) << studentScore.name << '|'
-				 << setw(totalMark_length) << studentScore.totalMark << '|'
-				 << setw(finalMark_length) << studentScore.finalMark << '|'
-				 << setw(midtermMark_length) << studentScore.midtermMark << '|'
-				 << setw(otherMark_length) << studentScore.otherMark << '|'
-				 << '\n';
-		cout << string(totalLength, '-') << '\n';
-		return true;
-	}
-	cerr << "There is error in opening file\n";
-	return false;
-};
 //*
 void Course_controller::updateScore(const string& courseID, const int studentID) {
 	if (!(this->containsCourse(courseID))) {
@@ -167,17 +127,8 @@ void Course_controller::addStudentToEnrolledCourses(const int studentID, const S
 	foutput.close();
 };
 
-void Course_controller::viewScoresOfStudents(const string& courseID, const int studentID) const {
-	if (!(this->containsCourse(courseID))) {
-		cout << "There is no course with " << courseID << '\n';
-		return;
-	}
-	for (const StudentScore& studentScore : (this->getScore(courseID))) 
-		if (studentScore.studentID == studentID) {
-			studentScore.printData(cout);
-			return;
-		}
-	cout << "There was no student with student " << studentID << " in the course " << courseID << '\n';
+void Course_controller::viewScoresOfAStudent(const string studentID) {
+	int type = getScoreStudentFromTableProc(stoi(studentID));
 };
 
 SinglyLinkedList<pair<int, SinglyLinkedList<string> > > Course_controller::getListOfEnrolledCourses() const {

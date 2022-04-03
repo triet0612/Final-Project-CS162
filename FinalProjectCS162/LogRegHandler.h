@@ -249,8 +249,7 @@ public:
 			else {
 				renderAccept();
 				Sleep(1500);
-				return;
-				staffController.proc();
+				studentController.proc();
 			}
 			break;
 		default:

@@ -46,6 +46,11 @@ public:
 		checker = _mkdir(("Data/" + yearname + '/' + data[0] + "/Mark").c_str());
 		checker = _mkdir(("Data/" + yearname + '/' + data[0] + "/Studentlist").c_str());
 		saveSemester(yearname);
+
+		ofstream ofs("Data/CurrentSemester.txt");
+		ofs << yearname << "\n";
+		ofs << s.semester_name << "\n";
+		ofs.close();
 		return;
 	}
 	

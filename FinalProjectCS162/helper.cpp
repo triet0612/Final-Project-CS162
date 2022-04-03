@@ -85,4 +85,14 @@ int getMinutes(const string& t) {
 
 void printDates(ofstream& foutput, const Date& date, const string& s) {
 	foutput << date.getDay() << s << date.getMonth() << s << date.getYear();
-};
+}
+string doubleToStr(double x, int precision)
+{
+	stringstream ss;
+	ss << std::fixed;
+	ss << std::setprecision(precision);
+	ss << x;
+	return ss.str();
+}
+
+;

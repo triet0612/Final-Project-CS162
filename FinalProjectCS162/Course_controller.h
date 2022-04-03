@@ -16,6 +16,7 @@
 #include "StudentScore.h"
 #include "CourseRegistration.h"
 #include "CoursesList.h"
+#include "helper.h"
 using namespace std;
 
 
@@ -192,13 +193,48 @@ public:
 		}
 	}
 
-	bool viewScore(const string& courseID) const;
 
 	void updateScore(const string& courseID, const int studentID);
 
 	void addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses);
 
-	void viewScoresOfStudents(const string& courseID, const int studentID) const;
+	//--
+	void setupScoreStudentTable(Table& table, int stuID) {
+		system("cls");
+		table = Table(0, 0, 30);
+
+		table.addTitleRow_back(16, 20, 16, 16, 16, 16);
+		table.getRow(0).addText((string)"Course_ID", (string)"Student's name", (string)"Total Mark",
+			(string)"Final Mark", (string)"Midterm mark", (string)"Other mark");
+		if (courses.size() == 0) {
+			table.addRow_back((string)"Empty");
+		}
+		for (auto course : courses) {
+			for (const StudentScore& studentScore : (this->getScore(course.courseID))) {
+				if (studentScore.studentID == stuID) {
+					table.addRow_back(course.courseID, studentScore.name,
+						doubleToStr(studentScore.totalMark, 2), doubleToStr(studentScore.finalMark, 2), doubleToStr(studentScore.midtermMark, 2),
+						doubleToStr(studentScore.otherMark, 2));
+					break;
+				}
+			}
+		}
+
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int getScoreStudentFromTableProc(int stuID) {
+		int type = 0;
+		Table table;
+		setupScoreStudentTable(table, stuID);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void viewScoresOfAStudent(const string studentID);
 
 	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > getListOfEnrolledCourses() const;
 

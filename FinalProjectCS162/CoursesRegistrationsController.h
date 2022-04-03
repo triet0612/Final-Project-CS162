@@ -26,10 +26,15 @@ public:
 		//writeData();
 	};
 	void createCoursesRegistration(const string& yearName, const string& semesterName);
+
 	bool loadData();
+
 	bool loadDataFromFile(const string& path);
+
 	bool writeData() const;
+
 	bool writeDataToFile(const string& path) const;
+
 	bool checkExistence(string courseID) {
 		return this->coursesRegistrations.findIndex([&](CourseRegistration target) {return target.getCourseID() == courseID; }) != -1;
 	}
@@ -242,5 +247,6 @@ public:
 	}
 
 	void displayCoursesRegistrationTable();
+
 	void changeDates();
 };

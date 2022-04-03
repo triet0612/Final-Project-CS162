@@ -2,9 +2,8 @@
 #include "GeneralPersonalInfo.h"
 
 class Student : public GeneralPersonalInfo {
-private:
-    string id, stuId, socialId;
 public:
+    string id, stuId, socialId;
     Student(string fName, string lName, string uName, string pWord, string phone, string mail, string gender, Date dob, string id, string stuId, string socialId) : GeneralPersonalInfo(name, uName, pWord, phone, mail, gender, dob) {
         this->id = id;
         this->stuId = stuId;
