@@ -4,6 +4,10 @@
 
 StudentInformation::StudentInformation() {};
 
+StudentInformation::StudentInformation(const int studentID, const string& className, const string& yearName) {
+	this->readData(studentID, className, yearName);
+};
+
 bool StudentInformation::readData(const int studentID, const string& className, const string& yearName) {
 	// Find information of a student with given id in a class 
 	bool result = false;
