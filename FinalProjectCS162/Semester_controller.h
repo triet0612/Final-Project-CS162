@@ -42,9 +42,9 @@ public:
 		semester s("s" + data[0], yearname, Date(stoi(data[1]), stoi(data[2]), stoi(data[3])), Date(stoi(data[4]), stoi(data[5]), stoi(data[6])));
 		semesterlist.push_back(s);
 		cur_semester = s;
-		int checker = _mkdir(("Data/" + yearname + '/' + data[0]).c_str());
-		checker = _mkdir(("Data/" + yearname + '/' + data[0] + "/Mark").c_str());
-		checker = _mkdir(("Data/" + yearname + '/' + data[0] + "/Studentlist").c_str());
+		int checker = _mkdir(("Data/" + yearname + '/' + s.semester_name).c_str());
+		checker = _mkdir(("Data/" + yearname + '/' + s.semester_name + "/Mark").c_str());
+		checker = _mkdir(("Data/" + yearname + '/' + s.semester_name + "/Studentlist").c_str());
 		saveSemester(yearname);
 
 		ofstream ofs("Data/CurrentSemester.txt");
@@ -335,6 +335,7 @@ public:
 		table.addRow_back("Create course registration");
 		table.addRow_back("View courses");
 		table.addRow_back("View Score of Class");
+		table.addRow_back("Set current semester");
 
 		table.setDefaultType();
 		table.render();
@@ -357,6 +358,13 @@ public:
 		classController.viewScoreOfClass(idx,semestername, yearname);
 	}
 
+	void setCurrentSemester(string yearname, string semester) {
+		ofstream ofs("Data/CurrentSemester.txt");
+		ofs << yearname << "\n";
+		ofs << semester << "\n";
+		ofs.close();
+	}
+
 	void viewSemesterOptions(int id, string yearname) {
 		viewSemesterInfoTable(id, yearname);
 		int type = inputSemesterOptionTableProc();
@@ -365,12 +373,14 @@ public:
 			switch (type)
 			{
 			case 1:
-				semesterlist[id].courseRegs.displayCoursesRegistrationTable(); break;
+				semesterlist[id].courseRegs.viewCourseRegTable(); break;
 			case 2:
 				semesterlist[id].courses.courseProc(yearname, "s" + to_string(id + 1)); break;
 			case 3:
 				viewScoreClass("s" + to_string(id + 1),yearname);
 				break;
+			case 4:
+				setCurrentSemester(yearname, "s" + to_string(id + 1)); break;
 			default:
 				break;
 			}

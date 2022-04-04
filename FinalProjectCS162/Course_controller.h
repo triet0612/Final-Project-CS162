@@ -14,7 +14,7 @@
 #include "SinglyLinkedList.h"
 #include "Course.h"
 #include "StudentScore.h"
-#include "CourseRegistration.h"
+#include "CoursesRegistrationsController.h"
 #include "CoursesList.h"
 #include "helper.h"
 using namespace std;
@@ -108,6 +108,7 @@ public:
 			break;
 		}
 		//type = inputCourseOptionTableProc(courseID, id);
+		this->courses.saveCourses(yearname, semester);
 		return;
 	};
 
@@ -196,8 +197,6 @@ public:
 
 	void updateScore(const string& courseID, const int studentID);
 
-	void addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses);
-
 	//--
 	void setupScoreStudentTable(Table& table, int stuID) {
 		system("cls");
@@ -206,9 +205,7 @@ public:
 		table.addTitleRow_back(16, 20, 16, 16, 16, 16);
 		table.getRow(0).addText((string)"Course_ID", (string)"Student's name", (string)"Total Mark",
 			(string)"Final Mark", (string)"Midterm mark", (string)"Other mark");
-		if (courses.size() == 0) {
-			table.addRow_back((string)"Empty");
-		}
+
 		for (auto course : courses) {
 			for (const StudentScore& studentScore : (this->getScore(course.courseID))) {
 				if (studentScore.studentID == stuID) {
@@ -218,6 +215,9 @@ public:
 					break;
 				}
 			}
+		}
+		if (table.getTotalRows() == 1) {
+			table.addRow_back((string)"Empty");
 		}
 
 		table.setDefaultType();
@@ -236,6 +236,129 @@ public:
 
 	void viewScoresOfAStudent(const string studentID);
 
+	//--
+	void renderCaution(string s = "Invalid input") {
+		TextBox notice = TextBox(5, 20, 40, 3, false, 0, 12).setText(s);
+		notice.render();
+	}
+
+	void renderAccept() {
+		TextBox notice = TextBox(5, 20, 40, 3, false, 0, 10).setText("input successfully, loading ...");
+		notice.render();
+	}
+
+	void setupEnrollCourseTable(Table& table, sll<bool>& enrolled, sll<int>& curNumsStu, CoursesRegistrationsController& courseRegController, CoursesList& validCourse, sll<int>& validRegPos) {
+		table = Table(0, 12, 7);
+		table.addTitleRow_back(5,16,12,16,16,10,15);
+		table.getRow(0).addText((string)"No", (string)"CourseID", (string)"Credits", (string)"Start day", (string)"end day", (string)"Total", (string)"Status");
+
+		for (int i = 0; i < validRegPos.size(); ++i) {
+			Course target = validCourse[i];
+			CourseRegistration c = courseRegController.coursesRegistrations[validRegPos[i]];
+			string status = (enrolled[validRegPos[i]]) ? "Joined" : "Not joined";
+			string totalStu = to_string(curNumsStu[validRegPos[i]]) + "/" + to_string(target.maximumStudent);
+			table.addRow_back(to_string(i + 1), target.courseID, to_string(target.credits), c.getStartDate().convert2String(), c.getEndDate().convert2String(), totalStu, status);
+		}
+		table.setDefaultType();
+		table.render();
+
+		table.setCursorInside();
+	}
+
+	int inputEnrollCoursesTableProc(int stuID, sll<int>& curNumsStu, sll<bool>& status, CoursesRegistrationsController& courseRegController, CoursesList& validCourses, sll<int>& validRegPos) {
+		int type = 0;
+		Table table;
+		setupEnrollCourseTable(table, status, curNumsStu, courseRegController, validCourses, validRegPos);
+		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
+		return type;
+	}
+
+	void getValidCourses(CoursesRegistrationsController& courseRegController, CoursesList& validCourses, sll<int>& validRegPos) {
+		int i = 0;
+		for (auto c : courseRegController.coursesRegistrations) {
+			++i;
+			string id = c.getCourseID();
+			int idx = this->courses.findIndex([&](Course target) { return target.courseID == id; });
+			if (idx == -1) continue;
+			validRegPos.push_back(i - 1);
+			validCourses.push_back(this->courses[idx]);
+		}
+
+	}
+
+	void enrollCourseProc(int stuId) {
+		CoursesRegistrationsController courseRegController(this->yearName, this->semesterName);
+		courseRegController.loadEnrolledCourses();
+		CoursesList validCourses;
+		sll<int> validRegPos;
+		getValidCourses(courseRegController, validCourses, validRegPos);
+		sll<int> curNumsStu;
+		sll<bool> status;
+		courseRegController.getInfoEnrollmentStudent(stuId, status, curNumsStu);
+		int type;
+		do {
+			type = inputEnrollCoursesTableProc(stuId, curNumsStu, status, courseRegController,validCourses, validRegPos);
+			if (type != -1) {
+				int i = type - 1;
+				int validIdx = validRegPos[i];
+				bool& enrollStatus = status[validRegPos[i]];
+				if (!courseRegController.coursesRegistrations[validIdx].checkRegistrationDates()) {
+					renderCaution("Timeout !");
+					continue;
+				}
+				if (enrollStatus) {
+					enrollStatus = false;
+					--curNumsStu[validIdx];
+				}
+				else {
+					int cnt = 0;
+					for (auto i : status) cnt += i;
+
+					if (cnt >= 5) {
+						renderCaution("Maximum: 5");
+						continue;
+					}
+					if (validCourses[i].maximumStudent <= curNumsStu[validIdx]) {
+						renderCaution("Full");
+						continue;
+					}
+					if (this->checkSessionsConflicted(status, courseRegController, validCourses, validRegPos)) {
+						renderCaution("Conflicted");
+						continue;
+					}
+					enrollStatus = true;
+					++curNumsStu[validIdx];
+				}
+			}
+			courseRegController.updateStatusEnrolledCourses(stuId, status);
+			courseRegController.saveEnrolledCourses();
+		} while (type != -1);
+		if (type == -1) return;
+
+	}
+
+	bool checkSessionsConflicted(sll<bool> status, CoursesRegistrationsController& CourseRegController, CoursesList& validCourses, sll<int>& validRegPos) {
+		const int numberOfCourses = validCourses.size();
+		SinglyLinkedList<pair<string, pair<int, int> > > sessions[2];
+		for (int i = 0; i < validRegPos.size(); ++i) {
+			CourseRegistration cReg = CourseRegController.coursesRegistrations[validRegPos[i]];
+			Course c = this->courses[i];
+			if (status[validRegPos[i]]) {
+				sessions[0].push_back(c.getDaySession1());
+				sessions[1].push_back(c.getDaySession2());
+			}
+		}
+
+		const int numberOfEnrolledCourses = sessions[0].size();
+		for (int i = 1; i < numberOfEnrolledCourses; ++i)
+			for (int j = 0; j < i; ++j)
+				for (int x = 0; x < 2; ++x)
+					for (int y = 0; y < 2; ++y)
+						if (sessions[x][i].first == sessions[y][j].first && checkIntersection(sessions[x][i].second, sessions[y][j].second))
+							return true;
+		return false;
+	};
+	
 	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > getListOfEnrolledCourses() const;
 
 	SinglyLinkedList<string> getListOfEnrolledCoursesOfStudent(const int studentID) const;

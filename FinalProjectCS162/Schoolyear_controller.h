@@ -138,7 +138,6 @@ public:
 	}
 
 	//--
-
 	void createSchoolYear() {
 		bool cancel;
 		string res = inputSchoolYearProc(cancel);

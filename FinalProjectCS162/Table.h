@@ -144,6 +144,10 @@ public:
         return this->getPage(this->curRow);
     }
 
+    int getTotalRows() {
+        return this->rows.size();
+    }
+
     int getRelCurRow() {
         assert(this->maxRow > 1);
         int shrink = (this->curRow - 1) % (this->maxRow - 1) + 1;

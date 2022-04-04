@@ -11,14 +11,13 @@ void Course_controller::loadCourses(const string& yearName, const string& semest
 };
 
 //--
-
-
 void Course_controller::courseProc(string yearname, string semester) {
 
 	int type = this->courses.viewCourses(yearname, semester);
 	while (type != -1) {
 		if (type == 1) {
 			this->courses.createCourse();
+			this->courses.saveCourses(yearName, semester);
 			system("cls");
 		}
 		else {
@@ -116,16 +115,6 @@ void Course_controller::printScoresToCSVfile(const string& courseID, const Singl
 	foutput.close();
 };
 
-void Course_controller::addStudentToEnrolledCourses(const int studentID, const SinglyLinkedList<string> enrolledCourses) {
-	ofstream foutput("Data/" + (this->yearName) + "/" + (this->semesterName) + "/EnrolledCourses.csv", ios::app);
-	if (foutput) {
-		foutput << studentID;
-		for (const string& enrolledCourseID : enrolledCourses) 
-			foutput << ',' << enrolledCourseID;
-	} else
-		cerr << "There was error in opening file\n";
-	foutput.close();
-};
 
 void Course_controller::viewScoresOfAStudent(const string studentID) {
 	int type = getScoreStudentFromTableProc(stoi(studentID));

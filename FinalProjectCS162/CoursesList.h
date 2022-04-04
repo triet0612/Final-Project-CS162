@@ -280,10 +280,9 @@ public:
 		Course c; 
 		c.number = this->size() + 1;
 		c.courseID = res[0]; c.nameOfCourse = res[1]; c.nameOfTeacher = res[2]; c.credits = stoi(res[3]); c.maximumStudent = stoi(res[4]);
-		c.daySession1 = res[5] + " " + c.timeset[stoi(res[6])];
-		c.daySession2 = res[7] + " " + c.timeset[stoi(res[8])];
+		c.daySession1 = res[5] + " " + c.timeset[stoi(res[6]) - 1];
+		c.daySession2 = res[7] + " " + c.timeset[stoi(res[8]) - 1];
 		this->push_back(c);
-
 		renderAccept();
 		Sleep(200);
 		return;

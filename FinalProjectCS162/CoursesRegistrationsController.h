@@ -2,6 +2,7 @@
 
 #include <cstring>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -14,6 +15,7 @@ private:
 	bool containsCourseRegistration(const string& courseID);
 public:
 	SinglyLinkedList<CourseRegistration> coursesRegistrations;
+	sll<sll<string>> rawRegsData;
 	string yearName, semesterName;
 
 	CoursesRegistrationsController();
@@ -26,6 +28,72 @@ public:
 		//writeData();
 	};
 	void createCoursesRegistration(const string& yearName, const string& semesterName);
+
+	void loadEnrolledCourses() {
+		this->rawRegsData.clear();
+		ifstream ifs("Data/" + this->yearName + "/" + this->semesterName + "/" + "EnrolledCourses.csv");
+		string tmp;
+		stringstream ss;
+		while (!ifs.eof()) {
+			sll<string> row;
+			tmp = "";
+			getline(ifs, tmp);
+			if (tmp == "") break;
+			ss.clear();
+			ss.str(tmp);
+			while (getline(ss, tmp, ',')) {
+				row.push_back(tmp);
+			}
+			this->rawRegsData.push_back(row);
+		}
+		ifs.close();
+	}
+
+	void getInfoEnrollmentStudent(int stuId, sll<bool>& status, sll<int>& curNumsStu) {
+		int numSubjects = this->rawRegsData[0].size() - 1;
+		for (int i = 0; i < numSubjects; ++i) {
+			curNumsStu.push_back(0);
+			status.push_back(false);
+		}
+		for (auto row : this->rawRegsData) {
+			for (int i = 0; i < numSubjects; ++i) {
+				if (row[1 + i] == "1") {
+					if (row[0] == to_string(stuId)) {
+						status[i] = true;
+					}
+					++curNumsStu[i];
+				}
+
+			}
+
+		}
+	}
+
+	void updateStatusEnrolledCourses(int stuId, sll<bool>& status) {
+		int idx = this->rawRegsData.findIndex([&](sll<string> target) {return target[0] == to_string(stuId); });
+		sll<string> tmp;
+		tmp.push_back(to_string(stuId));
+		for (auto elem : status) {
+			if (elem) tmp.push_back("1");
+			else tmp.push_back("0");
+		}
+		if (idx != -1) this->rawRegsData[idx] = tmp;
+		else this->rawRegsData.push_back(tmp);
+	}
+
+	void saveEnrolledCourses() {
+		ofstream ofs("Data/" + this->yearName + "/" + this->semesterName + "/" + "EnrolledCourses.csv");
+		for (auto row : this->rawRegsData) {
+			int numComma = row.size() - 1;
+			for (auto elem : row) {
+				ofs << elem;
+				if (numComma > 0) ofs << ",", --numComma;
+				else ofs << "\n";
+			}
+		}
+		ofs.close();
+
+	}
 
 	bool loadData();
 
@@ -246,7 +314,5 @@ public:
 		return;
 	}
 
-	void displayCoursesRegistrationTable();
 
-	void changeDates();
 };

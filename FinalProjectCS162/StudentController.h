@@ -350,13 +350,29 @@ public:
         
     }
 
+    //--
+
+    void enrollCourseProc() {
+        int stuId = stoi(this->list[curId].stuId);
+        string yearname, semester;
+        getCur(yearname, semester);
+        Course_controller courseController(yearname, semester);
+        courseController.enrollCourseProc(stuId);
+        /*CoursesRegistrationsController courseRegController(yearname, semester);
+        courseRegController.loadEnrolledCourses();
+        sll<int> curNumsStu;
+        sll<bool> status;
+        courseRegController.getInfoEnrollmentStudent(stuId, status, curNumsStu);
+        courseController.inputEnrollCoursesTableProc(stuId, curNumsStu, status);*/
+    }
+
     void proc() {
         int option;
         while (true) {
             option = inputTypeProc();
             switch (option) {
             case 1:
-                //showAllSchoolYears();
+                enrollCourseProc();
                 break;
             case 2:
                 viewScores(this->list[curId].stuId); break;
