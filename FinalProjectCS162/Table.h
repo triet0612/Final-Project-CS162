@@ -131,6 +131,13 @@ public:
         }
     }
 
+    void setCursorOnRow(int row) {
+        if (row >= this->rows.size()) row = this->rows.size() - 1;
+        if (row <= 0) row = 1;
+        this->rows[row].setCursorInside();
+        this->curRow = row;
+    }
+
     int getPage(int row) {
         assert(this->maxRow > 1);
         return (row - 1) / (this->maxRow - 1);

@@ -122,8 +122,10 @@ public:
 		if (courses[id].students.size() == 0) {
 			table.addRow_back("Empty");
 		}
+		int row = 0;
 		for (auto i : courses[id].students) {
-			table.addRow_back(i.no, i.ID, i.firstname, i.lastname);
+			++row;
+			table.addRow_back(to_string(row), i.ID, i.firstname, i.lastname);
 		}
 
 		table.setDefaultType();
@@ -142,7 +144,7 @@ public:
 
 	void viewStu(string yearname, string semester, int id) {
 
-		courses[id].getCourseStudents(yearname, semester);
+		courses[id].loadCourseStudents(yearname, semester);
 		int type = getCourseStudentFromTableProc(id);
 
 		while (type != -1) {
@@ -165,8 +167,10 @@ public:
 		if (courses[id].scoreStudents.size() == 0) {
 			table.addRow_back("Empty");
 		}
+		int row = 0;
 		for (auto i : courses[id].scoreStudents) {
-			table.addRow_back(i.no, i.ID, i.name, i.totScore, i.FinScore, i.midScore, i.otherScore);
+			++row;
+			table.addRow_back(to_string(row), i.ID, i.name, i.totScore, i.FinScore, i.midScore, i.otherScore);
 		}
 
 		table.setDefaultType();
@@ -243,11 +247,14 @@ public:
 	}
 
 	void renderAccept() {
-		TextBox notice = TextBox(5, 20, 40, 3, false, 0, 10).setText("input successfully, loading ...");
+		TextBox notice = TextBox(5, 20, 40, 3, false, 0, 10).setText("Operated successfully, loading ..."); 
+		notice.render();
+		Sleep(200);
+		notice = TextBox(5, 20, 40, 3, false, 0, 10).setText("                                          ");
 		notice.render();
 	}
 
-	void setupEnrollCourseTable(Table& table, sll<bool>& enrolled, sll<int>& curNumsStu, CoursesRegistrationsController& courseRegController, CoursesList& validCourse, sll<int>& validRegPos) {
+	void setupEnrollCourseTable(int initRow, Table& table, sll<bool>& enrolled, sll<int>& curNumsStu, CoursesRegistrationsController& courseRegController, CoursesList& validCourse, sll<int>& validRegPos) {
 		table = Table(0, 12, 7);
 		table.addTitleRow_back(5,16,12,16,16,10,15);
 		table.getRow(0).addText((string)"No", (string)"CourseID", (string)"Credits", (string)"Start day", (string)"end day", (string)"Total", (string)"Status");
@@ -262,13 +269,13 @@ public:
 		table.setDefaultType();
 		table.render();
 
-		table.setCursorInside();
+		table.setCursorOnRow(initRow);
 	}
 
-	int inputEnrollCoursesTableProc(int stuID, sll<int>& curNumsStu, sll<bool>& status, CoursesRegistrationsController& courseRegController, CoursesList& validCourses, sll<int>& validRegPos) {
+	int inputEnrollCoursesTableProc(int stuID, sll<int>& curNumsStu, sll<bool>& status, CoursesRegistrationsController& courseRegController, CoursesList& validCourses, sll<int>& validRegPos, int initRow = 1) {
 		int type = 0;
 		Table table;
-		setupEnrollCourseTable(table, status, curNumsStu, courseRegController, validCourses, validRegPos);
+		setupEnrollCourseTable(initRow, table, status, curNumsStu, courseRegController, validCourses, validRegPos);
 		table.update({ -32, 0 }, [&](Table& table) {type = chooseOption(table); });
 		return type;
 	}
@@ -286,7 +293,7 @@ public:
 
 	}
 
-	void enrollCourseProc(int stuId) {
+	void enrollCourseProc(int stuId, string firstname, string lastname) {
 		CoursesRegistrationsController courseRegController(this->yearName, this->semesterName);
 		courseRegController.loadEnrolledCourses();
 		CoursesList validCourses;
@@ -295,9 +302,9 @@ public:
 		sll<int> curNumsStu;
 		sll<bool> status;
 		courseRegController.getInfoEnrollmentStudent(stuId, status, curNumsStu);
-		int type;
+		int type = 1;
 		do {
-			type = inputEnrollCoursesTableProc(stuId, curNumsStu, status, courseRegController,validCourses, validRegPos);
+			type = inputEnrollCoursesTableProc(stuId, curNumsStu, status, courseRegController,validCourses, validRegPos, type);
 			if (type != -1) {
 				int i = type - 1;
 				int validIdx = validRegPos[i];
@@ -319,7 +326,7 @@ public:
 						continue;
 					}
 					if (validCourses[i].maximumStudent <= curNumsStu[validIdx]) {
-						renderCaution("Full");
+						renderCaution("Course is full");
 						continue;
 					}
 					if (this->checkSessionsConflicted(status, courseRegController, validCourses, validRegPos)) {
@@ -328,12 +335,13 @@ public:
 					}
 					enrollStatus = true;
 					++curNumsStu[validIdx];
+					renderAccept();
 				}
 			}
 			courseRegController.updateStatusEnrolledCourses(stuId, status);
 			courseRegController.saveEnrolledCourses();
 		} while (type != -1);
-		if (type == -1) return;
+		SaveStudentEnrollmentOfCourses(to_string(stuId), lastname, firstname, validCourses, validRegPos, status);
 
 	}
 
@@ -358,6 +366,18 @@ public:
 							return true;
 		return false;
 	};
+
+	void SaveStudentEnrollmentOfCourses(string stuId, string lastname, string firstname, CoursesList& validCourses, sll<int>& validRegPos, sll<bool>& status) {
+		for (int i = 0; i < validRegPos.size(); ++i) {
+			int idx = validRegPos[i];
+			if (status[idx]) validCourses[i].updateStudentOfThisCourse(stuId, lastname, firstname);
+			else validCourses[i].delStudentOfThisCourse(stuId);
+			validCourses[i].saveCourseStudents(this->yearName, this->semesterName);
+		}
+	}
+
+	//--
+
 	
 	SinglyLinkedList<pair<int, SinglyLinkedList<string> > > getListOfEnrolledCourses() const;
 

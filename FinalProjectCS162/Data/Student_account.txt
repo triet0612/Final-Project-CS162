@@ -1,4 +1,4 @@
-Username,Password,Name,Date of Birth,Gender,Phone,Email
-20125047,1,Phan Huynh Tan Phat,23/12/2002,Male,0123456789,20125047@gmail.com
-20125114,123456,Nguyen Ngoc Thach,1/1/2002,Male,0123456789,20125114@gmail.com
-20125051,123456,Tran Nguyen Dang Tam,2/1/2002,Male,0123456789,20125051@gmail.com
+Username,Password,Lastname,Firstname,Name,Date of Birth,Gender,Phone,Email
+20125047,1,Phan,Phat,Phan Huynh Tan Phat,23/12/2002,Male,0123456789,20125047@gmail.com
+20125114,123456,Nguyen,Thach,Nguyen Ngoc Thach,1/1/2002,Male,0123456789,20125114@gmail.com
+20125051,123456,Tran,Tam,Tran Nguyen Dang Tam,2/1/2002,Male,0123456789,20125051@gmail.com

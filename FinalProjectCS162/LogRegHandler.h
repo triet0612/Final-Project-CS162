@@ -22,7 +22,7 @@ public:
 		int type = -1;
 		graphics->loopBoolean([&](pair<int, int> input) {
 			int y = 0, x = 0;
-			if (input.first == INPUT_CODE::ESC) return false;
+			//if (input.first == INPUT_CODE::ESC) return false;
 			if (input.first == INPUT_CODE::ENTER) {
 				table.defaultPressAnimation();
 				type = table.getCurRow();
@@ -55,7 +55,7 @@ public:
 		table.setDefaultType();
 		table.render();
 
-		table.setCursorInside();
+		table.setCursorOnRow(2);
 	}
 
 	int inputTypeProc() {

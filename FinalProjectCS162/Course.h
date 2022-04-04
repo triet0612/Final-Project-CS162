@@ -9,10 +9,10 @@ using namespace std;
 class Course {
 private:
 	struct CourseStudent {
-		string no, ID, lastname, firstname;
+		string ID, lastname, firstname;
 	};
 	struct ScoreStudent {
-		string no, ID, name;
+		string ID, name;
 		string totScore, FinScore, midScore, otherScore;
 	};
 public:
@@ -37,7 +37,7 @@ public:
 
 	sll<ScoreStudent> scoreStudents;
 
-	void getCourseStudents(string yearname, string semester) {
+	void loadCourseStudents(string yearname, string semester) {
 		string tmp;
 		ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID + ".csv");
 		if (!ifs.is_open()) return;
@@ -47,7 +47,6 @@ public:
 			tmp = "";
 			getline(ifs, tmp, ',');
 			if (tmp == "") return;
-			stu.no = tmp;
 			getline(ifs, tmp, ',');
 			stu.ID = tmp;
 			getline(ifs, tmp, ',');
@@ -59,6 +58,35 @@ public:
 
 		ifs.close();
 	};
+	
+	void saveCourseStudents(string yearname, string semester) {
+		string tmp;
+		ofstream ofs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID + ".csv");
+		int row = 0;
+		ofs << "No,ID,Last name,First name";
+		for (auto elem : this->students) {
+			ofs << "\n" << elem.ID << "," << elem.lastname << "," << elem.firstname;
+		}
+
+		ofs.close();
+	}
+
+	void delStudentOfThisCourse(string stuId) {
+		int idx = students.findIndex([&](CourseStudent target) {return target.ID == stuId; });
+		if (idx != -1) return;
+		students.deleteAt(idx);
+
+	}
+
+	void updateStudentOfThisCourse(string stuId, string lastname, string firstname) {
+		int idx = students.findIndex([&](CourseStudent target) {return target.ID == stuId; });
+		CourseStudent tmp;
+		tmp.ID = stuId;
+		tmp.firstname = firstname;
+		tmp.lastname = lastname;
+		if (idx == -1) students.push_back(tmp);
+		else students[idx] = tmp;
+	}
 
 	void loadScoreCourseStudents(string yearname, string semester) {
 		string tmp;
@@ -70,7 +98,6 @@ public:
 			tmp = "";
 			getline(ifs, tmp, ',');
 			if (tmp == "") return;
-			stu.no = tmp;
 			getline(ifs, tmp, ',');
 			stu.ID = tmp;
 			getline(ifs, tmp, ',');

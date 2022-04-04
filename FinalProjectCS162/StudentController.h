@@ -36,6 +36,8 @@ public:
             getline(ifs, tmp, ','); s.addUsername(tmp);
             if (tmp == "") break;
             getline(ifs, tmp, ','); s.addPassword(tmp);
+            getline(ifs, tmp, ','); s.lastname = tmp;
+            getline(ifs, tmp, ','); s.firstname = tmp;
             getline(ifs, tmp, ','); s.name = tmp;
             getline(ifs, tmp, ','); s.dob = tmp;
             getline(ifs, tmp, ','); s.gender = tmp;
@@ -50,10 +52,12 @@ public:
     void exportData() {
         string path = "Data/Student_account.txt";
         ofstream out(path);
-        out << "Username,Password,Name,Date of Birth,Gender,Phone,Email";
+        out << "Username,Password,Lastname,Firstname,Name,Date of Birth,Gender,Phone,Email";
         for (const auto& elem : list) {
             out << "\n" << elem.username << ",";
             out << elem.pass << ",";
+            out << elem.lastname << ",";
+            out << elem.firstname << ",";
             out << elem.name << ",";
             out << elem.dob << ",";
             out << elem.gender << ",";
@@ -357,13 +361,8 @@ public:
         string yearname, semester;
         getCur(yearname, semester);
         Course_controller courseController(yearname, semester);
-        courseController.enrollCourseProc(stuId);
-        /*CoursesRegistrationsController courseRegController(yearname, semester);
-        courseRegController.loadEnrolledCourses();
-        sll<int> curNumsStu;
-        sll<bool> status;
-        courseRegController.getInfoEnrollmentStudent(stuId, status, curNumsStu);
-        courseController.inputEnrollCoursesTableProc(stuId, curNumsStu, status);*/
+        courseController.enrollCourseProc(stuId, this->list[curId].firstname, this->list[curId].lastname);
+        
     }
 
     void proc() {
