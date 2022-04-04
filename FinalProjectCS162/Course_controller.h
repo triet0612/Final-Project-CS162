@@ -370,8 +370,10 @@ public:
 	void SaveStudentEnrollmentOfCourses(string stuId, string lastname, string firstname, CoursesList& validCourses, sll<int>& validRegPos, sll<bool>& status) {
 		for (int i = 0; i < validRegPos.size(); ++i) {
 			int idx = validRegPos[i];
+			validCourses[i].loadCourseStudents(this->yearName, this->semesterName);
 			if (status[idx]) validCourses[i].updateStudentOfThisCourse(stuId, lastname, firstname);
-			else validCourses[i].delStudentOfThisCourse(stuId);
+			else 
+				validCourses[i].delStudentOfThisCourse(stuId);
 			validCourses[i].saveCourseStudents(this->yearName, this->semesterName);
 		}
 	}

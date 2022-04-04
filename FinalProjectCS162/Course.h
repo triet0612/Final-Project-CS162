@@ -65,7 +65,7 @@ public:
 		int row = 0;
 		ofs << "No,ID,Last name,First name";
 		for (auto elem : this->students) {
-			ofs << "\n" << elem.ID << "," << elem.lastname << "," << elem.firstname;
+			ofs << "\n" << to_string(++row) << ","<< elem.ID << "," << elem.lastname << "," << elem.firstname;
 		}
 
 		ofs.close();
@@ -73,7 +73,7 @@ public:
 
 	void delStudentOfThisCourse(string stuId) {
 		int idx = students.findIndex([&](CourseStudent target) {return target.ID == stuId; });
-		if (idx != -1) return;
+		if (idx == -1) return;
 		students.deleteAt(idx);
 
 	}
