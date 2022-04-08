@@ -45,11 +45,3 @@ Username,Password,Lastname,Firstname,Name,Date of Birth,Gender,Phone,Email
 21125170,123456,HO,PHAT,HO PHAT,18/2/2003,M,917550613,hnvphat21@apcs.fitus.edu.vn
 21125171,123456,NGUYEN,TUNG,NGUYEN TUNG,18/2/2003,M,917550613,ndtung21@apcs.fitus.edu.vn
 21125172,123456,HUYNH,HAO,HUYNH HAO,18/2/2003,M,917550613,htnhao21@apcs.fitus.edu.vn
-
-,
-,
-,
-,
-,1965995856/1611508175/0,
-,
-,
