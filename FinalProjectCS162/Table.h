@@ -70,6 +70,50 @@ public:
         }
     }
 
+    void setDefaultType0() {
+        for (int i = 0; i < this->columns; ++i) {
+            this->getRow(0).setBoxIdleBgColor(i, IDLE_BG0);
+            this->getRow(0).setBoxIdleTextColor(i, IDLE_TEXT0);
+            this->getRow(0).setIdleTextColor(IDLE_TEXT0);
+        }
+        this->getRow(0).hover2Idle();
+
+        for (auto it = this->rows.begin() + 1; it != this->rows.end(); ++it) {
+            auto& elem = *it;
+            elem.setHoverBgColor(DEFAULT_COLOR::HOVER_BG0).setHoverTextColor(DEFAULT_COLOR::HOVER_TEXT0);
+            for (int j = 0; j < this->columns; j++)
+            {
+                elem.setBoxIdleBgColor(j, DEFAULT_COLOR::IDLE_BG0);
+                elem.setBoxHoverBgColor(j, DEFAULT_COLOR::HOVER_BG0);
+                elem.setBoxHoverTextColor(j, DEFAULT_COLOR::HOVER_TEXT0);
+                elem.setBoxIdleTextColor(j, DEFAULT_COLOR::IDLE_TEXT0);
+                elem.hover2Idle();
+            }
+        }
+    }
+
+    void setDefaultType2() {
+        for (int i = 0; i < this->columns; ++i) {
+            this->getRow(0).setBoxIdleBgColor(i, IDLE_BG2);
+            this->getRow(0).setBoxIdleTextColor(i, IDLE_TEXT2);
+            this->getRow(0).setIdleTextColor(IDLE_TEXT2);
+        }
+        this->getRow(0).hover2Idle();
+
+        for (auto it = this->rows.begin() + 1; it != this->rows.end(); ++it) {
+            auto& elem = *it;
+            elem.setHoverBgColor(DEFAULT_COLOR::HOVER_BG2).setHoverTextColor(DEFAULT_COLOR::HOVER_TEXT2);
+            for (int j = 0; j < this->columns; j++)
+            {
+                elem.setBoxIdleBgColor(j, DEFAULT_COLOR::IDLE_BG2);
+                elem.setBoxHoverBgColor(j, DEFAULT_COLOR::HOVER_BG2);
+                elem.setBoxHoverTextColor(j, DEFAULT_COLOR::HOVER_TEXT2);
+                elem.setBoxIdleTextColor(j, DEFAULT_COLOR::IDLE_TEXT2);
+                elem.hover2Idle();
+            }
+        }
+    }
+
     template<class ... Args>
     void addTitleRow_back(Args ... lenBoxes) {
         for (auto len : { lenBoxes... }) {

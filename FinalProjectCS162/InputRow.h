@@ -49,6 +49,16 @@ public:
         return this->textBoxes.back();
     }
 
+    void setDefaultType0() {
+        this->textBoxes.front().setIdleBgColor(IDLE_BG0);
+        this->textBoxes.front().setHoverBgColor(IDLE_BG0 | BG_I);
+        this->textBoxes.front().setIdleTextColor(IDLE_TEXT0);
+        this->textBoxes.front().setHoverTextColor(IDLE_TEXT0);
+        this->textBoxes.front().setIdleBorderColor(IDLE_BG0 | HOVER_TEXT0);
+        this->textBoxes.front().setHoverBorderColor(IDLE_BG0 | HOVER_TEXT0);
+        this->hover2Idle();
+    }
+
     void setDefaultType() {
         this->textBoxes.front().setIdleBgColor(IDLE_BG1);
         this->textBoxes.front().setHoverBgColor(IDLE_BG1);
@@ -59,11 +69,32 @@ public:
         this->hover2Idle();
     }
 
+
     void setDefaultType2() {
         this->textBoxes.front().setIdleBgColor(HOVER_BG1);
         this->textBoxes.front().setHoverBgColor(HOVER_BG1);
         this->textBoxes.front().setIdleTextColor(IDLE_TEXT);
         this->textBoxes.front().setHoverTextColor(IDLE_TEXT);
+        this->textBoxes.front().setIdleBorderColor(0);
+        this->textBoxes.front().setHoverBorderColor(0);
+        this->hover2Idle();
+    }
+
+    void setDefaultType3() {
+        this->textBoxes.front().setIdleBgColor(IDLE_BG3);
+        this->textBoxes.front().setHoverBgColor(IDLE_BG3);
+        this->textBoxes.front().setIdleTextColor(IDLE_TEXT3);
+        this->textBoxes.front().setHoverTextColor(IDLE_TEXT3);
+        this->textBoxes.front().setIdleBorderColor(IDLE_BG3 | HOVER_TEXT3);
+        this->textBoxes.front().setHoverBorderColor(IDLE_BG3 | HOVER_TEXT3);
+        this->hover2Idle();
+    }
+
+    void setDefaultType4() {
+        this->textBoxes.front().setIdleBgColor(HOVER_BG3);
+        this->textBoxes.front().setHoverBgColor(HOVER_BG3);
+        this->textBoxes.front().setIdleTextColor(IDLE_TEXT2);
+        this->textBoxes.front().setHoverTextColor(IDLE_TEXT2);
         this->textBoxes.front().setIdleBorderColor(0);
         this->textBoxes.front().setHoverBorderColor(0);
         this->hover2Idle();

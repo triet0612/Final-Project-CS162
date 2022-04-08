@@ -116,7 +116,7 @@ public:
         table.addRow_back("Change password");
         table.addRow_back("Get me out the here");
 
-        table.setDefaultType();
+        table.setDefaultType2();
         table.render();
 
         table.setCursorInside();
@@ -145,7 +145,7 @@ public:
         table.addRow_back((string)"Gender", target.gender);
         table.addRow_back((string)"Date of birth", target.dob.convert2String());
 
-        table.setDefaultType();
+        table.setDefaultType2();
         table.render();
 
         table.setCursorInside();
@@ -167,7 +167,7 @@ public:
             inputList.push_back(InputRow(5, 4 * i + 1, 50, 3, 0, 15));
             pos.push_back(inputList.back().getInside());
             inputList.back().setTitleBoxWidth(21).setContentBoxWidth(30);
-            inputList.back().setDefaultType();
+            inputList.back().setDefaultType3();
         }
 
         inputList[0].setTitle("Current Password: ").setContent("");
@@ -177,7 +177,7 @@ public:
         buttonList.push_back(Button(6, 8, 10, 3));
         pos.push_back(buttonList.back().getInside());
         buttonList.back().setText("   OK");
-        buttonList.back().setDefaultType();
+        buttonList.back().setDefaultType2();
 
         for (auto& elem : buttonList) elem.render();
         for (auto& elem : inputList) elem.update();
@@ -280,7 +280,7 @@ public:
             inputList.push_back(InputRow(1, 4 * i + 1, 50, 3, 0, 15));
             pos.push_back(inputList.back().getInside());
             inputList.back().setTitleBoxWidth(25).setContentBoxWidth(30);
-            inputList.back().setDefaultType();
+            inputList.back().setDefaultType3();
         }
 
         inputList[0].setTitle("Enter Password: ").setContent("");
@@ -292,7 +292,7 @@ public:
         buttonList.push_back(Button(2, 8, 10, 3));
         pos.push_back(buttonList.back().getInside());
         buttonList.back().setText("   OK");
-        buttonList.back().setDefaultType();
+        buttonList.back().setDefaultType2();
 
         for (auto& elem : buttonList) elem.render();
         for (auto& elem : inputList) elem.update();

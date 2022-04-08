@@ -233,7 +233,7 @@ public:
 			table.addRow_back((string)"Empty");
 		}
 
-		table.setDefaultType();
+		table.setDefaultType2();
 		table.render();
 
 		table.setCursorInside();
@@ -278,7 +278,7 @@ public:
 		if (validRegPos.size() == 0) {
 			table.addRow_back("","Empty");
 		}
-		table.setDefaultType();
+		table.setDefaultType2();
 		table.render();
 
 		table.setCursorOnRow(initRow);

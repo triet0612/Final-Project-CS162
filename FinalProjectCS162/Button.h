@@ -15,11 +15,27 @@ public:
         this->onClick = onClick;
     }
 
+    void setDefaultType0() {
+        this->setIdleBgColor(IDLE_BG0);
+        this->setIdleTextColor(IDLE_TEXT0);
+        this->setHoverBgColor(HOVER_BG0);
+        this->setHoverTextColor(HOVER_TEXT0 | 15);
+        this->hover2Idle();
+    }
+
     void setDefaultType() {
         this->setIdleBgColor(IDLE_BG1);
         this->setIdleTextColor(IDLE_TEXT1);
         this->setHoverBgColor(HOVER_BG);
         this->setHoverTextColor(HOVER_TEXT | 15);
+        this->hover2Idle();
+    }
+
+    void setDefaultType2() {
+        this->setIdleBgColor(IDLE_BG3);
+        this->setIdleTextColor(IDLE_TEXT3);
+        this->setHoverBgColor(HOVER_BG2);
+        this->setHoverTextColor(HOVER_TEXT2);
         this->hover2Idle();
     }
 

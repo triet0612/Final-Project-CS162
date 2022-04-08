@@ -52,7 +52,7 @@ public:
 		table.addRow_back("Student");
 		table.addRow_back("I want to get out of here");
 
-		table.setDefaultType();
+		table.setDefaultType0();
 		table.render();
 
 		table.setCursorOnRow(2);
@@ -78,7 +78,8 @@ public:
 		table.addRow_back("Login");
 		table.addRow_back("Oops, wrong way, let's return");
 
-		table.setDefaultType();
+		if (type == 1) table.setDefaultType();
+		else table.setDefaultType2();
 		table.render();
 
 		table.setCursorInside();
@@ -115,12 +116,13 @@ public:
 		}
 	}
 
-	void setupLoginInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos) {
+	void setupLoginInputList(sll<InputRow>& inputList, sll<Button>& buttonList, sll<pair<int, int>>& pos, int type) {
 		for (int i = 0; i < 2; ++i) {
 			inputList.push_back(InputRow(1, 4 * i + 1, 50, 3, 0, 15));
 			pos.push_back(inputList.back().getInside());
 			inputList.back().setTitleBoxWidth(12).setContentBoxWidth(30);
-			inputList.back().setDefaultType();
+			if(type == 1) inputList.back().setDefaultType();
+			else inputList.back().setDefaultType3();
 		}
 
 		inputList[0].setTitle("Username:").setContent("");
@@ -131,7 +133,8 @@ public:
 		buttonList.push_back(Button(2, 8, 10, 3));
 		pos.push_back(buttonList.back().getInside());
 		buttonList.back().setText("   OK");
-		buttonList.back().setDefaultType();
+		if(type == 1) buttonList.back().setDefaultType();
+		else buttonList.back().setDefaultType2();
 
 		for (auto& elem : buttonList) elem.render();
 		for (auto& elem : inputList) elem.update();
@@ -199,14 +202,14 @@ public:
 		notice.render();
 	}
 
-	pair<string, string> inputLoginProc(bool& isCancel) {
+	pair<string, string> inputLoginProc(bool& isCancel, int type) {
 		sll<InputRow> inputList;
 		sll<Button> buttonList;
 		sll<pair<int, int> > pos;
 		pair<string, string> res;
 		bool isOver = false;
 
-		setupLoginInputList(inputList, buttonList, pos);
+		setupLoginInputList(inputList, buttonList, pos, type);
 		setOnClickSubmitButton(buttonList[0], inputList, res, isOver);
 
 		renderLogProc(inputList, buttonList, pos, isOver);
@@ -218,7 +221,7 @@ public:
 		bool isCancel;
 		string username, password;
 		system("cls");
-		pair<string, string> ans = inputLoginProc(isCancel);
+		pair<string, string> ans = inputLoginProc(isCancel, type);
 		username = ans.first;
 		password = ans.second;
 
@@ -227,7 +230,7 @@ public:
 		case 1:
 			while (!staffController.loginProc(username, password) && !isCancel) {
 				renderCaution();
-				ans = inputLoginProc(isCancel);
+				ans = inputLoginProc(isCancel, type);
 				username = ans.first;
 				password = ans.second;
 			};
@@ -241,7 +244,7 @@ public:
 		case 2:
 			while (!studentController.loginProc(username, password) && !isCancel) {
 				renderCaution();
-				ans = inputLoginProc(isCancel);
+				ans = inputLoginProc(isCancel, type);
 				username = ans.first;
 				password = ans.second;
 			};
