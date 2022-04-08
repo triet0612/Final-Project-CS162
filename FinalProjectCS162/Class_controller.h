@@ -310,6 +310,9 @@ public:
 			totSubjects = 0;
 			totScore = 0;
 		}
+		if (classes[classIdx].students.size() == 0) {
+			table.addRow_back("", "Empty");
+		}
 
 		table.setDefaultType();
 		table.render();
