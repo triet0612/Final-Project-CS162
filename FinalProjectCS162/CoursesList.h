@@ -17,6 +17,7 @@ private:
 	}
 public:
 	bool readFile(const string& path);
+
 	bool loadCourse(string yearname, string semester) {
 		return readFile("Data/" + yearname + "/" + semester + "/Courses.csv");
 	}
@@ -326,9 +327,9 @@ public:
 		return res;
 	}
 
-	void modifyCourse(int id) {
+	void modifyCourse(int id, bool& isDeleted) {
 		bool isCancel = false;
-		bool isDeleted = false;
+		isDeleted = false;
 		//system("cls");
 		sll<string> initvalues;
 		buildInitValues(initvalues, (*this)[id]);

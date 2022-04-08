@@ -12,7 +12,6 @@ class semester
 {
 public:
 	Course_controller courses;
-	CoursesRegistrationsController courseRegs;
 	string semester_name;
 	string yearname;
 	Date startdate;
@@ -24,7 +23,6 @@ public:
 		endate = e;
 		this->yearname = yearname;
 		this->courses = Course_controller(yearname, semester_name);
-		this->courseRegs = CoursesRegistrationsController(yearname, semester_name);
 		//this->courseRegs;
 	};
 

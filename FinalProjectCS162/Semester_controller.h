@@ -148,7 +148,7 @@ public:
 	}
 	
 	void createCourseReg(semester& s) {
-		s.courseRegs.modifyDatesReg();
+		s.courses.courseRegsController.modifyDatesReg();
 		//s.course_reg.ModifyRegCourseDates();
 		return;
 	}
@@ -373,7 +373,8 @@ public:
 			switch (type)
 			{
 			case 1:
-				semesterlist[id].courseRegs.viewCourseRegTable(); break;
+				semesterlist[id].courses.courseRegsController.loadCreatedCourseRegs(); 
+				semesterlist[id].courses.courseRegsController.viewCourseRegTable(); break;
 			case 2:
 				semesterlist[id].courses.courseProc(yearname, "s" + to_string(id + 1)); break;
 			case 3:

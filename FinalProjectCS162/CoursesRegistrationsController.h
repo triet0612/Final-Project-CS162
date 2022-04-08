@@ -22,12 +22,29 @@ public:
 	CoursesRegistrationsController(string yearname, string semestername) {
 		this->yearName = yearname;
 		this->semesterName = semestername;
-		loadData();
+		loadCreatedCourseRegs();
 	}
 	~CoursesRegistrationsController() {
 		//writeData();
 	};
 	void createCoursesRegistration(const string& yearName, const string& semesterName);
+
+	void delCourseReg(string courseID) {
+		int id = this->coursesRegistrations.findIndex([&](CourseRegistration target) {return target.getCourseID() == courseID; });
+		if (id == -1) return;
+		this->coursesRegistrations.deleteAt(id);
+		this->saveCreatedCourseRegs("Data/" + (this->yearName) + "/" + (this->semesterName) + "/coursesRegistrationsDates.txt");
+	}
+
+	void delEnrolledCourseColumn(string courseID) {
+		if (this->rawRegsData.size() <= 0) return;
+		int id = this->rawRegsData[0].findIndex([&](string target) {return target == courseID; });
+		if (id == -1) return;
+		for (auto& x : rawRegsData) {
+			x.deleteAt(id);
+		}
+		this->saveEnrolledCourses();
+	}
 
 	void loadEnrolledCourses() {
 		this->rawRegsData.clear();
@@ -95,13 +112,13 @@ public:
 
 	}
 
-	bool loadData();
+	bool loadCreatedCourseRegs();
 
-	bool loadDataFromFile(const string& path);
+	bool loadCreatedCoursesRegsFromPath(const string& path);
 
 	bool writeData() const;
 
-	bool writeDataToFile(const string& path) const;
+	bool saveCreatedCourseRegs(const string& path) const;
 
 	bool checkExistence(string courseID) {
 		return this->coursesRegistrations.findIndex([&](CourseRegistration target) {return target.getCourseID() == courseID; }) != -1;

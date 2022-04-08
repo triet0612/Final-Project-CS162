@@ -30,10 +30,12 @@ private:
 public:
 	string yearName, semesterName;
 	CoursesList courses;
+	CoursesRegistrationsController courseRegsController;
 	Course_controller();
 	Course_controller(string yearname, string semesterName) {
 		this->yearName = yearName;
 		this->semesterName = semesterName;
+		courseRegsController = CoursesRegistrationsController(yearname, semesterName);
 		loadCourses(yearname, semesterName);
 	};
 	
@@ -98,17 +100,24 @@ public:
 	void viewCourseOptions(string yearname, string semester, int id) {
 		string courseID = this->courses[id].courseID;
 		int type = inputCourseOptionTableProc(courseID, id);
+		bool isDeleted = false;
 		switch (type)
 		{
 		case 1: viewStu(yearname, semester, id); break;
 		case 2: break;
 		case 3: viewScoreStu(yearName, semester, id); break;
-		case 4: this->courses.modifyCourse(id); system("cls"); break;
+		case 4: this->courses.modifyCourse(id, isDeleted); system("cls"); break;
 		default:
 			break;
 		}
-		//type = inputCourseOptionTableProc(courseID, id);
 		this->courses.saveCourses(yearname, semester);
+		if (isDeleted) {
+			string stuListPath = ("Data/" + this->yearName + "/" + this->semesterName + "/Studentlist/" + courseID + ".csv");
+			remove(stuListPath.c_str());
+			courseRegsController.delCourseReg(courseID);
+			courseRegsController.loadEnrolledCourses();
+			courseRegsController.delEnrolledCourseColumn(courseID);
+		}
 		return;
 	};
 

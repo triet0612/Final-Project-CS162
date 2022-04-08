@@ -9,7 +9,7 @@ using namespace std;
 
 CoursesRegistrationsController::CoursesRegistrationsController() {};
 
-bool CoursesRegistrationsController::writeDataToFile(const string& path) const {
+bool CoursesRegistrationsController::saveCreatedCourseRegs(const string& path) const {
 	ofstream foutput;
 	foutput.open(path);
 	for (const CourseRegistration& courseRegistration : (this->coursesRegistrations)) {
@@ -25,7 +25,7 @@ bool CoursesRegistrationsController::writeDataToFile(const string& path) const {
 	return true;
 };
 
-bool CoursesRegistrationsController::loadDataFromFile(const string& path) {
+bool CoursesRegistrationsController::loadCreatedCoursesRegsFromPath(const string& path) {
 	ifstream finput(path);
 	if (finput) {
 		CourseRegistration courseRegistration;
@@ -40,8 +40,8 @@ bool CoursesRegistrationsController::loadDataFromFile(const string& path) {
 	return false;
 };
 
-bool CoursesRegistrationsController::loadData() {
-	return this->loadDataFromFile("Data/" + (this->yearName) + "/" + (this->semesterName) + "/coursesRegistrationsDates.txt");
+bool CoursesRegistrationsController::loadCreatedCourseRegs() {
+	return this->loadCreatedCoursesRegsFromPath("Data/" + (this->yearName) + "/" + (this->semesterName) + "/coursesRegistrationsDates.txt");
 };
 
 bool CoursesRegistrationsController::writeData() const {
@@ -52,7 +52,7 @@ bool CoursesRegistrationsController::writeData() const {
 	}
 
 	ofs.close();
-	return this->writeDataToFile("Data/" + (this->yearName) + "/" + (this->semesterName) + "/coursesRegistrationsDates.txt");
+	return this->saveCreatedCourseRegs("Data/" + (this->yearName) + "/" + (this->semesterName) + "/coursesRegistrationsDates.txt");
 };
 
 CourseRegistration& CoursesRegistrationsController::getCourseRegistration(const string& courseID) {
