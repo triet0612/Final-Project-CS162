@@ -266,6 +266,9 @@ public:
 			string totalStu = to_string(curNumsStu[validRegPos[i]]) + "/" + to_string(target.maximumStudent);
 			table.addRow_back(to_string(i + 1), target.courseID, to_string(target.credits), c.getStartDate().convert2String(), c.getEndDate().convert2String(), totalStu, status);
 		}
+		if (validRegPos.size() == 0) {
+			table.addRow_back("","Empty");
+		}
 		table.setDefaultType();
 		table.render();
 
@@ -306,6 +309,7 @@ public:
 		do {
 			type = inputEnrollCoursesTableProc(stuId, curNumsStu, status, courseRegController,validCourses, validRegPos, type);
 			if (type != -1) {
+				if (type > validCourses.size()) continue;
 				int i = type - 1;
 				int validIdx = validRegPos[i];
 				bool& enrollStatus = status[validRegPos[i]];
