@@ -1,2 +1,6 @@
 No,CourseID,NameOfCourse,NameOfTeacher,Credits,MaximumStudent,Day-Session1,Day-Session2
-1,MTH251,Calculus 2,Nguyen Huu Anh,4,50,TUE 9:30,THU 9:30
+1,CS161,Introduction to Computer Science I,Dinh Ba Tien,4,50,TUE 7:30,SAT 7:30
+2,PH211,General Physics I,Vu Thi Hanh Thu,4,50,THU 15:30,FRI 9:30
+3,MTH251,Calculus I,Nguyen Huu Anh,4,50,FRI 13:30,FRI 15:30
+4,CM101,Communication Management,Duong Nguyen Vu,4,50,THU 7:30,THU 9:30
+5,BAA00101,Marxist-Leninist Philosophy,Ngo Quang Huy,3,100,TUE 13:30,TUE 15:30
