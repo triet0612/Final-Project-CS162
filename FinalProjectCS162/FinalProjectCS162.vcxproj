@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BackgroundController.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="Class_controller.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Textbox.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BackgroundController.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Class.cpp" />
     <ClCompile Include="Class_controller.cpp" />

@@ -2,6 +2,7 @@
 #include <functional>
 #include "StaffController.h"
 #include "StudentController.h"
+#include "BackgroundController.h"
 #include "Table.h"
 class LogRegHandler
 {
@@ -44,6 +45,7 @@ public:
 
 	void setupTypeTable(Table& table) {
 		system("cls");
+		BackgroundController::beginInterface();
 		table = Table(0, 0, 4);
 
 		table.addTitleRow_back(30);
@@ -70,6 +72,7 @@ public:
 
 	void setupLogRegTable(Table& table, int type) {
 		system("cls");
+		BackgroundController::simpleBackground(type);
 		table = Table(0, 0, 4);
 
 		table.addTitleRow_back(40);
@@ -221,6 +224,7 @@ public:
 		bool isCancel;
 		string username, password;
 		system("cls");
+		BackgroundController::loginInterface(type);
 		pair<string, string> ans = inputLoginProc(isCancel, type);
 		username = ans.first;
 		password = ans.second;
@@ -228,6 +232,7 @@ public:
 		switch (type)
 		{
 		case 1:
+			
 			while (!staffController.loginProc(username, password) && !isCancel) {
 				renderCaution();
 				ans = inputLoginProc(isCancel, type);

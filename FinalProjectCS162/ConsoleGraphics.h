@@ -90,6 +90,7 @@ public:
         static ConsoleGraphics instance;
         return instance;
     }
+
     pair<int, int> getRowCol() {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         int columns, rows;
@@ -155,7 +156,6 @@ public:
 
         gotoXY(pos.X, pos.Y, store);
     }
-
 
     void moveVertical(short s, bool store = false)
     {

@@ -132,6 +132,9 @@
     <ClInclude Include="StudentInformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BackgroundController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Class.cpp">
@@ -222,6 +225,9 @@
       <Filter>Courses Supporters</Filter>
     </ClCompile>
     <ClCompile Include="StudentInformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BackgroundController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
