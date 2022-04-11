@@ -63,7 +63,7 @@ public:
 };
 
 template<class ...Args>
-inline void RowContainer::addTextBox_back(Args ...lenBoxes) {
+void RowContainer::addTextBox_back(Args ...lenBoxes) {
     int len = sizeof...(lenBoxes);
     int x = this->textBoxes.size() == 0 ? this->getX() : this->textBoxes.back().getX() + this->textBoxes.back().getWidth() - 1;
     int y = this->textBoxes.size() == 0 ? this->getY() : this->textBoxes.back().getY();
@@ -78,7 +78,7 @@ inline void RowContainer::addTextBox_back(Args ...lenBoxes) {
 }
 
 template<class ...Args>
-inline void RowContainer::addText(Args ...txtCols) {
+void RowContainer::addText(Args ...txtCols) {
     int len = sizeof...(txtCols);
     assert(len <= this->columns);
     //if (len == 0) return;

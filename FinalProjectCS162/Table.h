@@ -72,7 +72,7 @@ public:
 };
 
 template<class ...Args>
-inline void Table::addTitleRow_back(Args ...lenBoxes) {
+void Table::addTitleRow_back(Args ...lenBoxes) {
     for (auto len : { lenBoxes... }) {
         width += len - 1;
         formatCols.push_back(len);
@@ -84,7 +84,7 @@ inline void Table::addTitleRow_back(Args ...lenBoxes) {
 }
 
 template<class ...Args>
-inline void Table::addRow_back(Args ...txts) {
+void Table::addRow_back(Args ...txts) {
     int len = sizeof...(txts);
     assert(len <= columns);
     assert(this->maxRow > 1);
