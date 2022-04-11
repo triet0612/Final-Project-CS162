@@ -143,7 +143,91 @@ pair<string, pair<int, int> > Course::getDaySession2() const {
 	getline(s, t);
 	end = getMinutes(t);
 	return make_pair(day, make_pair(start, end));
-};
+}
+void Course::loadCourseStudents(const string& yearname, const string& semester) {
+	students.clear();
+	string tmp;
+	ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID + ".csv");
+	if (!ifs.is_open()) return;
+	getline(ifs, tmp);
+	while (!ifs.eof()) {
+		CourseStudent stu;
+		tmp = "";
+		getline(ifs, tmp, ',');
+		if (tmp == "") return;
+		getline(ifs, tmp, ',');
+		stu.ID = tmp;
+		getline(ifs, tmp, ',');
+		stu.lastname = tmp;
+		getline(ifs, tmp);
+		stu.firstname = tmp;
+		students.push_back(stu);
+	}
+
+	ifs.close();
+}
+void Course::saveCourseStudents(const string& yearname, const string& semester) {
+	string tmp;
+	ofstream ofs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID + ".csv");
+	int row = 0;
+	ofs << "No,ID,Last name,First name";
+	for (auto elem : this->students) {
+		ofs << "\n" << to_string(++row) << "," << elem.ID << "," << elem.lastname << "," << elem.firstname;
+	}
+
+	ofs.close();
+}
+void Course::delStudentOfThisCourse(const string& stuId) {
+	int idx = students.findIndex([&](CourseStudent target) {return target.ID == stuId; });
+	if (idx == -1) return;
+	students.deleteAt(idx);
+
+}
+void Course::updateStudentOfThisCourse(const string& stuId, const string& lastname, const string& firstname) {
+	int idx = students.findIndex([&](CourseStudent target) {return target.ID == stuId; });
+	CourseStudent tmp;
+	tmp.ID = stuId;
+	tmp.firstname = firstname;
+	tmp.lastname = lastname;
+	if (idx == -1) students.push_back(tmp);
+	else students[idx] = tmp;
+}
+void Course::loadScoreCourseStudents(const string& yearname, const string& semester) {
+	string tmp;
+	ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Mark" + '/' + courseID + ".csv");
+	if (!ifs.is_open()) return;
+	getline(ifs, tmp);
+	while (!ifs.eof()) {
+		ScoreStudent stu;
+		tmp = "";
+		getline(ifs, tmp, ',');
+		if (tmp == "") return;
+		getline(ifs, tmp, ',');
+		stu.ID = tmp;
+		getline(ifs, tmp, ',');
+		stu.name = tmp;
+		getline(ifs, tmp, ',');
+		stu.totScore = tmp;
+		getline(ifs, tmp, ',');
+		stu.FinScore = tmp;
+		getline(ifs, tmp, ',');
+		stu.midScore = tmp;
+		getline(ifs, tmp);
+		stu.otherScore = tmp;
+		scoreStudents.push_back(stu);
+	}
+
+	ifs.close();
+}
+string Course::getFinScoreOfStudent(const string& yearname, const string& semester, const string& stuID) {
+	int id = scoreStudents.findIndex([&](ScoreStudent target) { return target.ID == stuID; });
+	if (id == -1) return "X";
+	return scoreStudents[id].FinScore;
+}
+int Course::getTimesetId(const string& s) const {
+	return this->timeset.findIndex([&](string target) {return target == s; });
+}
+;
 
 bool Course::checkConflicted(const Course& course) const {
 	SinglyLinkedList<pair<string, pair<int, int> > > sessions[2];

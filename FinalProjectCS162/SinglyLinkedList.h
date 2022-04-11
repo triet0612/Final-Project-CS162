@@ -150,7 +150,7 @@ public:
         return T();
     };
 
-    int findIndex(function<bool(T)> cmp) {
+    int findIndex(function<bool(T)> cmp) const {
         SinglyNode<T>* cur = this->dummy->next;
         int index = 0;
         while (cur != NULL) {
@@ -158,7 +158,7 @@ public:
                 return index;
             }
             cur = cur->next;
-            index++;
+            ++index;
         }
         return -1;
     };
