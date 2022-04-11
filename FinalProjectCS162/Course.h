@@ -38,6 +38,7 @@ public:
 	sll<ScoreStudent> scoreStudents;
 
 	void loadCourseStudents(string yearname, string semester) {
+		students.clear();
 		string tmp;
 		ifstream ifs("Data/" + yearname + '/' + semester + '/' + "Studentlist" + '/' + courseID + ".csv");
 		if (!ifs.is_open()) return;
