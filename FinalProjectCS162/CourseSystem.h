@@ -5,11 +5,8 @@ class CourseSystem
 private:
 	LogRegHandler logRegHandler;
 public:
-	CourseSystem() {
-	};
+	CourseSystem();;
 
-	void startProgram() {
-		logRegHandler.logRegProc();
-	}
+	void startProgram();
 };
 
