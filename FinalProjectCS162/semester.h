@@ -16,15 +16,7 @@ public:
 	string yearname;
 	Date startdate;
 	Date endate;
-	semester() {};
-	semester(string name, string yearname, Date s, Date e) {
-		semester_name = name;
-		startdate = s;
-		endate = e;
-		this->yearname = yearname;
-		this->courses = Course_controller(yearname, semester_name);
-		//this->courseRegs;
-	};
-
+	semester();
+	semester(const string& name, const string& yearname, const Date& s, const Date& e);
 
 };

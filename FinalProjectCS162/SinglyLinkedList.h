@@ -241,7 +241,7 @@ public:
 
     void deleteAt(int index) {
         SinglyNode<T>* cur = this->dummy;
-        for (int i = 0; i < index && cur->next != NULL; i++) {
+        for (int i = 0; i < index && cur->next != NULL; ++i) {
             cur = cur->next;
         }
         if (cur->next != NULL) {
@@ -293,7 +293,7 @@ public:
     T& operator[](int index) {
         assert(0 <= index && index < sz);
         SinglyNode<T>* cur = this->dummy->next;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index; ++i) {
             cur = cur->next;
         }
         return cur->data;
@@ -302,7 +302,7 @@ public:
     const T& operator[](int index) const {
         assert(0 <= index && index < sz);
         SinglyNode<T>* cur = this->dummy->next;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index; ++i) {
             cur = cur->next;
         }
         return cur->data;
