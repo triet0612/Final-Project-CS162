@@ -230,5 +230,8 @@
     <ClCompile Include="BackgroundController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Schoolyear_controller.cpp">
+      <Filter>Objects Controllers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

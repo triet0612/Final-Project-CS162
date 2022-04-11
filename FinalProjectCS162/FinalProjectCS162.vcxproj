@@ -197,6 +197,7 @@
     <ClCompile Include="LogRegHandler.cpp" />
     <ClCompile Include="PeopleController.cpp" />
     <ClCompile Include="RowContainer.cpp" />
+    <ClCompile Include="Schoolyear_controller.cpp" />
     <ClCompile Include="semester.cpp" />
     <ClCompile Include="Semester_controller.cpp" />
     <ClCompile Include="SinglyLinkedList.cpp" />
