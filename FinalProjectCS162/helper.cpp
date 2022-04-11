@@ -2,10 +2,21 @@
 #include <iomanip>
 #include <sstream>
 #include <fstream>
+#include <random>
 
 using namespace std;
 
 #include "helper.h"
+
+int getRandomInteger(const int l, const int r) {
+	const int length = r - l + 1;
+	srand(time(NULL));
+	long long result = 0;
+	for (int i = 0; i < 3; ++i)
+		result = (result * RAND_MAX % length + rand()) % length;
+	result += l;
+	return result;
+};
 
 int getNumberOfDigits(long long x) {
 	if (x == 0)
@@ -86,6 +97,15 @@ int getMinutes(const string& t) {
 void printDates(ofstream& foutput, const Date& date, const string& s) {
 	foutput << date.getDay() << s << date.getMonth() << s << date.getYear();
 }
+
+string integerToString(const int x) {
+	stringstream ss;
+	string result;
+	ss << x;
+	ss >> result;
+	return result;
+};
+
 string doubleToStr(double x, int precision)
 {
 	stringstream ss;

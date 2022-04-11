@@ -7,72 +7,21 @@ class Button : public TextBox {
 
 public:
 
-    Button() : TextBox() {
-        this->onClick = [](Button& b) {};
-    }
+    Button();
 
-    Button(int x, int y, int width, int height, function<void(Button&)> onClick = [](Button&) {}, bool border = false, int idleBgColor = 0, int idleTextColor = 15, int idleBorderColor = 15) : TextBox(x, y, width, height, border, idleBgColor, idleTextColor, idleBorderColor) {
-        this->onClick = onClick;
-    }
+    Button(int x, int y, int width, int height, function<void(Button&)> onClick = [](Button&) {}, bool border = false, int idleBgColor = 0, int idleTextColor = 15, int idleBorderColor = 15);
 
-    void setDefaultType0() {
-        this->setIdleBgColor(IDLE_BG0);
-        this->setIdleTextColor(IDLE_TEXT0);
-        this->setHoverBgColor(HOVER_BG0);
-        this->setHoverTextColor(HOVER_TEXT0 | 15);
-        this->hover2Idle();
-    }
+    void setDefaultType0();
 
-    void setDefaultType() {
-        this->setIdleBgColor(IDLE_BG1);
-        this->setIdleTextColor(IDLE_TEXT1);
-        this->setHoverBgColor(HOVER_BG);
-        this->setHoverTextColor(HOVER_TEXT | 15);
-        this->hover2Idle();
-    }
+    void setDefaultType();
 
-    void setDefaultType2() {
-        this->setIdleBgColor(IDLE_BG3);
-        this->setIdleTextColor(IDLE_TEXT3);
-        this->setHoverBgColor(HOVER_BG2);
-        this->setHoverTextColor(HOVER_TEXT2);
-        this->hover2Idle();
-    }
+    void setDefaultType2();
 
-    bool update(pair<int, int> input) {
-        if (this->isMouseInContainer()) {
-            if (this->isHover == false) {
-                this->isHover = true;
-                this->reRender = true;
-                this->idle2Hover();
-            }
+    bool update(pair<int, int> input);
 
-            if (input.first == INPUT_CODE::ENTER) {
-                if (this->isClicked == false) {
-                    this->onClick(*this);
-                }
-            }
+    void setOnClick(function<void(Button&)> onClick);
 
-            return true;
-        }
-        else {
-            if (this->isHover == true) {
-                this->isHover = false;
-                this->reRender = true;
-                this->hover2Idle();
-            }
-
-            return false;
-        }
-    }
-
-    void setOnClick(function<void(Button&)> onClick) {
-        this->onClick = onClick;
-    }
-
-    void render() {
-        TextBox::render();
-    }
+    void render();
 
 };
 

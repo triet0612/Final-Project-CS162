@@ -28,3 +28,7 @@ int getMinutes(const string& t);
 void printDates(ofstream& foutput, const Date& date, const string& s);
 
 string doubleToStr(double x, int precision);
+
+int getRandomInteger(const int l, const int r);
+
+string integerToString(const int x);
