@@ -4,6 +4,7 @@
 #include <iostream>
 using namespace std;
 #define sll SinglyLinkedList
+
 template <class T>
 class SinglyNode {
 public:
@@ -11,17 +12,17 @@ public:
     SinglyNode<T>* next;
     //default constructor
     SinglyNode() {
-        next = nullptr;
+        this->next = nullptr;
     }
 
     SinglyNode(T data) {
         this->data = data;
-        next = nullptr;
+        this->next = nullptr;
     }
 
     SinglyNode(T* data) {
         this->data = *data;
-        next = nullptr;
+        this->next = nullptr;
     }
 };
 
