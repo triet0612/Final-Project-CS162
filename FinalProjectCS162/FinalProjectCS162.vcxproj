@@ -24,6 +24,7 @@
     <ProjectGuid>{3f3cd981-3319-42ff-a382-39c1d10325e9}</ProjectGuid>
     <RootNamespace>FinalProjectCS162</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SchoolCMS_CS162_Project</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
