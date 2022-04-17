@@ -11,19 +11,11 @@ public:
     T data;
     SinglyNode<T>* next;
     //default constructor
-    SinglyNode() {
-        this->next = nullptr;
-    }
+    SinglyNode();
 
-    SinglyNode(T data) {
-        this->data = data;
-        this->next = nullptr;
-    }
+    SinglyNode(T data);
 
-    SinglyNode(T* data) {
-        this->data = *data;
-        this->next = nullptr;
-    }
+    SinglyNode(T* data);
 };
 
 //singly linked list iterator
@@ -107,12 +99,9 @@ public:
     using Iterator = SinglyLinkedListIterator<SinglyLinkedList<T>>;
 
 public:
-    SinglyLinkedList() { this->dummy = new SinglyNode<T>(); this->rear = this->dummy; this->sz = 0; }
+    SinglyLinkedList();
 
-    ~SinglyLinkedList() {
-        this->clear();
-        delete this->dummy;
-    };
+    ~SinglyLinkedList();
 
     Iterator begin() const {
         return Iterator(this->dummy->next);
@@ -122,164 +111,45 @@ public:
         return Iterator(nullptr);
     };
 
-    SinglyLinkedList(const SinglyLinkedList<T>& other) {
-        copy(other);
-    };
+    SinglyLinkedList(const SinglyLinkedList<T>& other);
 
-    SinglyLinkedList(SinglyLinkedList<T>&& other) {
-        copy(other);
-    };
+    SinglyLinkedList(SinglyLinkedList<T>&& other);
 
-    void copy(const SinglyLinkedList<T>& other) {
-        this->rear = this->dummy = new SinglyNode<T>();
-        this->sz = 0;
-        SinglyNode<T>* curr = other.dummy->next;
-        while (curr != nullptr) {
-            this->push_back(curr->data);
-            curr = curr->next;
-        }
-    };
+    void copy(const SinglyLinkedList<T>& other);
 
-    T find(function<bool(T)> cmp) {
-        SinglyNode<T>* cur = this->dummy->next;
-        while (cur != NULL) {
-            if (cmp(cur->data)) {
-                return cur->data;
-            }
-            cur = cur->next;
-        }
-        return T();
-    };
+    T find(function<bool(T)> cmp);
 
-    int findIndex(function<bool(T)> cmp) const {
-        SinglyNode<T>* cur = this->dummy->next;
-        int index = 0;
-        while (cur != NULL) {
-            if (cmp(cur->data)) {
-                return index;
-            }
-            cur = cur->next;
-            ++index;
-        }
-        return -1;
-    };
+    int findIndex(function<bool(T)> cmp) const;
 
 
-    void push_back(const T& d) {
-        SinglyNode<T>* newNode = new SinglyNode<T>(d);
-        this->rear->next = newNode;
-        this->rear = newNode;
-        sz++;
-    };
+    void push_back(const T& d);
 
-    void push_back(T&& d) {
-        SinglyNode<T>* newNode = new SinglyNode<T>(d);
-        this->rear->next = newNode;
-        this->rear = newNode;
-        sz++;
-    };
+    void push_back(T&& d);
 
-    void push_back(T* d) {
-        SinglyNode<T>* newNode = new SinglyNode<T>(d);
-        this->rear->next = newNode;
-        this->rear = newNode;
-        sz++;
-    };
+    void push_back(T* d);
 
 
-    void push_front(const T& d) {
-        SinglyNode<T>* newNode = new SinglyNode<T>(d);
-        newNode->next = this->dummy->next;
-        this->dummy->next = newNode;
-        sz++;
-        if (sz == 1) {
-            this->rear = newNode;
-        }
-    };
+    void push_front(const T& d);
 
-    T& back() {
-        assert(this->sz > 0);
-        return this->rear->data;
-    };
+    T& back();
 
-    T& front() {
-        assert(this->sz > 0);
-        return this->dummy->next->data;
-    };
+    T& front();
 
-    int size() const {
-        return sz;
-    };
+    int size() const;
 
-    void clear() {
-        SinglyNode<T>* cur = this->dummy->next;
-        while (cur != NULL) {
-            SinglyNode<T>* next = cur->next;
-            delete cur;
-            cur = next;
-        }
-        this->dummy->next = NULL;
-        this->rear = this->dummy;
-        sz = 0;
-    };
+    void clear();
 
-    void deleteNode(const function<bool(T)> &cmp) {
-        SinglyNode<T>* cur = this->dummy;
-        while (cur->next != NULL) {
-            if (cmp(cur->next->data)) {
-                SinglyNode<T>* temp = cur->next;
-                cur->next = cur->next->next;
-                delete temp;
-                --sz;
-                if (cur->next == NULL) {
-                    this->rear = cur;
-                }
-                return;
-            }
-            else cur = cur->next;
-        }
-    };
+    void deleteNode(const function<bool(T)>& cmp);
 
-    void deleteAt(int index) {
-        SinglyNode<T>* cur = this->dummy;
-        for (int i = 0; i < index && cur->next != NULL; ++i) {
-            cur = cur->next;
-        }
-        if (cur->next != NULL) {
-            SinglyNode<T>* temp = cur->next;
-            cur->next = cur->next->next;
-            delete temp;
-            --sz;
-            if (cur->next == NULL) {
-                this->rear = cur;
-            }
-        }
-    };
+    void deleteAt(int index);
 
-    void deleteNode(T d) {
-        deleteNode([&d](T data) { return data == d; });
-    };
+    void deleteNode(T d);
 
     //function pop_back
-    void pop_back() {
-        SinglyNode<T>* cur = this->dummy;
-        while (cur->next != NULL && cur->next->next != NULL) {
-            cur = cur->next;
-        }
-        delete cur->next;
-        cur->next = NULL;
-        this->rear = cur;
-        --sz;
-    };
+    void pop_back();
 
     //function pop_front
-    void pop_front() {
-        SinglyNode<T>* cur = this->dummy->next;
-        this->dummy->next = cur->next;
-        delete cur;
-        --sz;
-        if (sz == 0) this->rear = this->dummy;
-    };
+    void pop_front();
 
     SinglyLinkedList<T>& operator=(const SinglyLinkedList<T>& list) {
         if (this == &list) {
@@ -309,3 +179,205 @@ public:
         return cur->data;
     };
 };
+
+template<class T>
+SinglyLinkedList<T>::SinglyLinkedList() { this->dummy = new SinglyNode<T>(); this->rear = this->dummy; this->sz = 0; }
+
+template<class T>
+SinglyLinkedList<T>::~SinglyLinkedList() {
+    this->clear();
+    delete this->dummy;
+}
+
+template<class T>
+SinglyLinkedList<T>::SinglyLinkedList(const SinglyLinkedList<T>& other) {
+    copy(other);
+}
+
+template<class T>
+SinglyLinkedList<T>::SinglyLinkedList(SinglyLinkedList<T>&& other) {
+    copy(other);
+}
+
+template<class T>
+void SinglyLinkedList<T>::copy(const SinglyLinkedList<T>& other) {
+    this->rear = this->dummy = new SinglyNode<T>();
+    this->sz = 0;
+    SinglyNode<T>* curr = other.dummy->next;
+    while (curr != nullptr) {
+        this->push_back(curr->data);
+        curr = curr->next;
+    }
+}
+
+template<class T>
+T SinglyLinkedList<T>::find(function<bool(T)> cmp) {
+    SinglyNode<T>* cur = this->dummy->next;
+    while (cur != NULL) {
+        if (cmp(cur->data)) {
+            return cur->data;
+        }
+        cur = cur->next;
+    }
+    return T();
+}
+
+template<class T>
+int SinglyLinkedList<T>::findIndex(function<bool(T)> cmp) const {
+    SinglyNode<T>* cur = this->dummy->next;
+    int index = 0;
+    while (cur != NULL) {
+        if (cmp(cur->data)) {
+            return index;
+        }
+        cur = cur->next;
+        ++index;
+    }
+    return -1;
+}
+
+template<class T>
+void SinglyLinkedList<T>::push_back(const T& d) {
+    SinglyNode<T>* newNode = new SinglyNode<T>(d);
+    this->rear->next = newNode;
+    this->rear = newNode;
+    sz++;
+}
+
+template<class T>
+void SinglyLinkedList<T>::push_back(T&& d) {
+    SinglyNode<T>* newNode = new SinglyNode<T>(d);
+    this->rear->next = newNode;
+    this->rear = newNode;
+    sz++;
+}
+
+template<class T>
+void SinglyLinkedList<T>::push_back(T* d) {
+    SinglyNode<T>* newNode = new SinglyNode<T>(d);
+    this->rear->next = newNode;
+    this->rear = newNode;
+    sz++;
+}
+
+template<class T>
+void SinglyLinkedList<T>::push_front(const T& d) {
+    SinglyNode<T>* newNode = new SinglyNode<T>(d);
+    newNode->next = this->dummy->next;
+    this->dummy->next = newNode;
+    sz++;
+    if (sz == 1) {
+        this->rear = newNode;
+    }
+}
+
+template<class T>
+T& SinglyLinkedList<T>::back() {
+    assert(this->sz > 0);
+    return this->rear->data;
+}
+
+template<class T>
+T& SinglyLinkedList<T>::front() {
+    assert(this->sz > 0);
+    return this->dummy->next->data;
+}
+
+template<class T>
+int SinglyLinkedList<T>::size() const {
+    return sz;
+}
+
+template<class T>
+void SinglyLinkedList<T>::clear() {
+    SinglyNode<T>* cur = this->dummy->next;
+    while (cur != NULL) {
+        SinglyNode<T>* next = cur->next;
+        delete cur;
+        cur = next;
+    }
+    this->dummy->next = NULL;
+    this->rear = this->dummy;
+    sz = 0;
+}
+
+template<class T>
+void SinglyLinkedList<T>::deleteNode(const function<bool(T)>& cmp) {
+    SinglyNode<T>* cur = this->dummy;
+    while (cur->next != NULL) {
+        if (cmp(cur->next->data)) {
+            SinglyNode<T>* temp = cur->next;
+            cur->next = cur->next->next;
+            delete temp;
+            --sz;
+            if (cur->next == NULL) {
+                this->rear = cur;
+            }
+            return;
+        }
+        else cur = cur->next;
+    }
+}
+
+template<class T>
+void SinglyLinkedList<T>::deleteAt(int index) {
+    SinglyNode<T>* cur = this->dummy;
+    for (int i = 0; i < index && cur->next != NULL; ++i) {
+        cur = cur->next;
+    }
+    if (cur->next != NULL) {
+        SinglyNode<T>* temp = cur->next;
+        cur->next = cur->next->next;
+        delete temp;
+        --sz;
+        if (cur->next == NULL) {
+            this->rear = cur;
+        }
+    }
+}
+
+template<class T>
+void SinglyLinkedList<T>::deleteNode(T d) {
+    deleteNode([&d](T data) { return data == d; });
+}
+
+//function pop_back
+template<class T>
+void SinglyLinkedList<T>::pop_back() {
+    SinglyNode<T>* cur = this->dummy;
+    while (cur->next != NULL && cur->next->next != NULL) {
+        cur = cur->next;
+    }
+    delete cur->next;
+    cur->next = NULL;
+    this->rear = cur;
+    --sz;
+}
+
+//function pop_front
+template<class T>
+void SinglyLinkedList<T>::pop_front() {
+    SinglyNode<T>* cur = this->dummy->next;
+    this->dummy->next = cur->next;
+    delete cur;
+    --sz;
+    if (sz == 0) this->rear = this->dummy;
+}
+
+//default constructor
+template<class T>
+SinglyNode<T>::SinglyNode() {
+    this->next = nullptr;
+}
+
+template<class T>
+SinglyNode<T>::SinglyNode(T data) {
+    this->data = data;
+    this->next = nullptr;
+}
+
+template<class T>
+SinglyNode<T>::SinglyNode(T* data) {
+    this->data = *data;
+    this->next = nullptr;
+}
