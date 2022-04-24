@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BackgroundController" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAQAgAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>BackgroundController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Class" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAIAAAAAAEAAAAQAAAAAAAAEQAAQSAAA=</HashCode>
+      <FileName>Class.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Course" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAGAAkAAACAQBBgAICABCAABAAEEAAFIAAAAIACEAA=</HashCode>
+      <FileName>Course.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Date" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAkBEAAIAAAAAgAUAAEQAAAAAQAAgABAAEgAAQAQAA=</HashCode>
+      <FileName>Date.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schoolyear" Collapsed="true">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAIAA=</HashCode>
+      <FileName>Schoolyear.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StudentInformation" Collapsed="true">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAEAAABAAAAAAAAAgAAAAQAAAAAAAAAACAAAAoA=</HashCode>
+      <FileName>StudentInformation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="semester" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAEAAAAAAAAAAAAAAAACAAAAAIAAAAEAAABAAAAAA=</HashCode>
+      <FileName>semester.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SinglyNode&lt;T&gt;" Collapsed="true">
+    <Position X="11.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQCAIAAAA=</HashCode>
+      <FileName>SinglyLinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SinglyLinkedListIterator&lt;SinglyLinkedList&gt;" Collapsed="true">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAEAAAAAAAQAAAAwAAAAEAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>SinglyLinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SinglyLinkedList&lt;T&gt;" Collapsed="true">
+    <Position X="5.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KEAAACEGABIAgAAAAIEACAAQAAEAAAIACAEiAIAAAAA=</HashCode>
+      <FileName>SinglyLinkedList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Button" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAkAAUAAA=</HashCode>
+      <FileName>Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConsoleGraphics" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAAIAACAAhIACIBAAMACAAAjCAAAEGTEQAIAAgAAAAA=</HashCode>
+      <FileName>ConsoleGraphics.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Container" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>TkBJDAQAABAAEAQAUgIGCOxBAAIAwEgMACBgEHFBCAA=</HashCode>
+      <FileName>Container.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputRow" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAABEAAAAQAEFACCAAAAAAEAAAAAAEAAESAAEAEUAEA=</HashCode>
+      <FileName>InputRow.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RowContainer" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACABEQAAAAQAAAADAgAAAQIAAAAAAADgCSBAACGUAAA=</HashCode>
+      <FileName>RowContainer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Table" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAgAACMAIAQASCAAABAQJAAQhAgRAhAiAEAECAUARA=</HashCode>
+      <FileName>Table.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextBox" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAABIAAAAmAAAAAAKASAAEAAAgAAAAACAUAAA=</HashCode>
+      <FileName>Textbox.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GeneralPersonalInfo" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAABAEAAAIggEAAAAEAAIgAAAAAAAIAAE=</HashCode>
+      <FileName>GeneralPersonalInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Staff" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Staff.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Student" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAhAAACAAAAAAAAAAAAAAQAAAAAAAAAAAgA=</HashCode>
+      <FileName>Student.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Class_controller" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQgAAAAAAFEIAARCgAAAAIgABBIAAAACAgQAAAAiAg=</HashCode>
+      <FileName>Class_controller.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Course_controller" Collapsed="true">
+    <Position X="10" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAAgACAIIBTIIARgjwQBACgAkAGAEQgVBJIQAA4=</HashCode>
+      <FileName>Course_controller.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Schoolyear_controller" Collapsed="true">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAgAAAAEAIAABAAAgAAQAAAAIAAAZEgoQQAgKgAg=</HashCode>
+      <FileName>Schoolyear_controller.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Semester_controller" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEECCAAAAgAAASIAEAAACAAjAACIAAA0IAgQAIACgAw=</HashCode>
+      <FileName>Semester_controller.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PeopleController" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIIQAAAAAA=</HashCode>
+      <FileName>PeopleController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaffController" Collapsed="true">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FCAAAhAAQAiAIACAAAAAAAQIAgQIAAEAEQoAQQEigAg=</HashCode>
+      <FileName>StaffController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StudentController" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>VCAAAhAAQAiAIACAAAAAAAAICAQIBAEAEAoAQAEigAg=</HashCode>
+      <FileName>StudentController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CourseSystem" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAEgA=</HashCode>
+      <FileName>CourseSystem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LogRegHandler" Collapsed="true">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIBQQAAAAAIAAAAAACAAAAAIAIoAEAgABgFAgBg=</HashCode>
+      <FileName>LogRegHandler.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CourseRegistration" Collapsed="true">
+    <Position X="11.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>4AACABAAAAAAIQQAAKkBBEAABAAABggAAAAUAAAAAAA=</HashCode>
+      <FileName>CourseRegistration.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoursesList" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAjAAEAAAAgAAAAAIEsDAJAIAAMAAAgQgCAAgAg=</HashCode>
+      <FileName>CoursesList.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CoursesRegistrationsController" Collapsed="true">
+    <Position X="13.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgQhQIACAAIICAACgABCAAAIAIAAgAAAgYAjkElAg=</HashCode>
+      <FileName>CoursesRegistrationsController.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="StudentScore" Collapsed="true">
+    <Position X="10" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgAAEAAAAAQAAAACAAAAAAACAEAAAgCAAAAAAAAAA=</HashCode>
+      <FileName>StudentScore.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="ASCII" Collapsed="true">
+    <Position X="10" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAACAAICQAAAAA=</HashCode>
+      <FileName>ConsoleGraphics.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MYCOLOR" Collapsed="true">
+    <Position X="15.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIgAAAAAEAEAAAAAAAAAAAAAAAAAABABYAYAAAAAAAA=</HashCode>
+      <FileName>ConsoleGraphics.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="DEFAULT_COLOR" Collapsed="true">
+    <Position X="11.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABBAkAAAAAAAoCAAAAAAQBD4BAAAAIAAAAAAAAA=</HashCode>
+      <FileName>ConsoleGraphics.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="INPUT_CODE" Collapsed="true">
+    <Position X="13.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAACAAAAAAAAgAAAAAAAASAAAoCAAAgACAAAABAAAA=</HashCode>
+      <FileName>ConsoleGraphics.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
